@@ -69,12 +69,14 @@ Try a deliberate debugging exercise. Send:
 
 ```
 Make a POST request to /api/v1/tasks using curl with:
-- A valid JWT token for an employee
+- A valid assignedUserId from src/data/users.json
 - A task due next Friday
-- priority: High, title: "Implement Payment API"
+- priority: HIGH, title: "Implement Payment API"
 
-Show me the curl command, the response, and the server logs.
-If the response is not a 201 with a PENDING request, diagnose and fix the issue.
+Then immediately call GET /api/v1/tasks/:id using the returned task ID.
+
+Show me the curl commands, the responses, and the server logs.
+If the POST response is not a 201 with status "TO_DO", or the GET returns 404, diagnose and fix the issue.
 ```
 
 If the request fails, Copilot will:
@@ -104,16 +106,17 @@ For any failing integration tests, diagnose and fix, referencing the original Gh
 Send a final validation prompt:
 
 ```
-Do an end-to-end manual test of the core task management flow:
+Do an end-to-end manual test of the core task management flow using curl:
 
-1. Login as employee (POST /api/v1/auth/login)
-2. Create a task (POST /api/v1/tasks)  
-3. Login as the employee's manager
-4. View task list (GET /api/v1/tasks)
-5. Update task status to In Progress (PATCH /api/v1/tasks/:id/status)
-6. Login as HR Admin and give final approval
-7. Login as the employee again and verify the request is now APPROVED
-8. Verify the task status is now Completed and history shows the status progression
+1. GET  /api/v1/tasks — confirm the seeded tasks are returned
+2. POST /api/v1/tasks — create a new HIGH priority task with a valid
+   assignedUserId from src/data/users.json, dueDate set to next Friday
+3. GET  /api/v1/tasks/:id — fetch the newly created task and confirm status is TO_DO
+4. PATCH /api/v1/tasks/:id/status — update status to IN_PROGRESS
+5. GET  /api/v1/tasks/:id — confirm status is IN_PROGRESS and statusHistory
+   has an entry recording the TO_DO → IN_PROGRESS transition
+6. PATCH /api/v1/tasks/:id/status — update status to COMPLETED
+7. GET  /api/v1/tasks?status=COMPLETED — confirm the task appears in the filtered list
 
 Show me each curl command and response. The complete flow must work without errors.
 ```
