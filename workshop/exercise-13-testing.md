@@ -24,11 +24,13 @@ Reference the context map at .github/skills/context-map/context-map.md and .gith
 Set up the testing infrastructure for the ITMS project:
 1. Install and configure the appropriate test framework for the tech stack (Jest for Node.js, pytest for Python, JUnit for Java)
 2. Create tests/unit/ and tests/integration/ directory structure
-3. Set up a test database configuration (use the mock data from db/mock/ if real DB is unavailable)
+3. Set up test data configuration using the JSON seed files from src/data/ — no database required.
+   Copy the JSON files to a tests/fixtures/ folder so tests work with isolated, known data.
 4. Create a tests/helpers/ folder with:
-   - A factory function to create test users with different roles (Developer, Team Lead, Project Manager, QA Engineer)
-   - A function to create authenticated test requests (with valid JWT)
-   - A database cleanup helper to reset state between tests
+   - A factory function to create test task objects and test user objects with different roles
+     (Developer, Team Lead, Project Manager, QA Engineer)
+   - A helper that resets the in-memory JSON store to the fixture state before each test
+     (so tests are isolated and repeatable without a database)
 5. Add test scripts to package.json / pyproject.toml:
    - "test:unit" — runs unit tests only
    - "test:integration" — runs integration tests
@@ -78,61 +80,46 @@ Generate integration tests in tests/integration/ for the Task Management API:
 
 Test Suite: POST /api/v1/tasks
 - Scenario: "Developer creates a valid task"
-  Given: Authenticated as a Developer
-  When: POST /api/v1/tasks with { title, description, priority: "High", assignedUserId, dueDate }
-  Then: 201 Created, response has { success: true, data: { id, status: "To Do", priority: "High" } }
+  Given: A valid assignedUserId exists in the users fixture data
+  When: POST /api/v1/tasks with { title, description, priority: "HIGH", assignedUserId, dueDate }
+  Then: 201 Created, response has { success: true, data: { id, status: "TO_DO", priority: "HIGH" } }
 
 - Scenario: "Task creation rejected when title is missing"
-  Given: Authenticated user
   When: POST /api/v1/tasks with missing title
   Then: 400 Bad Request, { success: false, error: { code: "VALIDATION_ERROR" } }
 
-- Scenario: "Unauthenticated request is rejected"
-  Given: No JWT token
-  When: POST request
-  Then: 401 Unauthorized
+- Scenario: "Task creation rejected when assignedUserId does not exist"
+  When: POST /api/v1/tasks with a random unknown assignedUserId
+  Then: 400 Bad Request, { success: false, error: { code: "VALIDATION_ERROR" } }
 
 Test Suite: PATCH /api/v1/tasks/:id/status
-- Scenario: "User updates task from To Do to In Progress"
-  Given: Task with no blocking dependencies
-  When: PATCH with { status: "In Progress" }
-  Then: 200 OK, task status updated, history entry created
+- Scenario: "User updates task from TO_DO to IN_PROGRESS"
+  Given: A task with no blocking dependencies (use fixture task with no dependencies)
+  When: PATCH /api/v1/tasks/:id/status with { status: "IN_PROGRESS" }
+  Then: 200 OK, task status updated, history entry appended
 
-- Scenario: "Task is blocked when dependency is incomplete"
-  Given: Task with an incomplete dependency
-  When: PATCH with { status: "In Progress" }
+- Scenario: "Task transitions to BLOCKED when dependency is incomplete"
+  Given: A task whose dependency task is NOT COMPLETED (use fixture dependency data)
+  When: PATCH /api/v1/tasks/:id/status with { status: "IN_PROGRESS" }
   Then: 422 Unprocessable Entity, { success: false, error: { code: "TASK_BLOCKED" } }
 
-Test Suite: POST /api/v1/tasks/:id/dependencies
-- Scenario: "Add a valid dependency between two tasks"
-- Scenario: "Circular dependency is rejected" → 422 Unprocessable Entity
-- Scenario: "Adding dependency to incomplete task sets status to Blocked"
+Test Suite: GET /api/v1/tasks
+- Scenario: "List all tasks returns paginated results"
+  When: GET /api/v1/tasks
+  Then: 200 OK, { success: true, data: [...], meta: { total, page, limit } }
 
-Each integration test should start with a clean database state using the test helpers from Step 1.
+- Scenario: "Filter by status returns only matching tasks"
+  When: GET /api/v1/tasks?status=TO_DO
+  Then: All returned tasks have status TO_DO
+
+Each integration test should reset the in-memory JSON store to fixture state before running using the test helper from Step 1.
 ```
 
 ---
 
-## Step 4 — Generate a Test for a SQL Stored Procedure
+## Step 4 — Run Tests and Check Coverage
 
-Send this prompt:
-
-```
-The update_task_status() and add_task_dependency() PostgreSQL functions in db/procedures/ need tests.
-
-Create tests/unit/database/ test files that verify:
-- update_task_status: transitions from TO_DO to IN_PROGRESS succeed when no unresolved dependencies
-- update_task_status: raises exception when task has unresolved (non-COMPLETED) dependencies
-- add_task_dependency: correctly sets task to BLOCKED when dependency is not COMPLETED
-- add_task_dependency: raises exception on circular dependency detection
-- resolve_task_dependency: unblocks tasks when their last dependency completes
-
-If not using a real database, create equivalent unit tests using the JavaScript/Python implementation of dependency logic.
-```
-
----
-
-## Step 5 — Run Tests and Check Coverage
+> **(Optional) Database stored procedure tests**: If you have completed [Exercise 12](exercise-12-database-sql.md) and are running a real database, ask Copilot to also generate tests in `tests/unit/database/` for the `update_task_status()`, `add_task_dependency()`, and `resolve_task_dependency()` PL/pgSQL functions.
 
 Send this prompt:
 
@@ -146,10 +133,11 @@ Identify any files in src/ that have less than 80% test coverage and list them.
 ## Verify
 
 - [ ] Unit tests exist for `TaskService` with at least 8 test cases
-- [ ] Integration tests cover the 3 main API endpoints
-- [ ] Tests use the test helpers (factory functions, auth helper)
+- [ ] Integration tests cover the 4 main API endpoints
+- [ ] Tests use the factory helper and JSON store reset helper
 - [ ] Each test follows Arrange/Act/Assert structure
 - [ ] Coverage report is generated
+- [ ] No test requires a running database or live server to pass
 
 ---
 
