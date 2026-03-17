@@ -133,7 +133,7 @@ SDLC2/
 
 ## Getting Started
 
-[![Use this Template](https://img.shields.io/badge/Use%20this%20Template-%E2%86%92-1f883d?style=for-the-badge&logo=github&labelColor=197935)](https://github.com/new?template_owner=CanarysAutomations&template_name=speckit-and-beyond&owner=%40me&name=speckit-and-beyond&description=Agent-Driven+Spec+Development:+The+FlavorHub+Crisis&visibility=public)
+
 
 1. Configure your GitHub token for MCP access by setting `GITHUB_TOKEN` in your environment
 1. Open the cloned repository in VS Code
