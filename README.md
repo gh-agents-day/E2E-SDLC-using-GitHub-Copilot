@@ -135,11 +135,12 @@ SDLC2/
 
 
 
-1. Configure your GitHub token for MCP access by setting `GITHUB_TOKEN` in your environment
+
 1. Open the cloned repository in VS Code
 1. Ensure **GitHub Copilot** and **GitHub Copilot Chat** extensions are installed and signed in
 1. Open the Copilot Chat panel (`Ctrl+Alt+I`)
 1. Start with [Exercise 01](workshop/exercise-01-setup-agents.md)
+1. Configure your GitHub token for MCP access by setting `GITHUB_TOKEN` in your environment
 ---
 
 > **Instructor Note**: Each exercise has a `> Instructor Guide` section visible only in the markdown source. Exercises are designed so attendees never need to copy code — they copy **prompts** and let Copilot generate the output.
