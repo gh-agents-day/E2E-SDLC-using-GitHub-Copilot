@@ -1,4 +1,4 @@
-# Exercise 15 — Build & Debug with the Local Agent
+# Exercise 12 — Build & Debug with the Local Agent
 
 **Duration**: 5 minutes  
 **Copilot Feature**: Local Agent + Terminal Tool  
@@ -151,6 +151,6 @@ Tell me which is wrong — the test or the implementation — before making any 
 
 **🏁 Mandatory Track Complete!**
 
-You have completed all 11 mandatory exercises and experienced the full E2E SDLC lifecycle with GitHub Copilot — from requirements through architecture, implementation, testing, and security.
+You have completed all 12 mandatory exercises and experienced the full E2E SDLC lifecycle with GitHub Copilot — from requirements through architecture, implementation, UI, testing, and security.
 
-> 🟡 **Optional capstone**: Continue with [Exercise 16 — IaC & CI/CD](exercise-16-iac-cicd.md) to generate Docker, Terraform/Bicep, and GitHub Actions pipelines for the ITMS application.
+> 🟡 **Optional capstone**: Continue with [Exercise 17 — IaC & CI/CD](exercise-17-iac-cicd.md) to generate Docker, Terraform/Bicep, and GitHub Actions pipelines for the ITMS application.

@@ -1,4 +1,4 @@
-# Exercise 16 — Infrastructure as Code & CI/CD Pipelines
+# Exercise 17 — Infrastructure as Code & CI/CD Pipelines
 
 **Duration**: 5 minutes  
 **Copilot Feature**: DevOps Custom Agent + Prompt Files  
