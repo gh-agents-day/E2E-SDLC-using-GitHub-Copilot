@@ -58,7 +58,7 @@ Create a prompt file at #itms-implementation-plan.prompt.md
 This prompt is specifically for the Intelligent Task Management System (ITMS) project.
 When invoked, it should:
 1. Read #frd.md and #tsd.md
-2. Generate a phased implementation plan with our specific tech stack: [YOUR STACK e.g. TypeScript/Express/PostgreSQL]
+2. Generate a phased implementation plan with our specific tech stack: [YOUR STACK e.g. TypeScript/Express/Use the JSON files in workshop/sample-data/ as the data source]
 3. Reference the correct folder structure: src/routes/, src/services/, src/repositories/, src/models/
 4. Include database migration tasks using our tooling convention
 5. Include tasks for OpenAPI spec generation
@@ -78,7 +78,7 @@ Test your new prompt file:
 1. In Copilot Chat, type `/` — the command palette opens
 2. Type `itms` — you should see **itms-implementation-plan** appear
 3. Select it and press Enter
-4. Copilot executes the prompt and generates a fresh implementation plan
+4. Copilot executes the prompt and generates a fresh implementation
 
 ---
 

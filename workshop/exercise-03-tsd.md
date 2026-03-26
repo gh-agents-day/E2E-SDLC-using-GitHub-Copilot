@@ -24,7 +24,7 @@ The TSD bridges business requirements and engineering. Your **TSD Author** agent
 Copy and paste this prompt:
 
 ```
-Read #file:brd.md and #file:requirement.md, then create a complete Technical Specification Document saved as doc/tsd.md.
+Read #brd.md and #requirement.md, then create a complete Technical Specification Document saved as doc/tsd.md.
 
 Requirements:
 - Include a Mermaid system architecture diagram showing all major components
