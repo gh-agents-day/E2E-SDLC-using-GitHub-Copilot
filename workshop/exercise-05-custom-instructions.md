@@ -36,7 +36,7 @@ Switch back to the **default Copilot agent** (not a custom agent).
 Copy and paste this prompt, **replacing `[YOUR CHOICE]`** with your selection:
 
 ```
-I am building a REST API application using [YOUR CHOICE — e.g., TypeScript with Express and YOUR CHOICE DATABASE].
+/create-instructions I am building a REST API application using [YOUR CHOICE — e.g., TypeScript with Express and YOUR CHOICE DATABASE].
 
 Create a .github/copilot-instructions.md file with workspace-wide coding standards for this project.
 
@@ -50,6 +50,31 @@ Include instructions covering:
 7. Logging: structured JSON logs with request ID, user ID, and operation name
 8. Code style: no console.log in production code, no TODO comments without ticket numbers, functions under 30 lines
 9. Documentation: JSDoc/docstring for all exported functions
+10. Git: conventional commits (feat:, fix:, docs:, test:, chore:)
+```
+
+To swap out the database with JSON files as an in-memory data store
+
+```
+/create-instructions I am building a REST API application using TypeScript with Express.
+
+Create a .github/copilot-instructions.md file with workspace-wide coding standards for this project.
+
+Include instructions covering:
+1. Language & framework conventions (naming, file structure, module organization). Data access must go through a repository layer that reads from the in-memory JSON store — no direct file reads in controllers or services.
+2. API design rules: versioning (/api/v1/), consistent response envelope { success, data, error, meta }
+3. Error handling: custom error classes, centralized error middleware, proper HTTP status codes
+4. Security: always validate input with a schema library, never trust user input
+5. Data layer: NO real database. Use the JSON files in workshop/sample-data/ as the data source:
+   - tasks.json, users.json, task_dependencies.json, task_status_history.json
+   - Load all files into memory on server startup using fs.readFileSync
+   - Implement a simple in-memory repository layer (read/filter/mutate the in-memory arrays)
+   - Persist mutations back to the JSON files after each write operation using fs.writeFileSync
+   - Never use a database driver, ORM, or migration tool
+6. Testing: every new function must have a unit test, integration tests for all API endpoints
+7. Logging: structured JSON logs with request ID, user ID, and operation name
+8. Code style: no console.log in production code, no TODO comments without ticket numbers, functions under 30 lines
+9. Documentation: JSDoc for all exported functions
 10. Git: conventional commits (feat:, fix:, docs:, test:, chore:)
 ```
 

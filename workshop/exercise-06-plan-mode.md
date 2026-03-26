@@ -35,12 +35,12 @@ Generate a complete, phased implementation plan for the Intelligent Task Managem
 
 Structure the plan as:
 - Phase 0: Project setup, folder structure, database migration tooling, CI skeleton
-- Phase 1: Authentication & User Management (registration, login, JWT, RBAC)
-- Phase 2: Task Management (task creation, assignment, dependencies, status tracking)
-- Phase 3: Task Reporting & Progress Summary (project progress, task filters, export)
-- Phase 4: Notifications (email via SendGrid, Teams webhooks)
-- Phase 5: Reporting (monthly reports, CSV/PDF export)
-- Phase 6: Testing, security hardening, and documentation
+
+- Phase 1: Task Management (task creation, assignment, dependencies, status tracking)
+- Phase 2: Task Reporting & Progress Summary (project progress, task filters, export)
+- Phase 3: Notifications (email via SendGrid, Teams webhooks)
+- Phase 4: Reporting (monthly reports, CSV/PDF export)
+- Phase 5: Testing, security hardening, and documentation
 
 For each phase, list tasks with:
 - Task ID (T-001, T-002...)
@@ -59,26 +59,14 @@ Do NOT create any files yet. Show me the plan first.
 
 Copilot will display the plan before doing anything. Check:
 
-- [ ] All 6 phases are covered
+- [ ] All 5 phases are covered
 - [ ] Phase 0 includes project scaffolding tasks
 - [ ] Tasks reference FRD IDs
 - [ ] Some tasks are flagged as Background Agent candidates
 - [ ] Effort estimates seem reasonable (Phase 1 ≈ 3–5 days total)
 
 ---
-
-## Step 4 — Refine the Plan
-
-Ask Copilot to adjust if needed. Example refinements:
-
-```
-Move the JWT middleware task to Phase 0 since all phases depend on it.
-Also add a task for setting up the OpenAPI/Swagger documentation scaffold in Phase 0.
-```
-
-After refinement, **approve the plan** and switch back to **Agent mode** to save the plan as a file.
-
----
+Click on `Open in Editor` option and save the plan as `doc/implementation-plan.md` in the `doc/` folder.
 
 ## Verify
 
