@@ -58,12 +58,13 @@ These exercises form the core SDLC journey. Each builds directly on the previous
 | 05 | [Custom Instructions](workshop/exercise-05-custom-instructions.md) | `.instructions.md` | 3 min |
 | 06 | [Plan Mode – Implementation Plan](workshop/exercise-06-plan-mode.md) | Plan Mode | 4 min |
 | 07 | [Create Implementation Prompt File](workshop/exercise-07-implementation-prompt.md) | Prompt Files | 3 min |
-| 09 | [Build APIs with Local Agent](workshop/exercise-09-api-local-agent.md) | Local (Default) Agent | 5 min |
-| 13 | [Unit & Functional Tests](workshop/exercise-13-testing.md) | Local Agent + Prompt File | 5 min |
-| 14 | [Security Review](workshop/exercise-14-security.md) | Security Prompt File | 4 min |
-| 15 | [Build & Debug](workshop/exercise-15-build-debug.md) | Local Agent + Terminal | 5 min |
+| 08 | [Build APIs with Local Agent](workshop/exercise-08-api-local-agent.md) | Local (Default) Agent | 5 min |
+| 09 | [Design & Scaffold the Task Management UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 5 min |
+| 10 | [Unit & Functional Tests](workshop/exercise-10-testing.md) | Local Agent + Prompt File | 5 min |
+| 11 | [Security Review](workshop/exercise-11-security.md) | Security Prompt File | 4 min |
+| 12 | [Build & Debug](workshop/exercise-12-build-debug.md) | Local Agent + Terminal | 5 min |
 
-> **Why these 11?** They cover every key Copilot feature — Custom Agents → Prompt Files → Plan Mode → Local Agent → Testing → Security — mirroring a real SDLC from requirements to a running, tested application.
+> **Why these 12?** They cover every key Copilot feature — Custom Agents → Prompt Files → Plan Mode → Local Agent → UI Scaffolding → Testing → Security — mirroring a real SDLC from requirements to a running, tested application.
 
 ---
 
@@ -73,46 +74,19 @@ These exercises are self-contained. No mandatory exercise depends on them. Compl
 
 | # | Exercise | Copilot Feature | Duration | Best After |
 |---|----------|----------------|----------|------------|
-| 08 | [Create GitHub Issues via MCP](workshop/exercise-08-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 07 |
-| 10 | [Background Agent Task](workshop/exercise-10-background-agent.md) | Background Agent | 3 min | Ex 09 |
-| 11 | [Context Map Skill](workshop/exercise-11-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 09 |
-| 12 | [Database & SQL / PL/SQL](workshop/exercise-12-database-sql.md) | Local Agent + Instructions | 5 min | Ex 11 |
-| 16 | [IaC & CI/CD](workshop/exercise-16-iac-cicd.md) | Custom Agent + Prompt File | 5 min | Ex 15 |
+| 13 | [Create GitHub Issues via MCP](workshop/exercise-13-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 07 |
+| 14 | [Background Agent Task](workshop/exercise-14-background-agent.md) | Background Agent | 3 min | Ex 08 |
+| 15 | [Context Map Skill](workshop/exercise-15-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 08 |
+| 16 | [Database & SQL / PL/SQL](workshop/exercise-16-database-sql.md) | Local Agent + Instructions | 5 min | Ex 15 |
+| 17 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | Custom Agent + Prompt File | 5 min | Ex 12 |
 
-> **Note on Ex 08**: Requires a GitHub repository and a Personal Access Token with `repo` and `issues` scopes. Skip if GitHub MCP is not pre-configured in your environment.
-> **Note on Ex 12**: References the context map from Ex 11. If you skip Ex 11, remove the `#context-map.md` reference from the prompts before sending.
+> **Note on Ex 13**: Requires a GitHub repository and a Personal Access Token with `repo` and `issues` scopes. Skip if GitHub MCP is not pre-configured in your environment.
+> **Note on Ex 16**: References the context map from Ex 15. If you skip Ex 15, remove the `#context-map.md` reference from the prompts before sending.
 
 ---
 > The workshop has been tested with the following AI models on GitHub Copilot: `Claude Sonnet 4.6`,`GPT-5.3-codex`. Results may vary with different models. If you encounter issues, try switching to one of these models in your Copilot settings.
 
 > **Note:** Complete **Mandatory** exercises in order (each artifact feeds the next). **Optional** exercises can be done in any order after their recommended prerequisite, or revisited after the workshop.
-
-## Workspace Structure After Workshop
-
-```
-SDLC2/
-├── req.md                          ← Starting requirement (provided)
-├── doc/
-│   ├── brd.md                      ← Generated in Exercise 02
-│   ├── tsd.md                      ← Generated in Exercise 03
-│   └── frd.md                      ← Generated in Exercise 04
-├── .github/
-│   ├── copilot-instructions.md     ← Created in Exercise 05
-│   ├── agents/
-│   │   ├── brd.agent.md            ← Created in Exercise 01
-│   │   ├── tsd.agent.md            ← Created in Exercise 01
-│   │   ├── frd.agent.md            ← Created in Exercise 01
-│   │   └── devops.agent.md         ← Created in Exercise 16
-│   └── prompts/
-│       ├── implementation-plan.prompt.md  ← Created in Exercise 07
-│       ├── github-issues.prompt.md        ← Created in Exercise 08
-│       └── security-review.prompt.md      ← Created in Exercise 14
-├── .github/skills/context-map/     ← Created in Exercise 11
-├── src/                            ← API code created in Exercise 09+
-├── tests/                          ← Tests created in Exercise 13
-├── db/                             ← SQL scripts created in Exercise 12
-└── infra/                          ← IaC scripts created in Exercise 16
-```
 
 ---
 
@@ -132,9 +106,6 @@ SDLC2/
 ---
 
 ## Getting Started
-
-
-
 
 1. Open the cloned repository in VS Code
 1. Ensure **GitHub Copilot** and **GitHub Copilot Chat** extensions are installed and signed in

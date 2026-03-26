@@ -1,4 +1,4 @@
-# Exercise 13 — Write Unit & Functional Tests
+# Exercise 10 — Write Tests
 
 **Duration**: 5 minutes  
 **Copilot Feature**: Local Agent + Prompt Files  
@@ -119,7 +119,7 @@ Each integration test should reset the in-memory JSON store to fixture state bef
 
 ## Step 4 — Run Tests and Check Coverage
 
-> **(Optional) Database stored procedure tests**: If you have completed [Exercise 12](exercise-12-database-sql.md) and are running a real database, ask Copilot to also generate tests in `tests/unit/database/` for the `update_task_status()`, `add_task_dependency()`, and `resolve_task_dependency()` PL/pgSQL functions.
+> **(Optional) Database stored procedure tests**: If you have completed [Exercise 16](exercise-16-database-sql.md) and are running a real database, ask Copilot to also generate tests in `tests/unit/database/` for the `update_task_status()`, `add_task_dependency()`, and `resolve_task_dependency()` PL/pgSQL functions.
 
 Send this prompt:
 
@@ -147,4 +147,4 @@ Identify any files in src/ that have less than 80% test coverage and list them.
 
 ---
 
-**Next**: [Exercise 14 — Security Review](exercise-14-security.md)
+**Next**: [Exercise 11 — Security Review](exercise-11-security.md)
