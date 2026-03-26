@@ -1,4 +1,4 @@
-# Exercise 09 — Build APIs with the Local Agent
+# Exercise 08 — Build APIs with the Local Agent
 
 | | |
 |---|---|
@@ -12,7 +12,7 @@
 
 The **Local Agent** (Copilot in Agent mode) reads your workspace files, creates and edits files, runs terminal commands, and iterates — all inside VS Code. Because your **copilot-instructions.md** is already active, every file the agent produces will follow your team's coding standards automatically.
 
-> **No database needed.** The API uses a JSON file store by default so it runs immediately on any machine. To swap in a real database later, see [Exercise 12 — Database & SQL](exercise-12-database-sql.md) — the repository layer is designed so that a single env var (`USE_DATABASE=true`) is the only change required.
+> **No database needed.** The API uses a JSON file store by default so it runs immediately on any machine. To swap in a real database later, see [Exercise 16 — Database & SQL](exercise-16-database-sql.md) — the repository layer is designed so that a single env var (`USE_DATABASE=true`) is the only change required.
 
 ---
 
@@ -289,7 +289,7 @@ Confirm:
 
 ## (Optional) Step 6 — Switch to a Real Database
 
-> Requires a running database. Complete [Exercise 12 — Database & SQL](exercise-12-database-sql.md) first, then return here.
+> Requires a running database. Complete [Exercise 16 — Database & SQL](exercise-16-database-sql.md) first, then return here.
 
 ```
 Exercise 12 is done; migrations are in db/migrations/.
@@ -316,9 +316,9 @@ Two things to notice:
 
 ---
 
-**Next**: [Exercise 13 — Unit & Functional Tests](exercise-13-testing.md)
+**Next**: [Exercise 09 — Design & Scaffold the Task Management UI](exercise-09-ui-design.md)
 
 > 🟡 **Optional exercises** — pick any before continuing to Exercise 13:
-> - [Exercise 10 — Background Agent](exercise-10-background-agent.md) — delegate a long task to run asynchronously while you keep working
-> - [Exercise 11 — Context Map Skill](exercise-11-context-map.md) — generate a codebase map that enriches all subsequent Copilot prompts
-> - [Exercise 12 — Database & SQL / PL/SQL](exercise-12-database-sql.md) — generate the full DB schema, migrations, and stored procedures
+> - [Exercise 14 — Background Agent](exercise-14-cli-agent.md) — delegate a long task to run asynchronously while you keep working
+> - [Exercise 15 — Context Map Skill](exercise-15-context-map.md) — generate a codebase map that enriches all subsequent Copilot prompts
+> - [Exercise 16 — Database & SQL / PL/SQL](exercise-16-database-sql.md) — generate the full DB schema, migrations, and stored procedures

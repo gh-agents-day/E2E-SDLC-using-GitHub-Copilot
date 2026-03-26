@@ -1,4 +1,4 @@
-# Exercise 10 — Assign an Independent Task to the Background Agent
+# Exercise 14 — Assign an Independent Task to the Background Agent
 
 **Duration**: 3 minutes  
 **Copilot Feature**: Background Agent  
@@ -11,7 +11,7 @@
 >
 > This exercise is **not required** to complete the mandatory track. The Background Agent runs tasks asynchronously in a sandboxed environment — it is self-contained and does not block any later exercise. Try it after Exercise 09 if time permits.
 >
-> **Best after**: Exercise 09 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 13 — Unit & Functional Tests](exercise-13-testing.md)
+> **Best after**: Exercise 08 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 10 — Write Tests](exercise-10-testing.md)
 > ---
 
 
@@ -117,6 +117,6 @@ Merge the PR if it looks correct.
 
 ---
 
-**Next optional**: [Exercise 11 — Context Map Skill](exercise-11-context-map.md)
+**Next optional**: [Exercise 15 — Context Map Skill](exercise-15-context-map.md)
 
-**Return to Mandatory Track →**: [Exercise 13 — Unit & Functional Tests](exercise-13-testing.md)
+**Return to Mandatory Track →**: [Exercise 10 — Write Tests](exercise-10-testing.md)
