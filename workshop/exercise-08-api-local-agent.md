@@ -319,6 +319,6 @@ Two things to notice:
 **Next**: [Exercise 09 — Design & Scaffold the Task Management UI](exercise-09-ui-design.md)
 
 > 🟡 **Optional exercises** — pick any before continuing to Exercise 13:
-> - [Exercise 14 — Background Agent](exercise-14-background-agent.md) — delegate a long task to run asynchronously while you keep working
+> - [Exercise 14 — Background Agent](exercise-14-cli-agent.md) — delegate a long task to run asynchronously while you keep working
 > - [Exercise 15 — Context Map Skill](exercise-15-context-map.md) — generate a codebase map that enriches all subsequent Copilot prompts
 > - [Exercise 16 — Database & SQL / PL/SQL](exercise-16-database-sql.md) — generate the full DB schema, migrations, and stored procedures

@@ -75,7 +75,7 @@ These exercises are self-contained. No mandatory exercise depends on them. Compl
 | # | Exercise | Copilot Feature | Duration | Best After |
 |---|----------|----------------|----------|------------|
 | 13 | [Create GitHub Issues via MCP](workshop/exercise-13-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 07 |
-| 14 | [Background Agent Task](workshop/exercise-14-background-agent.md) | Background Agent | 3 min | Ex 08 |
+| 14 | [CLI Agent Task](workshop/exercise-14-cli-agent.md) | Background Agent | 3 min | Ex 08 |
 | 15 | [Context Map Skill](workshop/exercise-15-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 08 |
 | 16 | [Database & SQL / PL/SQL](workshop/exercise-16-database-sql.md) | Local Agent + Instructions | 5 min | Ex 15 |
 | 17 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | Custom Agent + Prompt File | 5 min | Ex 12 |
