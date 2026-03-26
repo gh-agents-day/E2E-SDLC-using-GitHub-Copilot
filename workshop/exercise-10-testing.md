@@ -2,7 +2,7 @@
 
 **Duration**: 5 minutes  
 **Copilot Feature**: Local Agent + Prompt Files  
-**Goal**: Generate comprehensive unit and integration/functional tests for the ITMS API.
+**Goal**: Generate unit and integration tests for the task creation and task retrieval API endpoints.
 
 ---
 
@@ -18,9 +18,9 @@ Send this prompt in Copilot Chat (Agent mode):
 
 > **Note**: Adjust the prompt based on your tech stack (Node.js, Python, Java). And if you have skipped Exercise 11, make sure to update the prompt by removing the context map references `.github/skills/context-map/context-map.md`.
 
-```
-Reference the context map at .github/skills/context-map/context-map.md and .github/copilot-instructions.md.
 
+Reference the context map at ```.github/skills/context-map/context-map.md``` and ```.github/copilot-instructions.md.```
+```
 Set up the testing infrastructure for the ITMS project:
 1. Install and configure the appropriate test framework for the tech stack (Jest for Node.js, pytest for Python, JUnit for Java)
 2. Create tests/unit/ and tests/integration/ directory structure
@@ -44,24 +44,26 @@ Set up the testing infrastructure for the ITMS project:
 Send this prompt:
 
 ```
-Read #frd.md (focus on FR-IDs for task management) and the service files in src/services/.
+Read the service files in src/services/ and the validators in src/validators/.
 
 Generate unit tests in tests/unit/ for the Task Service:
 
 Test Suite: TaskService.createTask()
 - Test: Should create a task with status "To Do" when all required fields are provided
-  (maps to: Given a Developer provides title, priority, and due date When they submit the task Then a "To Do" task is created)
+  (Given a user provides title, priority, and assignedUserId, When they submit the task, Then a task with status "To Do" is returned)
 - Test: Should throw ValidationError when title is missing
 - Test: Should throw ValidationError when priority is not Low/Medium/High
 - Test: Should throw NotFoundError when assignedUserId does not exist
-- Test: Should correctly record the creator in createdBy field
+- Test: Should set the id field using crypto.randomUUID()
 
-Test Suite: TaskService.updateTaskStatus()
-- Test: Should update status from "To Do" to "In Progress" successfully
-- Test: Should set status to "Blocked" when a dependency task is not Completed
-- Test: Should allow status change to "Completed" when all dependencies are Completed
-- Test: Should throw BlockedTaskError when trying to start a blocked task
-- Test: Should record status change in task history
+Test Suite: TaskService.getAllTasks()
+- Test: Should return all tasks from the repository
+- Test: Should return an empty array when no tasks exist
+- Test: Should apply status filter when provided
+
+Test Suite: TaskService.getTaskById()
+- Test: Should return the matching task when the id exists
+- Test: Should throw NotFoundError when no task with the given id exists
 
 Use mocks for the repository layer in all unit tests.
 Each test must include Arrange / Act / Assert structure as comments.
@@ -74,45 +76,40 @@ Each test must include Arrange / Act / Assert structure as comments.
 Send this prompt:
 
 ```
-Read #frd.md (focus on the Gherkin acceptance criteria in user stories US-001 to US-006).
-
-Generate integration tests in tests/integration/ for the Task Management API:
+Generate integration tests in tests/integration/ for the Task Management API.
+Use the test helper from Step 1 to reset the in-memory store before each test.
 
 Test Suite: POST /api/v1/tasks
-- Scenario: "Developer creates a valid task"
+- Scenario: "Creates a valid task"
   Given: A valid assignedUserId exists in the users fixture data
-  When: POST /api/v1/tasks with { title, description, priority: "HIGH", assignedUserId, dueDate }
-  Then: 201 Created, response has { success: true, data: { id, status: "TO_DO", priority: "HIGH" } }
+  When: POST /api/v1/tasks with { title, priority: "High", assignedUserId }
+  Then: 201 Created, { success: true, data: { id, status: "To Do", priority: "High" } }
 
-- Scenario: "Task creation rejected when title is missing"
-  When: POST /api/v1/tasks with missing title
+- Scenario: "Rejected when title is missing"
+  When: POST /api/v1/tasks with body {}
   Then: 400 Bad Request, { success: false, error: { code: "VALIDATION_ERROR" } }
 
-- Scenario: "Task creation rejected when assignedUserId does not exist"
+- Scenario: "Rejected when assignedUserId does not exist"
   When: POST /api/v1/tasks with a random unknown assignedUserId
-  Then: 400 Bad Request, { success: false, error: { code: "VALIDATION_ERROR" } }
-
-Test Suite: PATCH /api/v1/tasks/:id/status
-- Scenario: "User updates task from TO_DO to IN_PROGRESS"
-  Given: A task with no blocking dependencies (use fixture task with no dependencies)
-  When: PATCH /api/v1/tasks/:id/status with { status: "IN_PROGRESS" }
-  Then: 200 OK, task status updated, history entry appended
-
-- Scenario: "Task transitions to BLOCKED when dependency is incomplete"
-  Given: A task whose dependency task is NOT COMPLETED (use fixture dependency data)
-  When: PATCH /api/v1/tasks/:id/status with { status: "IN_PROGRESS" }
-  Then: 422 Unprocessable Entity, { success: false, error: { code: "TASK_BLOCKED" } }
+  Then: 404 Not Found, { success: false, error: { code: "NOT_FOUND" } }
 
 Test Suite: GET /api/v1/tasks
-- Scenario: "List all tasks returns paginated results"
+- Scenario: "Returns all tasks"
   When: GET /api/v1/tasks
-  Then: 200 OK, { success: true, data: [...], meta: { total, page, limit } }
+  Then: 200 OK, { success: true, data: [...], meta: { total, page, pageSize } }
 
 - Scenario: "Filter by status returns only matching tasks"
-  When: GET /api/v1/tasks?status=TO_DO
-  Then: All returned tasks have status TO_DO
+  When: GET /api/v1/tasks?status=To Do
+  Then: All returned tasks have status "To Do"
 
-Each integration test should reset the in-memory JSON store to fixture state before running using the test helper from Step 1.
+Test Suite: GET /api/v1/tasks/:id
+- Scenario: "Returns the task when id exists"
+  When: GET /api/v1/tasks/:id with a known task id from fixture data
+  Then: 200 OK, { success: true, data: { id, title, status, priority, ... } }
+
+- Scenario: "Returns 404 when id does not exist"
+  When: GET /api/v1/tasks/non-existent-id
+  Then: 404 Not Found, { success: false, error: { code: "NOT_FOUND" } }
 ```
 
 ---
@@ -132,8 +129,8 @@ Identify any files in src/ that have less than 80% test coverage and list them.
 
 ## Verify
 
-- [ ] Unit tests exist for `TaskService` with at least 8 test cases
-- [ ] Integration tests cover the 4 main API endpoints
+- [ ] Unit tests exist for `TaskService.createTask()`, `getAllTasks()`, and `getTaskById()` with at least 8 test cases total
+- [ ] Integration tests cover `POST /api/v1/tasks`, `GET /api/v1/tasks`, and `GET /api/v1/tasks/:id`
 - [ ] Tests use the factory helper and JSON store reset helper
 - [ ] Each test follows Arrange/Act/Assert structure
 - [ ] Coverage report is generated
