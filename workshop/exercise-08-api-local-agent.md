@@ -2,323 +2,228 @@
 
 | | |
 |---|---|
-| **Duration** | 5 minutes |
-| **Feature** | Local (Default) Agent — Agentic Coding |
-| **Goal** | Scaffold the ITMS REST API and implement task management endpoints backed by a JSON file store — no database required |
+| **Duration** | 15 minutes |
+| **Feature** | GitHub Copilot — Agent Mode |
+| **Goal** | Use Copilot Agent mode to build and run the core ITMS REST API — no database required |
 
 ---
 
-## Background
+## What We Are Building
 
-The **Local Agent** (Copilot in Agent mode) reads your workspace files, creates and edits files, runs terminal commands, and iterates — all inside VS Code. Because your **copilot-instructions.md** is already active, every file the agent produces will follow your team's coding standards automatically.
+You are building the **Intelligent Task Management System (ITMS)** REST API — a backend service that lets a software team create tasks and view task details.
 
-> **No database needed.** The API uses a JSON file store by default so it runs immediately on any machine. To swap in a real database later, see [Exercise 16 — Database & SQL](exercise-16-database-sql.md) — the repository layer is designed so that a single env var (`USE_DATABASE=true`) is the only change required.
+This simplified exercise focuses on **3 core endpoints**:
+
+| # | Use Case | What It Does | Endpoint |
+|---|----------|--------------|----------|
+| UC-001 | Task Creation | Create a task; status always starts as `To Do` | `POST /api/v1/tasks` |
+| UC-005 | List Tasks | List all tasks with optional filters | `GET /api/v1/tasks` |
+| UC-004 | Task Detail | Get a single task by its ID | `GET /api/v1/tasks/:id` |
+
+**Architecture — three layers:**
+
+```
+Request → Controller (parse & respond)
+              ↓
+          Service (business logic & rules)
+              ↓
+        Repository (reads/writes JSON files)
+```
+
+**No database.** All data lives in four JSON files under `src/data/`. Every write is persisted immediately with `fs.writeFileSync`.
 
 ---
 
-## Step 1 — Switch to Agent Mode
+## Before You Start
 
-In Copilot Chat, confirm:
-- **Agent**: Local (default) — not a custom agent
-- **Mode**: Agent — not Ask or Plan
+**Confirm your Copilot Chat settings:**
+- Mode: **Agent** (not Ask or Edit)
+- Agent: **GitHub Copilot** (default local agent)
 
----
-
-## Step 2 — Scaffold the Project Structure
-
-```
-Read #tsd.md and the API Design section. Then scaffold the initial project
-structure for the ITMS REST API:
-
-- Root config file (package.json / pyproject.toml / pom.xml — match the stack
-  in copilot-instructions.md)
-- Folder structure:
-    src/routes/         src/controllers/    src/services/
-    src/repositories/   src/models/         src/middleware/
-    src/config/         src/data/           ← JSON flat-file store
-- App entry point starting on port 3000 (Express / FastAPI / Spring Boot)
-- .env.example:
-    PORT=3000
-    NODE_ENV=development
-    USE_DATABASE=false        # true → switch to real DB
-    DB_CONNECTION_STRING=     # only used when USE_DATABASE=true
-- Health check: GET /api/v1/health → { status: "ok", timestamp: <ISO>, version: "1.0.0" }
-- README.md with setup instructions
-
-Do NOT implement any business logic yet — scaffolding only.
-```
-
-> When the agent pauses to ask about technology choices, answer based on your stack from Exercise 05.
+The agent will read your workspace files, create and edit source files, and run terminal commands — all automatically.
 
 ---
 
-## Step 3 — Create the JSON Data Store
+## Step 1 — Scaffold the Project Structure
 
-### 3a — Seed the data files
+Before writing any business logic, use Copilot to generate the project skeleton — the entry point, folder layout, health check, and configuration files.
 
-```
-Set up the JSON data store so the API runs without a database.
-
-Copy these pre-built seed files from workshop/sample-data/ into src/data/:
-
-  sample-data/users.json               → src/data/users.json
-  sample-data/tasks.json               → src/data/tasks.json
-  sample-data/task_dependencies.json   → src/data/task_dependencies.json
-  sample-data/task_status_history.json → src/data/task_status_history.json
-
-The seed data contains:
-  - 5 users  (1 PM · 1 TL · 2 Devs · 1 QA)
-  - 10 tasks (all priority/status combinations)
-  - 3 dependency relationships (2 tasks intentionally blocked)
-  - 6 status history entries showing realistic progression
-  All IDs cross-reference correctly between files.
-
-Then create the repository layer (items 2–3 below).
-```
-
-### 3b — Generic JSON repository (`src/repositories/json-store.ts`)
-
-The agent should produce a `JsonRepository<T>` class that:
-
-| Concern | Implementation |
-|---|---|
-| Startup | Reads and parses the JSON file into a private in-memory array |
-| `findAll(filters?)` | Returns all items; filters are simple equality checks |
-| `findById(id)` | Returns one item or `undefined` |
-| `create(item)` | Appends to the array, writes file |
-| `update(id, patch)` | Shallow-merges patch, writes file, returns updated item |
-| `delete(id)` | Removes by id, writes file, returns `true` if found |
-| Write format | `fs.writeFileSync` + `JSON.stringify(data, null, 2)` (human-readable) |
-| Missing file | Initialises with an empty array |
-
-### 3c — Task repository (`src/repositories/task.repository.ts`)
-
-Three `JsonRepository` instances backed by:
-
-| Instance | File |
-|---|---|
-| `taskRepo` | `src/data/tasks.json` |
-| `historyRepo` | `src/data/task_status_history.json` |
-| `dependencyRepo` | `src/data/task_dependencies.json` |
-
-Exported functions (not a class):
-
-| Function | Behaviour |
-|---|---|
-| `findAll(filters, page, limit)` | Filter with `taskRepo.findAll()`, then paginate |
-| `findById(id)` | Delegate to `taskRepo` |
-| `create(taskData)` | Generate UUID, set status `TO_DO`, set timestamps, call `taskRepo.create()` |
-| `updateStatus(id, newStatus, changedBy, note)` | Update task, then call `addStatusHistoryEntry()` |
-| `addStatusHistoryEntry(entry)` | Generate UUID + timestamp, call `historyRepo.create()` |
-| `findDependencies(taskId)` | All dependency records matching `taskId` |
-| `findStatusHistory(taskId)` | All history records matching `taskId` |
-
-Also create `src/repositories/user.repository.ts` with `findById`, `findByEmail`, and `findAll`.
-
-<details>
-<summary>If the agent needs more detail — click to expand the precise follow-up prompt</summary>
+**Copy and paste this prompt into Copilot Chat:**
 
 ```
-Create the repository layer for the ITMS JSON data store.
+Read #file:doc/tsd.md and scaffold the initial project structure for the
+ITMS REST API using TypeScript and Express.
+
+Create:
+1. package.json — include express, dotenv, zod, uuid, helmet,
+   express-rate-limit as dependencies; typescript, tsx, @types/express,
+   @types/node, jest, supertest as devDependencies. Add scripts:
+   dev (tsx watch src/server.ts), build (tsc), start (node dist/server.js),
+   test (jest).
+
+2. tsconfig.json — strict mode, target ES2020, moduleResolution node,
+   outDir dist, rootDir src.
+
+3. .env.example:
+   PORT=3000
+   NODE_ENV=development
+
+4. src/server.ts — entry point that calls app.listen() on PORT from .env.
+
+5. src/app.ts — Express app setup (no listen). Mount /api/v1 router.
+   Apply helmet and express.json() middleware.
+
+6. src/config/constants.ts — export APP_VERSION = "1.0.0"
+
+7. src/routes/v1/index.ts — v1 router that registers sub-routes.
+
+8. Health check: GET /api/v1/health → { success: true, data: { status: "ok",
+   timestamp: <ISO 8601>, version: "1.0.0" } }
+
+9. Create empty placeholder folders (with .gitkeep) for:
+   src/controllers, src/services, src/repositories, src/middleware,
+   src/errors, src/types, src/validators, src/utils, src/data
+
+Do NOT implement business logic — scaffolding only.
+Follow all standards in .github/copilot-instructions.md.
+```
+
+> **What to expect:** The agent creates the file structure, installs dependencies, and starts the server. You can verify the scaffold is working with: `curl http://localhost:3000/api/v1/health`
+
+---
+
+## Step 2 — Copy the Seed Data
+
+The JSON data files are already prepared in `workshop/sample-data/`. Copy them into `src/data/` so the API has data to work with.
+
+Copy the files manully or run this in the terminal:
+
+```bash
+# Windows
+copy workshop\sample-data\*.json src\data\
+
+# macOS / Linux
+cp workshop/sample-data/*.json src/data/
+```
+
+**What's in the seed data?**
+- 5 users (1 Project Manager, 1 Team Lead, 2 Developers, 1 QA Engineer)
+- 10 tasks covering every status and priority combination
+- 3 dependency links (2 tasks intentionally blocked)
+- 6 status history entries showing realistic task progression
+
+---
+
+## Step 3 — Build the Data Layer
+
+**Copy and paste this prompt into Copilot Chat:**
+
+```
+Read #file:frd.md sections UC-001 to UC-006 and the existing files in
+src/repositories/. Build the complete data access layer for the ITMS API.
+
+The data files are already in src/data/ (tasks.json, users.json,
+task_dependencies.json, task_status_history.json).
+
+Create or complete these files:
 
 1. src/repositories/json-store.ts
-   - Export a generic class JsonRepository<T extends { id: string }>
-   - Constructor accepts a file path (e.g. src/data/tasks.json)
-   - On construction: read and parse the JSON file into a private in-memory array
-   - Methods:
-       findAll(filters?: Partial<T>): T[]
-         → if filters provided, return only items where every key matches (equality)
-       findById(id: string): T | undefined
-       create(item: T): T
-         → push to array, write full array back to JSON file
-       update(id: string, patch: Partial<T>): T | undefined
-         → find by id, shallow-merge patch, write back, return updated item
-       delete(id: string): boolean
-         → remove by id, write back, return true if found
-   - All writes: fs.writeFileSync + JSON.stringify(data, null, 2)
-   - Missing file on startup → initialise with []
+   Generic JsonRepository<T> class with: findAll(filters?), findById(id),
+   create(item), update(id, patch), delete(id).
+   Reads the JSON file into memory on startup. Every write calls
+   fs.writeFileSync to persist changes immediately.
 
 2. src/repositories/task.repository.ts
-   - Import JsonRepository plus Task, TaskStatusHistory, TaskDependency from src/models/
-   - Three instances: taskRepo, historyRepo, dependencyRepo (paths above)
-   - Export functions listed in Step 3c
+   Uses JsonRepository for tasks, history, and dependencies.
+   Exports: findAll(filters, page, limit), findById(id), create(data),
+   updateStatus(id, status, changedBy, note), findHistory(taskId),
+   findDependencies(taskId).
 
 3. src/repositories/user.repository.ts
-   - JsonRepository for src/data/users.json
-   - Export: findById(id), findByEmail(email), findAll()
+   Uses JsonRepository for users.
+   Exports: findAll(), findById(id), findByEmail(email).
 
-Apply coding standards from .github/copilot-instructions.md throughout.
+Follow all standards in .github/copilot-instructions.md.
 ```
 
-</details>
+> **What to expect:** The agent creates the three repository files, defines TypeScript interfaces for `Task`, `User`, `TaskStatusHistory`, and `TaskDependency`, and wires them to the JSON files in `src/data/`.
 
 ---
 
-## Step 4 — Implement the Task Management API
+## Step 4 — Build the Task API Endpoints
 
-### Endpoint reference
-
-| Endpoint | Input | Success | Error |
-|---|---|---|---|
-| `POST /api/v1/tasks` | `{ title, description, priority, assignedUserId, dueDate }` | `201` task with status `TO_DO` | `400 VALIDATION_ERROR` if title missing, priority invalid, dueDate invalid, or assignedUserId not found |
-| `GET /api/v1/tasks` | Query: `status` · `priority` · `assignedUserId` · `page` · `limit` | `200` `{ data, meta: { total, page, limit } }` | — |
-| `PATCH /api/v1/tasks/:id/status` | `{ status }` — `TO_DO \| IN_PROGRESS \| BLOCKED \| COMPLETED` | `200` updated task + history entry written | `422 TASK_BLOCKED` if any dependency not `COMPLETED` · `404` if not found |
-| `GET /api/v1/tasks/:id` | — | `200` task + `statusHistory[]` + `dependencies[]` | `404` if not found |
-
-Files to create: `src/services/task.service.ts` · `src/controllers/task.controller.ts` · `src/routes/tasks.ts` — mount at `/api/v1`.
-
-### Prompt
+**Copy and paste this prompt into Copilot Chat:**
 
 ```
-Implement the four Task Management API endpoints from #tsd.md.
-Use src/repositories/task.repository.ts — the service layer calls the repository,
-never raw JSON directly.
+Read #frd.md (UC-001, UC-004, UC-005) and implement the task management
+endpoints. Use the repository layer in src/repositories/ — never read JSON
+files directly in a service or controller.
 
-Implement all four endpoints per the spec above. For each:
-  - Validate inputs with a schema library
-  - Apply business rules (TASK_BLOCKED dependency check on status change)
-  - Return the standard response envelope: { success, data, error, meta }
-  - Use structured logging with a request ID on every request
+Implement these three endpoints:
 
-Create src/services/task.service.ts, src/controllers/task.controller.ts,
-and src/routes/tasks.ts. Mount all routes at /api/v1.
+  POST   /api/v1/tasks     — Create a task (UC-001)
+  GET    /api/v1/tasks     — List all tasks with optional filters:
+                             status, priority, assignedUserId, page, limit (UC-005)
+  GET    /api/v1/tasks/:id — Get a single task by ID (UC-004)
 
-Apply all standards from .github/copilot-instructions.md.
+Business rules to enforce:
+  - New tasks always start with status "To Do"
+  - Status must be one of: To Do, In Progress, Blocked, Completed
+  - Priority must be one of: Low, Medium, High
+  - assignedUserId must reference a user that exists in users.json
+
+Create: src/services/task.service.ts, src/controllers/task.controller.ts,
+src/routes/v1/tasks.ts. Mount routes at /api/v1 in src/app.ts.
+
+Every response must use the envelope: { success, data, error, meta }.
+Follow all standards in .github/copilot-instructions.md.
 ```
 
-<details>
-<summary>If the agent needs more detail — click to expand the precise follow-up prompt</summary>
-
-```
-Implement the four ITMS Task Management API endpoints in full.
-
---- src/models/task.model.ts ---
-  enum Priority   { LOW = "LOW", MEDIUM = "MEDIUM", HIGH = "HIGH" }
-  enum TaskStatus { TO_DO = "TO_DO", IN_PROGRESS = "IN_PROGRESS",
-                    BLOCKED = "BLOCKED", COMPLETED = "COMPLETED" }
-  interface Task {
-    id: string; title: string; description: string;
-    priority: Priority; status: TaskStatus;
-    assignedUserId: string; estimatedCompletionDate: string;
-    createdBy: string; createdAt: string; updatedAt: string;
-    completedAt: string | null;
-  }
-  interface TaskStatusHistory {
-    id: string; taskId: string; previousStatus: string; newStatus: string;
-    changedBy: string; changedAt: string; note: string;
-  }
-  interface TaskDependency {
-    id: string; taskId: string; dependsOnTaskId: string;
-    createdBy: string; createdAt: string;
-  }
-
---- src/services/task.service.ts ---
-All functions throw typed errors — never return raw catches.
-
-  createTask(payload): Task
-    1. Validate title, priority, dueDate (not in the past), assignedUserId via userRepo
-       → throw ValidationError with field-level message on failure
-    2. Call taskRepository.create() with status TO_DO
-    3. Return created task
-
-  listTasks(filters, page, limit): { data: Task[]; total: number }
-    → delegate to taskRepository.findAll()
-
-  getTaskById(id): Task & { statusHistory; dependencies }
-    1. findById → throw NotFoundError if missing
-    2. Attach findStatusHistory(id) and findDependencies(id)
-    3. Return enriched object
-
-  updateTaskStatus(id, newStatus, changedBy, note): Task
-    1. findById → throw NotFoundError if missing
-    2. If newStatus is IN_PROGRESS or COMPLETED:
-       load dependencies; if ANY dependsOnTask.status !== "COMPLETED" → throw TaskBlockedError
-    3. Call taskRepository.updateStatus()
-    4. If COMPLETED, set completedAt to current ISO timestamp
-    5. Return updated task
-
---- src/controllers/task.controller.ts ---
-  POST   /api/v1/tasks              → createTask()  → 201
-  GET    /api/v1/tasks              → listTasks()   → 200
-  GET    /api/v1/tasks/:id          → getTaskById() → 200
-  PATCH  /api/v1/tasks/:id/status   → updateTaskStatus() → 200
-
-  Every handler:
-    - try/catch with error mapping:
-        ValidationError  → 400 { code: "VALIDATION_ERROR", message, fields? }
-        NotFoundError    → 404 { code: "NOT_FOUND", message }
-        TaskBlockedError → 422 { code: "TASK_BLOCKED", message }
-        unknown          → 500 { code: "INTERNAL_ERROR", message: "An unexpected error occurred" }
-    - Success: { success: true, data, meta? }
-    - Log: method · path · requestId (uuid) · statusCode · durationMs
-
---- src/middleware/error.middleware.ts ---
-  Centralised Express error handler with the same error→response mapping above.
-
---- src/errors/ ---
-  ValidationError, NotFoundError, TaskBlockedError
-  Each extends AppError which carries statusCode and code properties.
-
---- src/routes/tasks.ts ---
-  Register all four routes on an Express Router; mount at /api/v1 in app entry point.
-```
-
-</details>
+> **What to expect:** The agent creates the service, controller, and route files, adds Zod validation, wires error handling to the central error middleware, and mounts the three routes in `app.ts`.
 
 ---
 
-## Step 5 — Verify the APIs
+## Step 5 — Run and Verify
+
+**Copy and paste this prompt into Copilot Chat:**
 
 ```
-Start the application, then test all five endpoints with curl and show the commands
-and expected JSON responses:
+Start the application and verify the ITMS endpoints are working. Run these
+curl tests in order and confirm each response uses the
+{ success, data, error, meta } envelope:
 
-1. GET  /api/v1/health
-2. POST /api/v1/tasks              — HIGH priority, valid assignedUserId from src/data/users.json
-3. GET  /api/v1/tasks              — list all, then filter ?status=TO_DO&priority=HIGH
-4. GET  /api/v1/tasks/:id          — fetch the task created in step 2
-5. PATCH /api/v1/tasks/:id/status  — update status to IN_PROGRESS
+1. Health check
+   GET /api/v1/health
+
+2. List all tasks
+   GET /api/v1/tasks
+
+3. Create a new task (use a valid user id from src/data/users.json)
+   POST /api/v1/tasks
+   Body: { "title": "Test task", "priority": "High", "assignedUserId": "<id>" }
+
+4. Get the task you just created
+   GET /api/v1/tasks/:id
+
+5. Confirm validation — missing title should return 400
+   POST /api/v1/tasks with body {}
 ```
 
-Confirm:
-- Every response uses the `{ success, data, error, meta }` envelope
-- After the PATCH, the status history entry appears in the GET `:id` response
-- Filtering and pagination work correctly on the list endpoint
+> Confirm that step 4 returns `{ success: true, data: { id, status: "To Do", ... } }` and step 5 returns `{ success: false, error: { code: "VALIDATION_ERROR" } }`.
 
 ---
 
-## (Optional) Step 6 — Switch to a Real Database
+## Key Takeaways
 
-> Requires a running database. Complete [Exercise 16 — Database & SQL](exercise-16-database-sql.md) first, then return here.
-
-```
-Exercise 12 is done; migrations are in db/migrations/.
-Update the repository layer so USE_DATABASE=true in .env routes reads/writes to
-the real database instead of JSON files.
-
-- Create src/repositories/db-task.repository.ts implementing the same interface
-  as the JSON repository, using parameterized DB queries / ORM
-- Update src/config/data-source.ts to export the active repository based on
-  USE_DATABASE
-- Keep the JSON repositories unchanged as the default fallback
-
-Services, controllers, and routes need no changes.
-```
-
----
-
-## Key Takeaway
-
-Two things to notice:
-
-1. **Standards enforcement** — the agent followed your `copilot-instructions.md` automatically: response envelope, input validation, structured logging.
-2. **Repository abstraction** — the same service and controller code works with both the JSON store and a real database. Swapping the data layer is a one-line config change, not a rewrite.
+- **Copilot read your standards automatically.** The response envelope, Zod validation, and structured logging came from `copilot-instructions.md` — you didn't have to repeat them in every prompt.
+- **Three-layer architecture.** Controllers never touch JSON files; services never import `fs`. The repository is the only place data is read or written. Keeping this clean means the three endpoints you just built can grow to a full API without touching the controller or service layers.
+- **FRD → code traceability.** Each prompt referenced a specific use case from `doc/frd.md`, giving the agent accurate context and giving you a clear audit trail from requirement to implementation.
 
 ---
 
 **Next**: [Exercise 09 — Design & Scaffold the Task Management UI](exercise-09-ui-design.md)
 
-> 🟡 **Optional exercises** — pick any before continuing to Exercise 13:
-> - [Exercise 14 — Background Agent](exercise-14-cli-agent.md) — delegate a long task to run asynchronously while you keep working
-> - [Exercise 15 — Context Map Skill](exercise-15-context-map.md) — generate a codebase map that enriches all subsequent Copilot prompts
-> - [Exercise 16 — Database & SQL / PL/SQL](exercise-16-database-sql.md) — generate the full DB schema, migrations, and stored procedures
+> **Optional exercises** you can complete before Exercise 13:
+> - [Exercise 14 — Background Agent](exercise-14-cli-agent.md) — delegate a long-running task while you keep working
+> - [Exercise 15 — Context Map Skill](exercise-15-context-map.md) — generate a codebase map that enriches all future prompts
+> - [Exercise 16 — Database & SQL](exercise-16-database-sql.md) — generate the schema, migrations, and swap the repository layer to a real database

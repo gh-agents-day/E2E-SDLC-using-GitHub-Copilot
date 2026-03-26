@@ -66,7 +66,7 @@ Copilot will display the plan before doing anything. Check:
 - [ ] Effort estimates seem reasonable (Phase 1 ≈ 3–5 days total)
 
 ---
-Click on `Open in Editor` option and save the plan as `doc/implementation-plan.md` in the `doc/` folder.
+Click on `Open in Editor` option, copilot craetes the file plan prompt file.
 
 ## Verify
 
