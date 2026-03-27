@@ -79,10 +79,5 @@ Open `doc/implementation-plan.md` and confirm:
 
 ---
 
-## Key Takeaway
-
-> Plan Mode prevents "tunnel vision" — where Copilot dives into implementation and creates a solution that doesn't fit the full picture. By reviewing the plan first, you catch architectural gaps and poor task ordering **before** they become code debt. On real projects, this 5-minute review often saves hours of rework.
-
----
 
 **Next**: [Exercise 07 — Create Implementation Prompt File](exercise-07-implementation-prompt.md)
