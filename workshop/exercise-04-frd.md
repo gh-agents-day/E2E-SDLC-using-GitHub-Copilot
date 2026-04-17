@@ -1,3 +1,5 @@
+> ✅ **Already completed by Exercise 01** — If you ran the **SDLC Docs Orchestrator** in Exercise 01, `doc/frd.md` is already generated. Skip to [Exercise 05 — Custom Instructions](exercise-05-custom-instructions.md), or continue here to explore the FRD Agent in isolation.
+
 # Exercise 04 — Generate the Functional Requirements Document
 
 **Duration**: 4 minutes  

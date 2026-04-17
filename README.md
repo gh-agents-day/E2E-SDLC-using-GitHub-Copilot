@@ -1,7 +1,7 @@
 # E2E SDLC with GitHub Copilot — Workshop
 
 > **Audience**: Developers, Tech Leads, Architects  
-> **Total Duration**: ~50 min mandatory + ~30 min optional (see two-track map below)  
+> **Total Duration**: ~41 min mandatory + ~30 min optional (see two-track map below)  
 > **Pre-requisites**: VS Code with GitHub Copilot Chat extension, Node/Python/Java runtime, Git CLI, GitHub Copilot access, GitHub MCP, Mermaid extension for VS code.
 
 ---
@@ -51,10 +51,10 @@ These exercises form the core SDLC journey. Each builds directly on the previous
 
 | # | Exercise | Copilot Feature | Duration |
 |---|----------|----------------|----------|
-| 01 | [Setup & Custom Agents](workshop/exercise-01-setup-agents.md) | Custom Agents (`.agent.md`) | 5 min |
-| 02 | [Generate BRD](workshop/exercise-02-brd.md) | BRD Custom Agent | 4 min |
-| 03 | [Generate TSD](workshop/exercise-03-tsd.md) | TSD Custom Agent | 4 min |
-| 04 | [Generate FRD](workshop/exercise-04-frd.md) | FRD Custom Agent | 4 min |
+| 01 | [Setup & Custom Agents](workshop/exercise-01-setup-agents.md) | Custom Agents + Agent Orchestration (`.agent.md`) | 8 min |
+| 02 | [Generate BRD](workshop/exercise-02-brd.md) _(skip if Ex 01 orchestrator ran)_ | BRD Custom Agent | 4 min |
+| 03 | [Generate TSD](workshop/exercise-03-tsd.md) _(skip if Ex 01 orchestrator ran)_ | TSD Custom Agent | 4 min |
+| 04 | [Generate FRD](workshop/exercise-04-frd.md) _(skip if Ex 01 orchestrator ran)_ | FRD Custom Agent | 4 min |
 | 05 | [Custom Instructions](workshop/exercise-05-custom-instructions.md) | `.instructions.md` | 3 min |
 | 06 | [Plan Mode – Implementation Plan](workshop/exercise-06-plan-mode.md) | Plan Mode | 4 min |
 | 07 | [Create Implementation Prompt File](workshop/exercise-07-implementation-prompt.md) | Prompt Files | 3 min |
@@ -64,7 +64,9 @@ These exercises form the core SDLC journey. Each builds directly on the previous
 | 11 | [Security Review](workshop/exercise-11-security.md) | Security Prompt File | 4 min |
 | 12 | [Build & Debug](workshop/exercise-12-build-debug.md) | Local Agent + Terminal | 5 min |
 
-> **Why these 12?** They cover every key Copilot feature — Custom Agents → Prompt Files → Plan Mode → Local Agent → UI Scaffolding → Testing → Security — mirroring a real SDLC from requirements to a running, tested application.
+> **Why these 12?** They cover every key Copilot feature — Custom Agents → Agent Orchestration → Prompt Files → Plan Mode → Local Agent → UI Scaffolding → Testing → Security — mirroring a real SDLC from requirements to a running, tested application.
+
+> **Time-saving tip**: Exercise 01 includes an **SDLC Docs Orchestrator** agent that automatically chains BRD → TSD → FRD generation in one run. If you use it, Exercises 02, 03, and 04 are already complete — skip directly to Exercise 05, saving ~12 minutes.
 
 ---
 

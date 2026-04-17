@@ -1,3 +1,5 @@
+> ✅ **Already completed by Exercise 01** — If you ran the **SDLC Docs Orchestrator** in Exercise 01, `doc/tsd.md` is already generated. Skip to [Exercise 05 — Custom Instructions](exercise-05-custom-instructions.md), or continue here to explore the TSD Agent in isolation.
+
 # Exercise 03 — Generate the Technical Specification Document
 
 **Duration**: 4 minutes  
