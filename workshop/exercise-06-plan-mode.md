@@ -6,11 +6,11 @@
 
 ---
 
-## Background
+## Why This Matters
 
-**Plan Mode** in GitHub Copilot is a deliberate step where Copilot analyzes the task, identifies all files and components affected, and presents an execution plan **before** taking any action. You review and approve — or modify — the plan before Copilot touches a single file.
+Without Plan Mode, Copilot jumps straight into writing code the moment you send a prompt. For a large feature that touches 10+ files, that is a gamble — you can't course-correct until after the fact.
 
-This is especially valuable for large tasks (like "implement the entire task module") where you want to verify the approach first.
+**Plan Mode flips the order**: Copilot reads your documents, maps out every file and task it intends to touch, and shows you the plan first. You review it, adjust it if needed, and only then approve execution. Think of it as a "dry run" before any file is changed.
 
 ---
 
@@ -18,13 +18,15 @@ This is especially valuable for large tasks (like "implement the entire task mod
 
 In Copilot Chat:
 1. Click the **mode selector** at the bottom-left of the chat panel
-2. Select **Plan** (this may appear as `Plan Mode` or the pencil/plan icon)
+2. Select **Plan** (this may appear as `Plan` or the pencil/plan icon)
 
 > You should see a visual indicator that Plan mode is active.
 
 ---
 
 ## Step 2 — Send the Implementation Planning Prompt
+
+This prompt instructs Copilot to read your FRD and TSD and produce a phased plan — **without creating any files yet**.
 
 Copy and paste this prompt:
 
@@ -49,15 +51,13 @@ For each phase, list tasks with:
 - FRD reference (FR-ID or US-ID)
 - Whether it can run in parallel or must be sequential
 - Whether it's a good candidate for Background Agent (long, self-contained tasks)
-
-Do NOT create any files yet. Show me the plan first.
 ```
 
 ---
 
-## Step 3 — Review the Plan
+## Step 3 — Review and Save the Plan
 
-Copilot will display the plan before doing anything. Check:
+Copilot will display the full plan in chat before touching any file. Review it:
 
 - [ ] All 5 phases are covered
 - [ ] Phase 0 includes project scaffolding tasks
@@ -65,8 +65,9 @@ Copilot will display the plan before doing anything. Check:
 - [ ] Some tasks are flagged as Background Agent candidates
 - [ ] Effort estimates seem reasonable (Phase 1 ≈ 3–5 days total)
 
+Once satisfied, click **Open in Editor** in the Copilot response — this saves the plan as `doc/implementation-plan.md` in your workspace.
+
 ---
-Click on `Open in Editor` option, copilot craetes the file plan prompt file.
 
 ## Verify
 
@@ -79,5 +80,6 @@ Open `doc/implementation-plan.md` and confirm:
 
 ---
 
+> This plan is the input for the next exercise — you will package it into a reusable prompt file your whole team can invoke.
 
 **Next**: [Exercise 07 — Create Implementation Prompt File](exercise-07-implementation-prompt.md)
