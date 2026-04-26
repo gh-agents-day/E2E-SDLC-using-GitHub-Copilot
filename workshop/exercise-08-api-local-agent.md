@@ -119,7 +119,7 @@ cp workshop/sample-data/*.json src/data/
 **Copy and paste this prompt into Copilot Chat:**
 
 ```
-Read #file:frd.md sections UC-001 to UC-006 and the existing files in
+Read #file:doc/frd.md sections UC-001 to UC-006 and the existing files in
 src/repositories/. Build the complete data access layer for the ITMS API.
 
 The data files are already in src/data/ (tasks.json, users.json,
@@ -155,7 +155,7 @@ Follow all standards in .github/copilot-instructions.md.
 **Copy and paste this prompt into Copilot Chat:**
 
 ```
-Read #frd.md (UC-001, UC-004, UC-005) and implement the task management
+Read #file:doc/frd.md (UC-001, UC-004, UC-005) and implement the task management
 endpoints. Use the repository layer in src/repositories/ — never read JSON
 files directly in a service or controller.
 

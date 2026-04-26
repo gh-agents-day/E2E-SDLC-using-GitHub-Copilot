@@ -65,11 +65,12 @@ Include instructions covering:
 2. API design rules: versioning (/api/v1/), consistent response envelope { success, data, error, meta }
 3. Error handling: custom error classes, centralized error middleware, proper HTTP status codes
 4. Security: always validate input with a schema library, never trust user input
-5. Data layer: NO real database. Use the JSON files in workshop/sample-data/ as the data source:
+5. Data layer: NO real database. JSON files located at src/data/ are the runtime data source:
    - tasks.json, users.json, task_dependencies.json, task_status_history.json
-   - Load all files into memory on server startup using fs.readFileSync
+   - (These files are seeded from workshop/sample-data/ — do not read from that path in code)
+   - Load all files from src/data/ into memory on server startup using fs.readFileSync
    - Implement a simple in-memory repository layer (read/filter/mutate the in-memory arrays)
-   - Persist mutations back to the JSON files after each write operation using fs.writeFileSync
+   - Persist mutations back to the JSON files in src/data/ after each write using fs.writeFileSync
    - Never use a database driver, ORM, or migration tool
 6. Testing: every new function must have a unit test, integration tests for all API endpoints
 7. Logging: structured JSON logs with request ID, user ID, and operation name
