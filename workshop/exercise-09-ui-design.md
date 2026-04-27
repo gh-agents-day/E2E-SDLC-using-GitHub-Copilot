@@ -147,23 +147,23 @@ Wire this page at route /tasks/:id.
 Once both pages are scaffolded, send:
 
 ```
-Wire ui/src/App.tsx with BrowserRouter: "/" → TaskListPage, "/tasks/:id" → TaskDetailPage, catch-all → redirect "/".
+Update ui/src/App.tsx to use BrowserRouter with:
+  Route "/" → TaskListPage
+  Route "/tasks/:id" → TaskDetailPage
+  Catch-all → redirect to "/"
 
-Replace ui/src/index.css with a clean ITMS design system:
-- Inter font via Google Fonts
-- CSS variables for colour, spacing, shadow, and radius
-- Utility classes: .itms-header (sticky dark-navy bar), .itms-main (centred column),
-  .card (white surface, shadow), .data-table (styled table with hover),
-  .summary-bar / .summary-chip with coloured variants (total/done/inprog/blocked/todo),
-  .filter-bar, .btn-primary, .btn-ghost, .form-input, .badge-* (status pills),
-  .alert-warn, .toast-ok/.toast-err, .priority-high/medium/low
-Update all components to use these classes instead of inline styles.
-Set index.html <title> to "ITMS — Intelligent Task Management".
+Then:
+1. cd ui && npm install react-router-dom
+2. Start the Vite dev server: npm run dev -- --port 5173
 
-Then run: cd ui && npm install react-router-dom && npm run dev -- --port 5173
-
-Verify: task list shows summary counts, filters work, names show (not UUIDs),
-clicking a row opens detail with dependencies, history, and a working status-update form.
+Verify end-to-end:
+- Task List loads with summary counts and filter dropdowns
+- Status filters correctly show only matching tasks
+- Assigned To column shows "Alice Johnson" not a UUID
+- Clicking a row opens Task Detail
+- Task Detail shows dependencies with blocked warning where applicable
+- Status History section shows all historical changes
+- Submitting the Update Status form changes the status and refreshes history
 ```
 
 If any step fails, diagnose the error and apply the fix before moving on.
