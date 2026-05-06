@@ -1,8 +1,8 @@
-# Exercise 05 — Create Custom Instructions for Your Language
+# Exercise 01 — Custom Instructions: Choose Your Language & Standards
 
 **Duration**: 3 minutes  
 **Copilot Feature**: Workspace Instructions (`copilot-instructions.md`)  
-**Goal**: Set up always-on coding standards that Copilot follows in every conversation.
+**Goal**: Read the project requirements, choose your language/stack, and set up always-on coding standards that every subsequent exercise — including the TSD — will automatically follow.
 
 ---
 
@@ -11,6 +11,16 @@
 A **`copilot-instructions.md`** file in `.github/` is loaded automatically into every Copilot Chat session. Unlike custom agents (which you manually select), instructions are **always active** — they set the baseline for how Copilot writes code for your project.
 
 Think of it as your team's coding standards, permanently injected into Copilot's context.
+
+> **Why this is Exercise 01**: The instructions file is the only Copilot feature that is active in *every* conversation without any manual selection. By setting it up first, every agent, skill, and prompt in this workshop — including the TSD agent that designs your architecture — automatically inherits your language and stack choice.
+
+---
+
+## Step 0 — Read the Project Requirements
+
+Before choosing a language, open [`requirement.md`](../requirement.md) and read the project requirements. The constraints described there — an in-memory JSON data store, REST API, task management domain — should inform your stack decision.
+
+> Take 1–2 minutes to read it. Notice the data model (tasks, users, dependencies, status history) and the API operations required. This context will shape every decision you make in the workshop.
 
 ---
 
@@ -115,4 +125,4 @@ Observe that Copilot:
 
 ---
 
-**Next**: [Exercise 06 — Plan Mode for Implementation](exercise-06-plan-mode.md)
+**Next**: [Exercise 02 — Setup & Custom Agents + Agent Orchestration](exercise-02-setup-agents.md)

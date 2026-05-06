@@ -63,7 +63,7 @@ When invoked, it should:
 Format: phases as H2 headers, tasks as a table with columns: ID | Task | Effort | FRD Ref | Parallel? | Background Agent?
 ```
 
-> Replace `[YOUR STACK]` with your choice from Exercise 05.
+> Replace `[YOUR STACK]` with your choice from Exercise 01.
 
 ---
 

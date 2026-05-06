@@ -17,7 +17,7 @@
 
 ## Background
 
-The final phase of SDLC is deployment infrastructure. The **DevOps Agent** (`devops.agent.md`) you created in Exercise 01's setup is a specialized agent that reads the TSD's deployment architecture and generates production-ready IaC and CI/CD configurations.
+The final phase of SDLC is deployment infrastructure. The **DevOps Agent** (`devops.agent.md`) you created in Exercise 02's setup is a specialized agent that reads the TSD's deployment architecture and generates production-ready IaC and CI/CD configurations.
 
 ---
 

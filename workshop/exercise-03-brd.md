@@ -1,6 +1,6 @@
-> ✅ **Already completed by Exercise 01** — If you ran the **SDLC Docs Orchestrator** in Exercise 01, `doc/brd.md` is already generated. Skip to [Exercise 05 — Custom Instructions](exercise-05-custom-instructions.md), or continue here to explore the BRD Agent in isolation.
+> ✅ **Already completed by Exercise 02** — If you ran the **SDLC Docs Orchestrator** in Exercise 02, `doc/brd.md` is already generated. Skip to [Exercise 06 — Plan Mode](exercise-06-plan-mode.md), or continue here to explore the BRD Agent in isolation.
 
-# Exercise 02 — Generate the Business Requirements Document
+# Exercise 03 — Generate the Business Requirements Document
 
 **Duration**: 4 minutes  
 **Copilot Feature**: BRD Custom Agent  
@@ -70,4 +70,4 @@ Once Copilot finishes, open `doc/brd.md`. Check:
 
 ---
 
-**Next**: [Exercise 03 — Generate TSD](exercise-03-tsd.md)
+**Next**: [Exercise 04 — Generate TSD](exercise-04-tsd.md)

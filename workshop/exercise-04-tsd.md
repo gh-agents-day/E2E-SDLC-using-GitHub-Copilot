@@ -1,6 +1,8 @@
-> ✅ **Already completed by Exercise 01** — If you ran the **SDLC Docs Orchestrator** in Exercise 01, `doc/tsd.md` is already generated. Skip to [Exercise 05 — Custom Instructions](exercise-05-custom-instructions.md), or continue here to explore the TSD Agent in isolation.
+> ✅ **Already completed by Exercise 02** — If you ran the **SDLC Docs Orchestrator** in Exercise 02, `doc/tsd.md` is already generated. Skip to [Exercise 06 — Plan Mode](exercise-06-plan-mode.md), or continue here to explore the TSD Agent in isolation.
 
-# Exercise 03 — Generate the Technical Specification Document
+> **Language inherited from Exercise 01**: The TSD agent reads `.github/copilot-instructions.md` and will design the architecture (tech stack, data layer, API patterns) using your chosen language and framework automatically.
+
+# Exercise 04 — Generate the Technical Specification Document
 
 **Duration**: 4 minutes  
 **Copilot Feature**: TSD Custom Agent  
@@ -71,4 +73,4 @@ Update the Integration Points section in doc/tsd.md to cover:
 
 ---
 
-**Next**: [Exercise 04 — Generate FRD](exercise-04-frd.md)
+**Next**: [Exercise 05 — Generate FRD](exercise-05-frd.md)

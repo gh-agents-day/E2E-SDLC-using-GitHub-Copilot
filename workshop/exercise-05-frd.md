@@ -1,6 +1,6 @@
-> ✅ **Already completed by Exercise 01** — If you ran the **SDLC Docs Orchestrator** in Exercise 01, `doc/frd.md` is already generated. Skip to [Exercise 05 — Custom Instructions](exercise-05-custom-instructions.md), or continue here to explore the FRD Agent in isolation.
+> ✅ **Already completed by Exercise 02** — If you ran the **SDLC Docs Orchestrator** in Exercise 02, `doc/frd.md` is already generated. Skip to [Exercise 06 — Plan Mode](exercise-06-plan-mode.md), or continue here to explore the FRD Agent in isolation.
 
-# Exercise 04 — Generate the Functional Requirements Document
+# Exercise 05 — Generate the Functional Requirements Document
 
 **Duration**: 4 minutes  
 **Copilot Feature**: FRD Custom Agent  
@@ -59,4 +59,4 @@ These three documents form the **specification foundation** for all remaining ex
 
 ---
 
-**Next**: [Exercise 05 — Create Custom Instructions](exercise-05-custom-instructions.md)
+**Next**: [Exercise 06 — Plan Mode for Implementation](exercise-06-plan-mode.md)

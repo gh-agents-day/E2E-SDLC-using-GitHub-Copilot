@@ -1,8 +1,10 @@
-# Exercise 01 — Setup & Custom Agents + Agent Orchestration
+# Exercise 02 — Setup & Custom Agents + Agent Orchestration
 
 **Duration**: 8 minutes  
 **Copilot Feature**: Custom Agents (`.agent.md`) + Agent Orchestration  
-**Goal**: Understand custom agent creation, then build an orchestrator agent that chains BRD → TSD → FRD generation in a single run — completing Exercises 02, 03, and 04 automatically.
+**Goal**: Understand custom agent creation, then build an orchestrator agent that chains BRD → TSD → FRD generation in a single run — completing Exercises 03, 04, and 05 automatically.
+
+> **Your language is already set**: The `copilot-instructions.md` you created in Exercise 01 is active in this session and every session that follows. The TSD agent will automatically design the architecture using your chosen language and framework — no extra prompting needed.
 
 ---
 
@@ -155,9 +157,9 @@ In VS Code, open the Copilot Chat agent selector — you should see **BRD Author
 
 ## Key Takeaway
 
-> Custom agents encode domain expertise once and reuse it across projects. **Agent orchestration** chains specialists into automated pipelines — the orchestrator ensures BRD → TSD → FRD runs in the correct dependency order without you switching agents manually. Exercises 02, 03, and 04 are now complete. 
+> Custom agents encode domain expertise once and reuse it across projects. **Agent orchestration** chains specialists into automated pipelines — the orchestrator ensures BRD → TSD → FRD runs in the correct dependency order without you switching agents manually. Exercises 03, 04, and 05 are now complete. 
 
 ---
 
-**Next**: [Exercise 05 — Custom Instructions](exercise-05-custom-instructions.md) 
-If you didn't run the orchestrator, you can still complete Exercises 02, 03, and 04 manually by switching to each agent and sending the respective prompts. Start with [Exercise 02 — BRD](exercise-02-brd.md) → [Exercise 03 — TSD](exercise-03-tsd.md) → [Exercise 04 — FRD](exercise-04-frd.md)
+**Next**: [Exercise 06 — Plan Mode for Implementation](exercise-06-plan-mode.md) 
+If you didn't run the orchestrator, you can still complete Exercises 03, 04, and 05 manually by switching to each agent and sending the respective prompts. Start with [Exercise 03 — BRD](exercise-03-brd.md) → [Exercise 04 — TSD](exercise-04-tsd.md) → [Exercise 05 — FRD](exercise-05-frd.md)

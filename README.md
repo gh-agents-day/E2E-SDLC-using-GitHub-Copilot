@@ -51,11 +51,11 @@ These exercises form the core SDLC journey. Each builds directly on the previous
 
 | # | Exercise | Copilot Feature | Duration |
 |---|----------|----------------|----------|
-| 01 | [Setup & Custom Agents](workshop/exercise-01-setup-agents.md) | Custom Agents + Agent Orchestration (`.agent.md`) | 8 min |
-| 02 | [Generate BRD](workshop/exercise-02-brd.md) _(skip if Ex 01 orchestrator ran)_ | BRD Custom Agent | 4 min |
-| 03 | [Generate TSD](workshop/exercise-03-tsd.md) _(skip if Ex 01 orchestrator ran)_ | TSD Custom Agent | 4 min |
-| 04 | [Generate FRD](workshop/exercise-04-frd.md) _(skip if Ex 01 orchestrator ran)_ | FRD Custom Agent | 4 min |
-| 05 | [Custom Instructions](workshop/exercise-05-custom-instructions.md) | `.instructions.md` | 3 min |
+| 01 | [Custom Instructions](workshop/exercise-01-custom-instructions.md) | Workspace Instructions (`.github/copilot-instructions.md`) | 3 min |
+| 02 | [Setup & Custom Agents](workshop/exercise-02-setup-agents.md) | Custom Agents + Agent Orchestration (`.agent.md`) | 8 min |
+| 03 | [Generate BRD](workshop/exercise-03-brd.md) _(skip if Ex 02 orchestrator ran)_ | BRD Custom Agent | 4 min |
+| 04 | [Generate TSD](workshop/exercise-04-tsd.md) _(skip if Ex 02 orchestrator ran)_ | TSD Custom Agent | 4 min |
+| 05 | [Generate FRD](workshop/exercise-05-frd.md) _(skip if Ex 02 orchestrator ran)_ | FRD Custom Agent | 4 min |
 | 06 | [Plan Mode – Implementation Plan](workshop/exercise-06-plan-mode.md) | Plan Mode | 4 min |
 | 07 | [Create Implementation Prompt File](workshop/exercise-07-implementation-prompt.md) | Prompt Files | 3 min |
 | 08 | [Build APIs with Local Agent](workshop/exercise-08-api-local-agent.md) | Local (Default) Agent | 5 min |
@@ -66,7 +66,7 @@ These exercises form the core SDLC journey. Each builds directly on the previous
 
 > **Why these 12?** They cover every key Copilot feature — Custom Agents → Agent Orchestration → Prompt Files → Plan Mode → Local Agent → UI Scaffolding → Testing → Security — mirroring a real SDLC from requirements to a running, tested application.
 
-> **Time-saving tip**: Exercise 01 includes an **SDLC Docs Orchestrator** agent that automatically chains BRD → TSD → FRD generation in one run. If you use it, Exercises 02, 03, and 04 are already complete — skip directly to Exercise 05, saving ~12 minutes.
+> **Time-saving tip**: Exercise 02 includes an **SDLC Docs Orchestrator** agent that automatically chains BRD → TSD → FRD generation in one run. If you use it, Exercises 03, 04, and 05 are already complete — skip directly to Exercise 06, saving ~12 minutes. The TSD it generates will automatically use the language you chose in Exercise 01.
 
 ---
 
@@ -112,7 +112,7 @@ These exercises are self-contained. No mandatory exercise depends on them. Compl
 1. Open the cloned repository in VS Code
 1. Ensure **GitHub Copilot** and **GitHub Copilot Chat** extensions are installed and signed in
 1. Open the Copilot Chat panel (`Ctrl+Alt+I`)
-1. Start with [Exercise 01](workshop/exercise-01-setup-agents.md)
+1. Start with [Exercise 01](workshop/exercise-01-custom-instructions.md)
 1. Configure your GitHub token for MCP access by setting `GITHUB_TOKEN` in your environment
 ---
 
