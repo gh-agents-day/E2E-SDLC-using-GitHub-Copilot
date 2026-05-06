@@ -11,7 +11,7 @@
 >
 > This exercise is **not required** to complete the mandatory track. It generates the full SQL schema, migrations, and stored procedures. Complete it if database-layer code generation is relevant to your role, or revisit it after the workshop.
 >
-> **Best after**: Exercise 15 (or Exercise 08 if skipping Ex 15) &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 10 — Write Tests](exercise-10-testing.md)
+> **Best after**: Exercise 15 (or Exercise 08 if skipping Ex 15) &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 11 — Write Tests](exercise-11-testing.md)
 > ---
 
 
@@ -165,4 +165,4 @@ Check `db/` folder:
 
 ---
 
-**Return to Mandatory Track →**: [Exercise 10 — Write Tests](exercise-10-testing.md)
+**Return to Mandatory Track →**: [Exercise 11 — Write Tests](exercise-11-testing.md)

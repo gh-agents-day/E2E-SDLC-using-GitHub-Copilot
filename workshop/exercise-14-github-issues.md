@@ -1,4 +1,4 @@
-# Exercise 13 — Create GitHub Issues via MCP
+# Exercise 14 — Create GitHub Issues via MCP
 
 **Duration**: 5 minutes  
 **Copilot Feature**: GitHub MCP Server + Prompt File  

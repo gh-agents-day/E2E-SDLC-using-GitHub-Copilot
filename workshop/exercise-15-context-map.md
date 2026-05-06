@@ -9,9 +9,9 @@
 > ---
 > 🟡 **OPTIONAL EXERCISE**
 >
-> This exercise is **not required** to complete the mandatory track. The context map it produces gives Copilot richer codebase awareness, but Exercises 13–15 work without it. If you run this exercise, reference `context-map.md` in your prompts for Exercises 12 and 13.
+> This exercise is **not required** to complete the mandatory track. The context map it produces gives Copilot richer codebase awareness, but Exercises 13–15 work without it. If you run this exercise, reference `context-map.md` in your prompts for Exercises 13 and 14.
 >
-> **Best after**: Exercise 08 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 10 — Write Tests](exercise-10-testing.md)
+> **Best after**: Exercise 08 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 11 — Write Tests](exercise-11-testing.md)
 > ---
 
 
@@ -117,4 +117,4 @@ This single addition significantly reduces hallucinations (Copilot inventing fil
 
 **Next optional**: [Exercise 16 — Database & SQL / PL/SQL](exercise-16-database-sql.md)
 
-**Return to Mandatory Track →**: [Exercise 10 — Write Tests](exercise-10-testing.md)
+**Return to Mandatory Track →**: [Exercise 11 — Write Tests](exercise-11-testing.md)

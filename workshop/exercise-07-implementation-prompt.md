@@ -81,4 +81,4 @@ Format: phases as H2 headers, tasks as a table with columns: ID | Task | Effort 
 
 **Next**: [Exercise 08 — Build APIs with Local Agent](exercise-08-api-local-agent.md)
 
-> 🟡 **Optional stop available**: If your GitHub repository and Personal Access Token are configured, try [Exercise 13 — Create GitHub Issues via MCP](exercise-13-github-issues.md) before continuing to Exercise 08.
+> 🟡 **Optional stop available**: If your GitHub repository and Personal Access Token are configured, try [Exercise 14 — Create GitHub Issues via MCP](exercise-14-github-issues.md) before continuing to Exercise 08.

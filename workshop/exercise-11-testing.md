@@ -1,4 +1,4 @@
-# Exercise 10 — Write Tests
+# Exercise 11 — Write Tests
 
 **Duration**: 5 minutes  
 **Copilot Feature**: Local Agent + Prompt Files + Agent Orchestration  
@@ -192,4 +192,4 @@ Identify any files in src/ that have less than 80% test coverage and list them.
 
 ---
 
-**Next**: [Exercise 11 — Security Review](exercise-11-security.md)
+**Next**: [Exercise 12 — Security Review](exercise-12-security.md)

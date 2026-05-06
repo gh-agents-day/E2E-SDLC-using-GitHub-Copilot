@@ -1,4 +1,4 @@
-# Exercise 18 — Complete ITMS: CLI with /plan & /fleet + Coding Agent via MCP
+# Exercise 10 — Complete ITMS: CLI with /plan & /fleet + Coding Agent via MCP
 
 | | |
 |---|---|
@@ -482,10 +482,10 @@ cd itms-project/ui && npm run dev -- --port 5173
 
 > **Issues as specs for the coding agent.** A well-written issue body — with acceptance criteria, API references, and file paths — gives the coding agent everything it needs to open a correct PR without back-and-forth. The UC-ID ties the feature to the FRD for traceability.
 
-> **Stream of work without switching context.** While the coding agent handled the four frontend features asynchronously, you could review, merge, or continue on other work — the same parallel workstream principle as the Background Agent in Exercise 14.
+> **Stream of work without switching context.** While the coding agent handled the four frontend features asynchronously, you could review, merge, or continue on other work — the same parallel workstream principle as the Background Agent.
 
 ---
 
-**Next**: [Exercise 10 — Write Tests](exercise-10-testing.md) (mandatory track)
+**Next**: [Exercise 11 — Write Tests](exercise-11-testing.md) (mandatory track)
 
 **Optional**: [Exercise 15 — Context Map Skill](exercise-15-context-map.md) · [Exercise 16 — Database & SQL](exercise-16-database-sql.md) · [Exercise 17 — IaC & CI/CD](exercise-17-iac-cicd.md)

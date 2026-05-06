@@ -1,4 +1,4 @@
-# Exercise 11 — Security Review
+# Exercise 12 — Security Review
 
 **Duration**: 4 minutes  
 **Copilot Feature**: Security Prompt File  
@@ -104,4 +104,4 @@ Create a doc/security-review-report.md summarizing:
 
 ---
 
-**Next**: [Exercise 12 — Build & Debug](exercise-12-build-debug.md)
+**Next**: [Exercise 13 — Build & Debug](exercise-13-build-debug.md)

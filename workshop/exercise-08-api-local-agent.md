@@ -100,6 +100,5 @@ Read and follow .github/skills/build-api/SKILL.md to build the ITMS REST API.
 **Next**: [Exercise 09 — Design & Scaffold the Task Management UI](exercise-09-ui-design.md)
 
 > **Optional exercises** you can complete before Exercise 13:
-> - [Exercise 14 — Background Agent](exercise-14-cli-agent.md) — delegate a long-running task while you keep working
 > - [Exercise 15 — Context Map Skill](exercise-15-context-map.md) — generate a codebase map that enriches all future prompts
 > - [Exercise 16 — Database & SQL](exercise-16-database-sql.md) — generate the schema, migrations, and swap the repository layer to a real database

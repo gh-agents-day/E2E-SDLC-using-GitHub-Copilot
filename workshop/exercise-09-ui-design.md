@@ -201,4 +201,4 @@ Each page traces back to a `UC-ID` in `doc/frd.md` — the same document that dr
 
 ---
 
-**Next**: [Exercise 10 — Write Tests](exercise-10-testing.md)
+**Next**: [Exercise 10 — Complete ITMS: CLI with /plan & /fleet + Coding Agent via MCP](exercise-10-cli-fleet-and-coding-agent.md)
