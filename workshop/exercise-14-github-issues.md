@@ -76,17 +76,7 @@ In Copilot Chat, type `/` and select **GitHub Issues Generator** (from `.github/
 Or manually send this prompt:
 
 ```
-Read doc/implementation-plan.md and convert it into GitHub Issues for the repository [your-username]/itms-app.
-
-For each task in the implementation plan, create a GitHub issue with:
-- A clear title
-- A description explaining what needs to be done
-- Acceptance criteria as checkboxes
-- Appropriate labels: backend, database, testing, infrastructure, security
-- Milestone matching the Phase (Phase 0, Phase 1, etc.)
-
-Start by creating the milestones first, then create issues for Phase 0 and Phase 1 tasks.
-Use the GitHub MCP to create them directly.
+Use GitHub MCP to convert doc/implementation-plan.md into issues for [your-username]/itms-app. Create milestones by phase, then Phase 0 and Phase 1 issues with clear title, description, checkbox acceptance criteria, labels, and milestone.
 ```
 
 > Replace `[YOUR-USERNAME]` with your actual GitHub username.
@@ -107,8 +97,7 @@ Open your repository on GitHub (https://github.com/[your-username]/itms-app/issu
 ## Step 3 — Create a Project Board (Optional)
 
 ```
-Using the GitHub MCP, add all the Phase 1 issues to a new GitHub Project board 
-called "ITMS Sprint 1". Set up three columns: To Do, In Progress, Done.
+Using GitHub MCP, add Phase 1 issues to a new project board named "ITMS Sprint 1" with To Do, In Progress, Done.
 ```
 
 ---

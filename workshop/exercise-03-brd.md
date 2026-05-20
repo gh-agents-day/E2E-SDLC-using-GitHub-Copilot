@@ -29,14 +29,7 @@ You should see the agent name appear in the chat header.
 Copy and paste the following prompt into the chat:
 
 ```
-Read the project requirements from #requirement.md and create a comprehensive Business Requirements Document. Save it as doc/brd.md.
-
-Make sure to:`
-- Number all requirements uniquely (BR-F-001, BR-NF-001, BR-R-001...)
-- Include a stakeholder table with interests and influence levels
-- Include a risks and mitigations table
-- Add a glossary of domain terms
-- Keep it suitable for both business and technical readers
+Read #requirement.md and create doc/brd.md. Include BR-F/BR-NF/BR-R requirement IDs, stakeholders with interest/influence, risks/mitigations, glossary, and business + technical readability.
 ```
 
 ---

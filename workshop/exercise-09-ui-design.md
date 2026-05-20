@@ -23,38 +23,7 @@ The UI covers two views:
 In Copilot Chat (Agent mode, Local agent), send:
 
 ```
-Read src/routes/v1/tasks.ts and src/routes/v1/users.ts to understand all available API endpoints.
-
-Scaffold a frontend project for the ITMS inside a new ui/ folder at the workspace root.
-
-Requirements:
-- Framework: React + TypeScript + Vite
-- Folder structure:
-    ui/src/components/    ← reusable UI components
-    ui/src/pages/         ← full-page views
-    ui/src/services/      ← API client functions
-    ui/src/types/         ← TypeScript types mirroring API response shapes
-- Create ui/src/types/task.types.ts with these exact types:
-    - TaskStatus: 'TO_DO' | 'IN_PROGRESS' | 'BLOCKED' | 'COMPLETED'
-    - TaskPriority: 'LOW' | 'MEDIUM' | 'HIGH'
-    - Task: { id, title, description, priority, status, assignedUserId, estimatedCompletionDate, completedAt, createdBy, createdAt, updatedAt }
-    - User: { id, email, firstName, lastName, role }
-    - TaskStatusHistory: { id, taskId, previousStatus, newStatus, changedBy, changedAt, note }
-    - TaskDependency: { id, taskId, dependsOnTaskId, createdBy, createdAt }
-    - ApiEnvelope<T>: { success, data, error, meta: { requestId, timestamp, page?, limit?, total? } }
-- Create ui/src/services/api.ts as a shared Fetch client that:
-    - Reads base URL from VITE_API_BASE_URL (default: http://localhost:3000/api/v1)
-    - Exports these functions, each returning unwrapped data from the envelope:
-        listTasks(filters?: { status?, priority?, assignedUserId? }): Promise<Task[]>
-        getTask(id: string): Promise<Task>
-        listUsers(): Promise<User[]>
-        getTaskHistory(id: string): Promise<TaskStatusHistory[]>
-        getTaskDependencies(id: string): Promise<TaskDependency[]>
-        updateTaskStatus(id: string, body: { status: TaskStatus, changedBy: string, note: string }): Promise<Task>
-- Create ui/.env.example:
-    VITE_API_BASE_URL=http://localhost:3000/api/v1
-
-Do NOT implement any page content yet — scaffolding, types, and API client only.
+Read src/routes/v1/tasks.ts and src/routes/v1/users.ts. Scaffold ui/ with React + TypeScript + Vite, folders components/pages/services/types, and ui/.env.example. Create ui/src/types/task.types.ts with TaskStatus='TO_DO'|'IN_PROGRESS'|'BLOCKED'|'COMPLETED', TaskPriority='LOW'|'MEDIUM'|'HIGH', Task, User, TaskStatusHistory, TaskDependency, and ApiEnvelope<T>. Create ui/src/services/api.ts using VITE_API_BASE_URL default http://localhost:3000/api/v1 and functions: listTasks(filters?), getTask(id), listUsers(), getTaskHistory(id), getTaskDependencies(id), updateTaskStatus(id, body). Return unwrapped envelope data. No pages yet.
 ```
 
 ---
@@ -64,34 +33,7 @@ Do NOT implement any page content yet — scaffolding, types, and API client onl
 The Task List maps to **UC-005 (List Tasks)** in `doc/frd.md`. Send:
 
 ```
-Read ui/src/services/api.ts and ui/src/types/task.types.ts.
-
-Generate ui/src/pages/TaskListPage.tsx — the main dashboard. It must:
-
-1. On load, call both listTasks() and listUsers() in parallel (Promise.all).
-   Build a Map<userId, "FirstName LastName"> from the users response.
-
-2. Render a summary bar at the top showing live counts from the loaded tasks:
-   Total | Completed | In Progress | Blocked | To Do
-   Each count in a coloured pill (match StatusBadge colours).
-
-3. Render filter controls below the summary bar:
-   - Status dropdown: All | TO_DO | IN_PROGRESS | BLOCKED | COMPLETED
-   - Priority dropdown: All | LOW | MEDIUM | HIGH
-   - Assigned To dropdown: All | <each user's full name>
-   When any filter changes, re-call listTasks() with the selected filters.
-
-4. Render the filtered tasks in a table with these exact columns:
-   Task ID (short — first 8 chars + "…") | Title | Priority | Status | Assigned To (full name) | Due Date
-   - Status column uses StatusBadge component
-   - Each row is clickable and navigates to /tasks/:id
-
-5. Extract StatusBadge into ui/src/components/StatusBadge.tsx
-   Colour map: COMPLETED=green (#d4edda/#155724), IN_PROGRESS=blue (#cce5ff/#004085),
-   BLOCKED=red (#f8d7da/#721c24), TO_DO=grey (#e2e3e5/#383d41)
-
-Wire this page as the default route /.
-Keep each component under 50 lines — extract SummaryBar into ui/src/components/SummaryBar.tsx.
+Read ui/src/services/api.ts and ui/src/types/task.types.ts. Create TaskListPage as `/`: load listTasks() + listUsers() in parallel; show SummaryBar counts; filters for status/priority/assignee that re-query; table columns short ID, title, priority, StatusBadge, assigned full name, due date; row click -> /tasks/:id. Extract StatusBadge with the existing green/blue/red/grey status colors and SummaryBar. Keep components under 50 lines.
 ```
 
 ---
@@ -101,43 +43,7 @@ Keep each component under 50 lines — extract SummaryBar into ui/src/components
 Task Detail maps to **UC-004 (Task Detail)** in `doc/frd.md`. Send:
 
 ```
-Read ui/src/services/api.ts and ui/src/types/task.types.ts.
-
-Generate ui/src/pages/TaskDetailPage.tsx. On mount, call these three APIs in parallel:
-  getTask(id), getTaskHistory(id), getTaskDependencies(id)
-Also call listUsers() to resolve user names.
-
-The page must have three sections inside one card layout:
-
-SECTION 1 — Task Info Card
-  - Header row: task title (h2) + StatusBadge on the right
-  - Fields table: Description | Priority | Assigned To (full name) | Due Date | Completed At | Created At
-
-SECTION 2 — Dependencies (FR-3: Task Dependency Management)
-  - Heading: "Dependencies"
-  - If no dependencies: show "No dependencies"
-  - If dependencies exist: render a table with columns:
-    Depends On (task ID, first 8 chars) | Status of that dependency (fetch via getTask for each dependsOnTaskId)
-  - If any dependency status is not COMPLETED, show a warning banner:
-    "⚠️ This task is blocked by incomplete dependencies"
-
-SECTION 3 — Status History (FR-4: Status Tracking)
-  - Heading: "Status History"
-  - Table columns: Date | Changed By (resolve user name) | From | To | Note
-  - Most recent entry first (sort by changedAt descending)
-
-SECTION 4 — Update Status (FR-4: Status Tracking)
-  - Heading: "Update Status"
-  - A small inline form:
-      Status dropdown: TO_DO | IN_PROGRESS | BLOCKED | COMPLETED
-      Note input (text, optional)
-      changedBy: hardcode the first user from listUsers() for now (no auth)
-      Submit button "Update Status"
-  - On submit, call updateTaskStatus(id, { status, changedBy, note })
-  - On success, refresh all three data fetches and show "Status updated" confirmation
-
-Add a "← Back to Task List" button at the top.
-Wire this page at route /tasks/:id.
+Read ui/src/services/api.ts and ui/src/types/task.types.ts. Create TaskDetailPage at /tasks/:id. Fetch task, history, dependencies, users in parallel; resolve names. Sections: task info with StatusBadge; dependencies table with each dependency status and blocked warning if any dependency is not COMPLETED; status history newest first; update-status form using first user as changedBy, refresh on success. Add Back to Task List.
 ```
 
 ---
@@ -147,23 +53,7 @@ Wire this page at route /tasks/:id.
 Once both pages are scaffolded, send:
 
 ```
-Update ui/src/App.tsx to use BrowserRouter with:
-  Route "/" → TaskListPage
-  Route "/tasks/:id" → TaskDetailPage
-  Catch-all → redirect to "/"
-
-Then:
-1. cd ui && npm install react-router-dom
-2. Start the Vite dev server: npm run dev -- --port 5173
-
-Verify end-to-end:
-- Task List loads with summary counts and filter dropdowns
-- Status filters correctly show only matching tasks
-- Assigned To column shows "Alice Johnson" not a UUID
-- Clicking a row opens Task Detail
-- Task Detail shows dependencies with blocked warning where applicable
-- Status History section shows all historical changes
-- Submitting the Update Status form changes the status and refreshes history
+Wire BrowserRouter: / -> TaskListPage, /tasks/:id -> TaskDetailPage, catch-all -> /. Install react-router-dom, run Vite on port 5173, and verify list, filters, resolved user names, detail navigation, dependencies warning, history, and update-status refresh.
 ```
 
 If any step fails, diagnose the error and apply the fix before moving on.

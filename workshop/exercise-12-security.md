@@ -32,15 +32,7 @@ Notice it covers:
 In Copilot Chat (default Agent), type `/` and select **Security Review**, or send:
 
 ```
-Run the security review defined in .github/prompts/security-review.prompt.md against the codebase in src/.
-
-For each OWASP category:
-1. List every file and line that has a potential vulnerability
-2. Explain the risk in plain language
-3. Provide the exact fix
-
-Start with A01 (Broken Access Control) and A03 (Injection) as they are highest priority for API applications.
-Give me a severity rating (CRITICAL / HIGH / MEDIUM / LOW) for each finding.
+Run .github/prompts/security-review.prompt.md against src/. For each OWASP finding, list file/line, severity, plain-language risk, and exact fix. Prioritize A01 and A03.
 ```
 
 ---
@@ -50,14 +42,7 @@ Give me a severity rating (CRITICAL / HIGH / MEDIUM / LOW) for each finding.
 After the review, send this prompt to apply the most important fixes:
 
 ```
-Apply all CRITICAL and HIGH severity findings from that security review.
-
-For each fix:
-1. Show the vulnerable code (before)
-2. Show the fixed code (after)
-3. Explain why the fix closes the vulnerability
-
-Don't apply MEDIUM or LOW findings yet — add a comment with // SECURITY-TODO: [finding summary] instead.
+Apply CRITICAL and HIGH findings only. For each, show before/after and why it fixes the issue. Leave MEDIUM/LOW as // SECURITY-TODO comments.
 ```
 
 Watch Copilot work through the findings and edit the source files in `src/`.
@@ -69,14 +54,7 @@ Watch Copilot work through the findings and edit the source files in `src/`.
 Send this targeted prompt to check the most common injection vectors:
 
 ```
-Audit every database query in src/repositories/ for SQL injection vulnerabilities.
-Specifically check:
-1. Are all queries using parameterized statements? (no string template literals with user input)
-2. Are all user-supplied IDs validated as UUIDs before use in queries?
-3. Are numeric page/limit parameters bounds-checked before use in LIMIT/OFFSET clauses?
-
-For each repository file, report: SAFE or VULNERABLE with the specific line if vulnerable.
-Fix any VULNERABLE patterns immediately.
+Audit src/repositories/ for injection risk: parameterized SQL or safe JSON access, validated IDs, bounded page/limit. Report each file SAFE/VULNERABLE and fix vulnerable patterns.
 ```
 
 ---
@@ -86,14 +64,7 @@ Fix any VULNERABLE patterns immediately.
 Send:
 
 ```
-Create a doc/security-review-report.md summarizing:
-- Date of review: today
-- Reviewer: GitHub Copilot
-- Files reviewed: list all files in src/
-- Findings summary table: Severity | OWASP Category | File | Status (Fixed/Open)
-- Fixed issues: description of each fix applied
-- Open issues: remaining MEDIUM/LOW items with recommended fix
-- Overall security posture assessment
+Create doc/security-review-report.md with date, reviewer, files reviewed, findings table (Severity | OWASP | File | Status), fixed issues, open MEDIUM/LOW items, and overall posture.
 ```
 
 ---

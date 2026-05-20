@@ -49,18 +49,7 @@ This is the generic version. Next, you will create a project-specific one.
 In Copilot Chat, send:
 
 ```
-Create a prompt file at .github/prompts/itms-implementation-plan.prompt.md
-
-This prompt is specifically for the Intelligent Task Management System (ITMS) project.
-When invoked, it should:
-1. Read #frd.md and #tsd.md
-2. Generate a phased implementation plan with our specific tech stack: [YOUR STACK e.g. TypeScript/Express/Use the JSON files in workshop/sample-data/ as the data source]
-3. Reference the correct folder structure: src/routes/, src/services/, src/repositories/, src/models/
-4. Include database migration tasks using our tooling convention
-5. Include tasks for OpenAPI spec generation
-6. Flag tasks suitable for background agent execution
-
-Format: phases as H2 headers, tasks as a table with columns: ID | Task | Effort | FRD Ref | Parallel? | Background Agent?
+Create .github/prompts/itms-implementation-plan.prompt.md for ITMS. It must read #frd.md and #tsd.md, use [YOUR STACK], reference src/routes/, src/services/, src/repositories/, src/models/, include data/migration and OpenAPI tasks, flag Background Agent candidates, and output H2 phases plus a table: ID | Task | Effort | FRD Ref | Parallel? | Background Agent?
 ```
 
 > Replace `[YOUR STACK]` with your choice from Exercise 01.

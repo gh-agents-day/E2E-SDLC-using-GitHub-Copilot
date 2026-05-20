@@ -31,26 +31,7 @@ This prompt instructs Copilot to read your FRD and TSD and produce a phased plan
 Copy and paste this prompt:
 
 ```
-Read #frd.md and #tsd.md carefully.
-
-Generate a complete, phased implementation plan for the Intelligent Task Management System (ITMS).
-
-Structure the plan as:
-- Phase 0: Project setup, folder structure, database migration tooling, CI skeleton
-
-- Phase 1: Task Management (task creation, assignment, dependencies, status tracking)
-- Phase 2: Task Reporting & Progress Summary (project progress, task filters, export)
-- Phase 3: Notifications (email via SendGrid, Teams webhooks)
-- Phase 4: Reporting (monthly reports, CSV/PDF export)
-- Phase 5: Testing, security hardening, and documentation
-
-For each phase, list tasks with:
-- Task ID (T-001, T-002...)
-- Title
-- Effort (S/M/L where S=<4h, M=4-8h, L=8-16h)
-- FRD reference (FR-ID or US-ID)
-- Whether it can run in parallel or must be sequential
-- Whether it's a good candidate for Background Agent (long, self-contained tasks)
+Read #frd.md and #tsd.md. Create doc/implementation-plan.md with phases 0-5: setup, task management, reporting/filters, notifications, exports, testing/security/docs. For each task include ID, title, S/M/L effort, FRD/US reference, parallel/sequential, and Background Agent candidate flag. Do not create code.
 ```
 
 ---

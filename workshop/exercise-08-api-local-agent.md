@@ -16,7 +16,7 @@ This exercise focuses on **3 core endpoints**:
 
 | # | Use Case | What It Does | Endpoint |
 |---|----------|--------------|----------|
-| UC-001 | Task Creation | Create a task; status always starts as `To Do` | `POST /api/v1/tasks` |
+| UC-001 | Task Creation | Create a task; status always starts as `TO_DO` | `POST /api/v1/tasks` |
 | UC-005 | List Tasks | List all tasks with optional filters | `GET /api/v1/tasks` |
 | UC-004 | Task Detail | Get a single task by its ID | `GET /api/v1/tasks/:id` |
 
@@ -57,8 +57,8 @@ Phase 1 — Detect stack: Read .github/copilot-instructions.md → identify lang
 Phase 2 — Scaffold: Entry point, /api/v1 router, JSON body parser, error middleware, folder structure per stack. Health check: GET /api/v1/health → {success:true, data:{status:"ok", timestamp, version:"1.0.0"}}.
 Phase 3 — Data: Copy workshop/sample-data/*.json to: TypeScript→src/data/ | Python→app/data/ | Java→src/main/resources/data/ | C#→Data/. Load into memory on startup.
 Phase 4 — Repository: In-memory store — findAll(filters), findById, create, updateStatus. No DB drivers. Persist every write to JSON immediately.
-Phase 5 — Endpoints (all responses: {success, data, error, meta}): POST /api/v1/tasks — title required, priority in [Low|Medium|High], assignedUserId must exist, new status always="To Do", invalid input→400 VALIDATION_ERROR. GET /api/v1/tasks — filters: status, priority, assignedUserId; meta: total, page, limit. GET /api/v1/tasks/:id — 404 NOT_FOUND if missing.
-Phase 6 — Verify: Start server. curl: GET /health→success:true | GET /tasks→data is array | POST /tasks valid body→data.status="To Do" | GET /tasks/:id→data is object | POST /tasks {}→400 VALIDATION_ERROR.
+Phase 5 — Endpoints (all responses: {success,data,error,meta}): POST /api/v1/tasks — title required, priority in [LOW|MEDIUM|HIGH], assignedUserId must exist, status always TO_DO, invalid→400 VALIDATION_ERROR. GET /api/v1/tasks — filters status/priority/assignedUserId; meta total/page/limit. GET /api/v1/tasks/:id — missing→404 NOT_FOUND.
+Phase 6 — Verify: Start server. curl: GET /health→success:true | GET /tasks→array | POST valid task→status TO_DO | GET /tasks/:id→object | POST {}→400 VALIDATION_ERROR.
 ```
 
 > **What to expect:** Copilot creates `.github/skills/build-api/SKILL.md` — a structured set of plain-English instruction phases, no code. The skill is now reusable for any project in any language.

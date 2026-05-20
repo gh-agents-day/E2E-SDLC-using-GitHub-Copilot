@@ -1,11 +1,11 @@
 ---
 name: GitHub Issues Generator
-description: "Use when you need to convert an implementation plan into GitHub Issues. Triggered by: create GitHub issues, generate work items from plan, convert tasks to issues, create GitHub issues from implementation plan."
+description: "Convert an implementation plan into GitHub Issues."
 ---
 
 # GitHub Issues Generator
 
-Convert the implementation plan (from `doc/implementation-plan.md` or the plan in this conversation) into a structured list of GitHub Issues ready to be created via the **GitHub MCP server** or manually.
+Convert `doc/implementation-plan.md` or the current plan into GitHub Issues ready for GitHub MCP or manual creation.
 
 ## For Each Issue, Provide
 
@@ -35,25 +35,13 @@ Convert the implementation plan (from `doc/implementation-plan.md` or the plan i
 
 ---
 
-## After Generating the Issue List
-
-Provide the following **GitHub MCP commands** to create each issue:
-
-```
-Use the GitHub MCP to create an issue in repository [OWNER/REPO]:
-- Title: "[Issue Title]"
-- Body: [full markdown body above]
-- Labels: [labels]
-- Milestone: [milestone]
-```
-
-> **Note**: Replace `[OWNER/REPO]` with your actual GitHub repository name before running.
+After generating the list, provide GitHub MCP create-issue instructions for repository `[OWNER/REPO]` with title, full body, labels, and milestone.
 
 ---
 
 ## Grouping Rules
 
-- Group issues by Phase (Phase 0 → Phase 1 → Phase 2…)
+- Group issues by Phase (Phase 0 -> Phase 1 -> Phase 2...)
 - Create one **Epic issue** per Phase to link sub-issues
 - Database tasks → label `database`
 - API tasks → label `backend`

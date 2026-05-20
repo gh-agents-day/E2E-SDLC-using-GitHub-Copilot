@@ -73,7 +73,7 @@ This exercise completes **all** of the above in two parallel streams.
 In your terminal:
 
 ```bash
-cd itms-project
+cd <project-root>
 copilot
 ```
 
@@ -94,17 +94,7 @@ Choose **Claude Opus 4.5** (or Auto). These tasks involve multi-file changes wit
 If `.github/copilot-instructions.md` does not exist at the repo root, run from the CLI:
 
 ```
-Read src/app.ts, src/routes/v1/tasks.ts, src/services/task.service.ts,
-src/repositories/json-store.ts, and src/types/index.ts.
-
-Write .github/copilot-instructions.md that documents:
-- Stack: Node.js + Express + TypeScript + Zod + JSON persistence
-- Response envelope: { success, data, error, meta: { requestId, timestamp } }
-- Error classes: AppError, NotFoundError, ValidationError (from src/errors/app-error.ts)
-- Folder pattern: routes → controllers → services → repositories
-- All writes persist to JSON file immediately via JsonStore
-- Logger: src/utils/logger.ts (no console.log)
-- Validation: Zod schemas in src/validators/
+Read the existing src/ patterns and write .github/copilot-instructions.md documenting stack, response envelope, AppError/NotFoundError/ValidationError, routes -> controllers -> services -> repositories flow, JSON persistence, logger usage, and validator location.
 ```
 
 ### Step 1.4 — Use `/plan` to Create a Structured Implementation Plan
@@ -112,56 +102,7 @@ Write .github/copilot-instructions.md that documents:
 Press **Shift+Tab** to switch to plan mode (the prompt label changes to `plan>`), then enter:
 
 ```
-Analyse src/services/task.service.ts, src/routes/v1/tasks.ts,
-src/controllers/task.controller.ts, src/repositories/json-store.ts,
-and src/types/index.ts.
-
-Plan the implementation of these five backend features for the ITMS:
-
-FEATURE A — Auto-blocking logic (T-027)
-  In task.service.ts: whenever a dependency is created via POST
-  /api/v1/tasks/:id/dependencies, check if the dependency task status
-  is not COMPLETED. If so, set the parent task status to BLOCKED and
-  record the status change in task_status_history.json.
-  Similarly, when DELETE /api/v1/tasks/:id/dependencies/:dependencyId
-  removes a dependency, re-evaluate: if all remaining dependencies are
-  COMPLETED (or there are none), restore the task to its previous
-  non-blocked status (default to IN_PROGRESS if unknown).
-
-FEATURE B — Task assignment endpoint (UC-002)
-  PATCH /api/v1/tasks/:id/assign
-  Body: { assignedUserId: string }
-  - Validate assignedUserId exists in users.json
-  - Update task.assignedUserId
-  - Append a record to task_status_history.json noting the reassignment
-  - Response: updated task wrapped in ApiEnvelope
-
-FEATURE C — Dependency management endpoints (UC-003)
-  POST /api/v1/tasks/:id/dependencies
-  Body: { dependsOnTaskId: string }
-  - Validate both task IDs exist
-  - Prevent duplicate dependencies (409 CONFLICT)
-  - Prevent circular dependencies (task cannot depend on itself)
-  - Persist to task_dependencies.json
-  - Trigger Feature A auto-blocking check
-  - Response: created dependency wrapped in ApiEnvelope
-
-  DELETE /api/v1/tasks/:id/dependencies/:dependencyId
-  - Validate dependency exists and belongs to this task
-  - Remove from task_dependencies.json
-  - Trigger Feature A re-evaluation
-  - Response: 204 No Content
-
-FEATURE D — Reports endpoint (T-028)
-  GET /api/v1/reports/progress
-  - Count tasks grouped by status: TO_DO, IN_PROGRESS, BLOCKED, COMPLETED
-  - Return: { total, completed, inProgress, blocked, toDo }
-  - Wire a new reports router at src/routes/v1/reports.ts
-  - Mount at /api/v1/reports in src/routes/v1/index.ts
-
-Organise the plan as checkboxes grouped by feature. Note which features can be
-implemented in parallel (B, C, D are independent of each other; A must be wired
-in after C is scaffolded). Save the plan to plan.md.
+Analyze task routes/controllers/services/repositories/types. Save plan.md for: A auto-block dependencies on create/delete with status history; B PATCH /api/v1/tasks/:id/assign validating assignedUserId; C POST/DELETE dependency endpoints with duplicate/self/circular checks; D GET /api/v1/reports/progress returning {total,completed,inProgress,blocked,toDo}. Use checkboxes, note B/C/D parallel and A after C.
 ```
 
 Press **Shift+Tab** again to exit plan mode after the plan is created.
@@ -181,32 +122,7 @@ Press **Shift+Tab** again to exit plan mode after the plan is created.
 `/fleet` breaks the task into parallel subagents. Each subagent works independently on its group, then results are merged back. Use it here because B, C, and D have no shared state changes:
 
 ```
-/fleet Implement the ITMS backend features from plan.md using three parallel subagents:
-
-Subagent 1 — FEATURE B: Task Assignment
-  Implement PATCH /api/v1/tasks/:id/assign following the existing pattern in
-  src/controllers/task.controller.ts and src/services/task.service.ts.
-  Add a Zod schema AssignTaskSchema in src/validators/task.validator.ts.
-  Wire the route in src/routes/v1/tasks.ts.
-
-Subagent 2 — FEATURES C + A: Dependency CRUD + Auto-blocking
-  Implement POST /api/v1/tasks/:id/dependencies and
-  DELETE /api/v1/tasks/:id/dependencies/:dependencyId.
-  After scaffolding both, wire the auto-blocking logic from FEATURE A into
-  the dependency service methods — check all dependencies on save and
-  re-evaluate on delete.
-  Add Zod schema CreateDependencySchema in src/validators/task.validator.ts.
-  Wire both routes in src/routes/v1/tasks.ts.
-
-Subagent 3 — FEATURE D: Reports Endpoint
-  Create src/routes/v1/reports.ts with GET /progress.
-  Create src/controllers/report.controller.ts.
-  Add a getProgressSummary() method to src/services/task.service.ts.
-  Mount the reports router in src/routes/v1/index.ts at /reports.
-
-All subagents must follow the existing code patterns, use the AppError hierarchy,
-wrap responses in ApiEnvelope, and log with src/utils/logger.ts.
-When all subagents are done, run: npx ts-node src/server.ts
+/fleet Implement plan.md with three subagents: 1) assignment endpoint + validator + route; 2) dependency POST/DELETE + validator + auto-block/unblock logic + status history; 3) reports progress route/controller/service. Follow existing patterns, AppError hierarchy, ApiEnvelope, logger, and validators. When merged, run the server.
 ```
 
 > **What to expect:** Three subagents run simultaneously. You will see output streams from each. When all complete, Copilot starts the server. If any subagent hits an error it will report back and ask for guidance before the others are affected.
@@ -278,111 +194,12 @@ If not connected: `Ctrl+Shift+P` → **MCP: Connect Server** → select **GitHub
 In Copilot Chat, send the following prompt to create all four issues in one go:
 
 ```
-Use the GitHub MCP server to create 4 issues in this repository.
-For each issue, set the label to "copilot" and assign it to the copilot bot user.
+Use GitHub MCP to create 4 issues in this repo. Label each `copilot` and assign the Copilot bot.
 
-Issue 1:
-  Title: "[UC-001] Task Creation Page — Add form to create new tasks"
-  Body:
-  ## Context
-  The ITMS backend already implements `POST /api/v1/tasks` but the React UI has
-  no way to create tasks. Users are blocked from adding new work items.
-
-  ## Acceptance Criteria
-  - A "New Task" button on TaskListPage navigates to a `/tasks/new` route
-  - The creation form collects: Title (required), Description, Priority
-    (LOW / MEDIUM / HIGH dropdown), Assigned To (user dropdown from
-    `listUsers()`), Estimated Completion Date (date picker)
-  - On submit, call `createTask()` in `ui/src/services/api.ts`
-    (add this function: `POST /api/v1/tasks`)
-  - On success, redirect to `/tasks/:newId`
-  - On validation error (400), display inline field errors from the API envelope
-  - Wire the route `/tasks/new` in `ui/src/App.tsx` before `/tasks/:id`
-
-  ## References
-  - `ui/src/services/api.ts` — add `createTask(body)` function
-  - `ui/src/types/task.types.ts` — `CreateTaskBody` type
-  - `itms-project/src/routes/v1/tasks.ts` — `POST /` endpoint spec
-  - `doc/frd.md` UC-001
-
-Issue 2:
-  Title: "[UC-003] Dependency Management UI — Add/remove dependencies in TaskDetailPage"
-  Body:
-  ## Context
-  TaskDetailPage shows dependencies (read-only) but users cannot add or remove
-  them. The backend endpoints `POST /tasks/:id/dependencies` and
-  `DELETE /tasks/:id/dependencies/:dependencyId` are now implemented (Part 1).
-
-  ## Acceptance Criteria
-  - Below the existing Dependencies table, add an "Add Dependency" form:
-      Task ID input (or dropdown of existing tasks from `listTasks()`)
-      "Add" button — calls `addDependency(taskId, dependsOnTaskId)` in `api.ts`
-  - Each row in the dependencies table has a "Remove" button:
-      Calls `removeDependency(taskId, dependencyId)` in `api.ts`
-      On success, refreshes the dependencies list and the task status
-      (the task may have changed from BLOCKED to another status)
-  - If the API returns an error (e.g. circular dependency), show an inline
-    error message above the form
-  - Add these functions to `ui/src/services/api.ts`:
-      `addDependency(taskId, dependsOnTaskId)` → `POST /tasks/:id/dependencies`
-      `removeDependency(taskId, dependencyId)` → `DELETE /tasks/:id/dependencies/:depId`
-
-  ## References
-  - `ui/src/pages/TaskDetailPage.tsx`
-  - `ui/src/services/api.ts`
-  - `itms-project/src/routes/v1/tasks.ts` — dependency endpoints
-
-Issue 3:
-  Title: "[UC-005] Pagination Controls — Page navigation in TaskListPage"
-  Body:
-  ## Context
-  TaskListPage loads only the first 20 tasks. Users with larger projects cannot
-  browse beyond the first page. The backend already supports `page` and `limit`
-  query parameters.
-
-  ## Acceptance Criteria
-  - Below the task table, add a pagination row showing:
-      "Showing X–Y of Z tasks"
-      Previous / Next buttons (disable when at first/last page)
-      Page size selector: 10 | 20 | 50
-  - `listTasks()` in `api.ts` already accepts `page` and `limit` — pass them
-    from component state
-  - The `meta` field in the API response contains `{ total, page, limit }` —
-    use these to calculate total pages
-  - When filters change, reset to page 1
-  - Update `ui/src/services/api.ts` `listTasks()` signature to accept
-    `page?: number` and `limit?: number` in its filters argument
-
-  ## References
-  - `ui/src/pages/TaskListPage.tsx`
-  - `ui/src/services/api.ts`
-  - `itms-project/src/types/index.ts` — `PaginatedMeta` interface
-
-Issue 4:
-  Title: "[UC-006] Progress Dashboard — Project summary report page"
-  Body:
-  ## Context
-  The backend now exposes `GET /api/v1/reports/progress` returning task counts
-  by status. There is no frontend page to visualise this data for project managers.
-
-  ## Acceptance Criteria
-  - Create `ui/src/pages/ProgressPage.tsx` with route `/progress`
-  - Add a "Progress" link in the top navigation (or a nav bar if one does not exist)
-  - The page calls `getProgress()` from `api.ts` on mount
-  - Display a summary card for each status (TO_DO, IN_PROGRESS, BLOCKED,
-    COMPLETED) using the same colour scheme as `StatusBadge`
-  - Show a total task count prominently at the top
-  - Add `getProgress()` to `ui/src/services/api.ts`:
-      `GET /api/v1/reports/progress` → returns `ProgressSummary` type
-  - Add `ProgressSummary` type to `ui/src/types/task.types.ts`:
-      `{ total: number; completed: number; inProgress: number; blocked: number; toDo: number }`
-  - Wire `/progress` in `ui/src/App.tsx`
-
-  ## References
-  - `ui/src/services/api.ts`
-  - `ui/src/types/task.types.ts`
-  - `ui/src/App.tsx`
-  - `itms-project/src/routes/v1/reports.ts` — backend endpoint
+1. `[UC-001] Task Creation Page`: add /tasks/new, createTask(), CreateTaskBody, form fields title/description/priority/assignee/due date, inline validation errors, redirect to detail. Refs: ui App/api/types, src task route, doc/frd.md UC-001.
+2. `[UC-003] Dependency Management UI`: add/remove dependencies in TaskDetailPage, addDependency(), removeDependency(), refresh status/dependencies, show API errors. Refs: ui page/api, src task route.
+3. `[UC-005] Pagination Controls`: add Showing X-Y of Z, Previous/Next, page size 10/20/50, reset page on filter change, pass page/limit through listTasks(). Refs: TaskListPage, api.ts, PaginatedMeta.
+4. `[UC-006] Progress Dashboard`: add /progress page, nav link, getProgress(), ProgressSummary, status cards matching StatusBadge, total count. Refs: ui App/api/types, src reports route.
 ```
 
 > **What to expect:** Copilot Chat uses the GitHub MCP `create_issue` tool to open 4 issues in your repository, each with the `copilot` label and `@copilot` assigned. Confirm each issue URL is returned.
@@ -456,10 +273,10 @@ With all backend changes deployed and all 4 frontend PRs merged, verify the full
 
 ```bash
 # Start the API
-cd itms-project && npm run dev
+cd <project-root> && npm run dev
 
 # Start the UI (separate terminal)
-cd itms-project/ui && npm run dev -- --port 5173
+cd <project-root>/ui && npm run dev -- --port 5173
 ```
 
 | Test | Expected Result |

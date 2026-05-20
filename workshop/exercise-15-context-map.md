@@ -9,7 +9,7 @@
 > ---
 > 🟡 **OPTIONAL EXERCISE**
 >
-> This exercise is **not required** to complete the mandatory track. The context map it produces gives Copilot richer codebase awareness, but Exercises 13–15 work without it. If you run this exercise, reference `context-map.md` in your prompts for Exercises 13 and 14.
+> This exercise is **not required** to complete the mandatory track. If you run it, reference `context-map.md` in later complex prompts.
 >
 > **Best after**: Exercise 08 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 11 — Write Tests](exercise-11-testing.md)
 > ---
@@ -33,10 +33,7 @@ Create the skill directory and file:
 **In Copilot Chat**, send this prompt to fetch and save the skill:
 
 ```
-Fetch the Context Map skill from this URL and save it to .github/skills/context-map/SKILL.md:
-https://raw.githubusercontent.com/github/awesome-copilot/main/skills/context-map/SKILL.md
-
-Then confirm the file was saved correctly by showing me its first 20 lines.
+Fetch https://raw.githubusercontent.com/github/awesome-copilot/main/skills/context-map/SKILL.md and save it to .github/skills/context-map/SKILL.md. Show the first 20 lines to confirm.
 ```
 
 > **Alternative if network access is unavailable**: Ask the instructor for the `SKILL.md` file, or copy it from: https://github.com/github/awesome-copilot/blob/main/skills/context-map/SKILL.md
@@ -54,17 +51,7 @@ Open `.github/skills/context-map/SKILL.md` and read how the skill works. You'll 
 In Copilot Chat (Agent mode, default agent), type `/` and look for **context-map** in the slash command list, or send:
 
 ```
-Follow the instructions in .github/skills/context-map/SKILL.md to generate a context map for this project.
-
-Save the output as .github/skills/context-map/context-map.md
-
-The context map should cover:
-- All directories and their purpose
-- Key source files and what they do
-- Main data models and their relationships
-- API endpoints and their handlers
-- Configuration patterns
-- Test structure
+Follow .github/skills/context-map/SKILL.md and save .github/skills/context-map/context-map.md covering directories, key files, models, API routes/handlers, config, and tests.
 ```
 
 ---

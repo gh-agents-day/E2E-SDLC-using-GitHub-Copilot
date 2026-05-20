@@ -26,16 +26,7 @@ The FRD is the document development teams and QA engineers work from directly. I
 Copy and paste this prompt:
 
 ```
-Read #file:requirement.md Create a comprehensive Functional Requirements Document saved as doc/frd.md.
-
-Include:
-- A User Roles & Permissions Matrix (Developer / Team Lead / Project Manager / QA Engineer vs all features)
-- Detailed use cases for: Task Creation (UC-001), Task Assignment (UC-002), Task Dependency Management (UC-003), Task Status Tracking (UC-004), Task Listing and Filtering (UC-005), Project Progress Summary (UC-006)
-- User stories for each use case with Given/When/Then acceptance criteria in Gherkin format
-- A complete Functional Requirements Catalogue with FR-IDs linked to requirement sections
-- Data validation rules for all input fields (Task ID, title, priority, status, dates)
-- All notification triggers for task reassignment, dependency blocking, and status changes with recipient and content
-- Error scenarios and user-facing error messages
+Read #requirement.md, #brd.md, and #tsd.md; create doc/frd.md. Include roles/permissions, UC-001..UC-006, Gherkin stories, FR catalogue with traceability, validation rules, notification triggers, and user-facing error scenarios.
 ```
 
 ## Checkpoint — Docs Complete ✅
