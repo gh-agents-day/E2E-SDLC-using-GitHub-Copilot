@@ -41,20 +41,19 @@ The workshop has three tracks. Complete the **VS Code Mandatory Track** first, t
 
 ### 🔵 VS Code — Mandatory Track (~40 minutes)
 
-All exercises use VS Code + GitHub Copilot Chat. Complete them in order — each artifact feeds the next.
+All exercises use VS Code + GitHub Copilot Chat. Complete them in order — each artifact feeds the next. Exercise 02 generates the SDLC documents through orchestration, so the mandatory track continues directly to Plan Mode.
 
 | # | Exercise | Copilot Feature | Duration |
 |---|----------|----------------|----------|
 | 01 | [Custom Instructions](workshop/exercise-01-custom-instructions.md) | Workspace Instructions (`copilot-instructions.md`) | 3 min |
 | 02 | [Setup & Custom Agents](workshop/exercise-02-setup-agents.md) | Custom Agents + Agent Orchestration | 8 min |
-| 03 | [SDLC Documentation — BRD + TSD + FRD](workshop/exercise-03-brd.md) | SDLC Docs Orchestrator | 5 min |
-| 04 | [Plan Mode & Implementation Prompt](workshop/exercise-06-plan-mode.md) | Plan Mode + Prompt Files | 5 min |
-| 05 | [Build the API](workshop/exercise-08-api-local-agent.md) | Local Agent + Skills | 15 min |
-| 06 | [Build the UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 10 min |
-| 07 | [Write Tests](workshop/exercise-11-testing.md) | Local Agent + Agent Orchestration | 5 min |
-| 08 | [Build & Debug](workshop/exercise-13-build-debug.md) | Local Agent + Terminal | 5 min |
+| 06 | [Plan Mode & Implementation Prompt](workshop/exercise-06-plan-mode.md) | Plan Mode + Prompt Files | 5 min |
+| 08 | [Build the API](workshop/exercise-08-api-local-agent.md) | Local Agent + Skills | 15 min |
+| 09 | [Build the UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 10 min |
+| 11 | [Write Tests](workshop/exercise-11-testing.md) | Local Agent + Agent Orchestration | 5 min |
+| 13 | [Build & Debug](workshop/exercise-13-build-debug.md) | Local Agent + Terminal | 5 min |
 
-> **Time-saving tip**: Exercise 02 includes an **SDLC Docs Orchestrator** that chains BRD → TSD → FRD in one run. If you run it there, Exercise 03 is a quick verification — the orchestrator already created all three documents.
+> **Time-saving tip**: Exercise 02 includes an **SDLC Docs Orchestrator** that chains BRD → TSD → FRD in one run. After it creates `doc/brd.md`, `doc/tsd.md`, and `doc/frd.md`, continue directly to Exercise 06.
 
 ---
 
@@ -71,8 +70,9 @@ Self-contained exercises. No mandatory exercise depends on them.
 | 13 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | DevOps Agent + Prompt File | 5 min | Ex 08 |
 
 > **Optional deep dives** (individual SDLC agents):
-> - [TSD Agent in Isolation](workshop/exercise-04-tsd.md)
-> - [FRD Agent in Isolation](workshop/exercise-05-frd.md)
+> - [Exercise 03 — BRD Agent in Isolation](workshop/exercise-03-brd.md)
+> - [Exercise 04 — TSD Agent in Isolation](workshop/exercise-04-tsd.md)
+> - [Exercise 05 — FRD Agent in Isolation](workshop/exercise-05-frd.md)
 
 ---
 

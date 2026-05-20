@@ -1,6 +1,6 @@
-> 🟡 **OPTIONAL DEEP DIVE** — Exercise 03 already generates `doc/frd.md` via the SDLC Docs Orchestrator. Return here only if you want to explore the FRD Agent in isolation.
+> 🟡 **OPTIONAL INDIVIDUAL-AGENT PATH** — Exercise 02 already generates `doc/frd.md` through the SDLC Docs Orchestrator. Use this exercise only if you want to run the FRD specialist agent independently.
 >
-> **Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
+> **Return to mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
 # Exercise 05 (Optional) — Explore the FRD Agent in Isolation
 
@@ -13,6 +13,8 @@
 ## Background
 
 The **FRD Author** agent produces the developer-ready document: use cases, Gherkin acceptance criteria, and validation rules. This exercise explores the agent independently.
+
+> **Required inputs**: `doc/brd.md` and `doc/tsd.md` must exist before you run this exercise. If they do not, complete Exercise 03 and Exercise 04 in the optional path, or use the orchestrator in Exercise 02.
 
 ---
 
@@ -45,31 +47,15 @@ Open `doc/frd.md` and check:
 
 ---
 
-## Key Takeaway
-
-> Notice how each Gherkin scenario becomes a test case in Exercise 07 (Testing). FRD → Tests is a direct mapping — the acceptance criteria you read here will appear almost verbatim in the test descriptions.
-
----
-
-**Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
-
-## Step 2 — Send the FRD Generation Prompt
-
-Copy and paste this prompt:
-
-```
-Read #requirement.md, #brd.md, and #tsd.md; create doc/frd.md. Include roles/permissions, UC-001..UC-006, Gherkin stories, FR catalogue with traceability, validation rules, notification triggers, and user-facing error scenarios.
-```
-
-## Checkpoint — Docs Complete ✅
+## Checkpoint — Docs Complete
 
 You should now have:
 
 ```
 doc/
-├── brd.md    ← Business requirements (from Exercise 02)
-├── tsd.md    ← Technical architecture (from Exercise 03)
-└── frd.md    ← Functional requirements + user stories (this exercise)
+├── brd.md    ← Business requirements for create + list tasks
+├── tsd.md    ← Technical architecture for POST and GET /api/v1/tasks
+└── frd.md    ← UC-001 and UC-002 with Gherkin acceptance criteria
 ```
 
 These three documents form the **specification foundation** for all remaining exercises. Every piece of code, database schema, test, and deployment script will trace back to one of these files.
@@ -78,8 +64,8 @@ These three documents form the **specification foundation** for all remaining ex
 
 ## Key Takeaway
 
-> Notice how each agent built on the previous output. BRD → TSD → FRD is the natural SDLC chain, and each agent was pre-wired to read the prior document. This is the power of **document-driven agentic workflows** — Copilot maintains context across the entire specification phase without you having to copy-paste content.
+> Notice how each agent built on the previous output. BRD → TSD → FRD is the natural SDLC chain, and each Gherkin scenario becomes a test case later in the workshop.
 
 ---
 
-**Next**: [Exercise 06 — Plan Mode for Implementation](exercise-06-plan-mode.md)
+**Next for the mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)

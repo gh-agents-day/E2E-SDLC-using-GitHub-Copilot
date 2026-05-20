@@ -1,4 +1,4 @@
-# Exercise 04 — Plan Mode & Implementation Prompt
+# Exercise 06 — Plan Mode & Implementation Prompt
 
 **Duration**: 5 minutes  
 **Copilot Features**: Plan Mode (Copilot Edits) + Prompt Files (`.prompt.md`)  
@@ -88,4 +88,4 @@ In Copilot Chat, type `/` — you should see **itms-implementation-plan** in the
 
 ---
 
-**Next**: [Exercise 05 — Build the API](exercise-08-api-local-agent.md)
+**Next**: [Exercise 08 — Build the API](exercise-08-api-local-agent.md)

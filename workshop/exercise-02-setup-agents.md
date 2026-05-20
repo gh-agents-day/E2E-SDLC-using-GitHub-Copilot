@@ -126,6 +126,8 @@ In VS Code, open the Copilot Chat agent selector — you should see **BRD Author
 
 ---
 
-**Next**: [Exercise 03 — SDLC Documentation](exercise-03-brd.md)
+**Next for the mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
-> If you already ran the orchestrator above and all three docs are created, skip directly to [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md). Exercise 03 provides a guided walkthrough if you want to explore each agent individually.
+> The orchestrator already generated `doc/brd.md`, `doc/tsd.md`, and `doc/frd.md`, so the mandatory track continues directly to Plan Mode.
+>
+> **Optional individual-agent path**: If you want to understand how each specialist agent works independently, continue with [Exercise 03 — Explore the BRD Agent in Isolation](exercise-03-brd.md), then Exercise 04 (TSD) and Exercise 05 (FRD), before returning to Exercise 06.

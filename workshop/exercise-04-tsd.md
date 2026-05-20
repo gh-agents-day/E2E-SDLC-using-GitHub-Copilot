@@ -1,6 +1,6 @@
-> 🟡 **OPTIONAL DEEP DIVE** — Exercise 03 already generates `doc/tsd.md` via the SDLC Docs Orchestrator. Return here only if you want to explore the TSD Agent in isolation.
+> 🟡 **OPTIONAL INDIVIDUAL-AGENT PATH** — Exercise 02 already generates `doc/tsd.md` through the SDLC Docs Orchestrator. Use this exercise only if you want to run the TSD specialist agent independently.
 >
-> **Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
+> **Return to mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
 # Exercise 04 (Optional) — Explore the TSD Agent in Isolation
 
@@ -15,6 +15,8 @@
 The **TSD Author** agent reads the BRD and designs the system architecture — data model, API contracts, tech stack, and security considerations. This exercise lets you explore the agent in isolation to understand its reasoning.
 
 > **Language inherited from Exercise 01**: The TSD agent reads `.github/copilot-instructions.md` and will design the architecture using your chosen language and framework automatically.
+>
+> **Required input**: `doc/brd.md` must exist before you run this exercise. If it does not, complete [Exercise 03 — Explore the BRD Agent in Isolation](exercise-03-brd.md) first, or use the orchestrator in Exercise 02.
 
 ---
 
@@ -45,39 +47,22 @@ Open `doc/tsd.md` and verify:
 
 ---
 
+## Step 4 — Ask for a Specific Architecture Decision (Optional)
+
+Try this follow-up to see how the agent reasons about implementation details:
+
+```
+Update doc/tsd.md with an Integration Points section for async SendGrid email, Microsoft Teams manager alerts, and a sequence diagram for task-status notification flow. Keep the core API scope limited to POST /api/v1/tasks and GET /api/v1/tasks.
+```
+
+---
+
 ## Key Takeaway
 
 > The TSD agent bridges business requirements and engineering. Notice it references the BRD IDs (BR-F01, BR-F02) to maintain traceability — every architectural decision traces back to a business requirement.
 
 ---
 
-**Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
+**Next in the optional individual-agent path**: [Exercise 05 — Explore the FRD Agent in Isolation](exercise-05-frd.md)
 
-## Step 3 — Monitor the Plan
-
-The TSD agent will plan its approach. Look for:
-- It plans to read BOTH `#brd.md` AND `#requirement.md`
-- It mentions Mermaid diagrams
-- It is NOT writing application code
-
-Approve the plan.
-
----
-
-## Step 4 — Ask for a Specific Architecture Decision (Optional)
-
-Try this follow-up to see how the agent reasons:
-
-```
-Update doc/tsd.md Integration Points for async SendGrid email, Microsoft Teams manager alerts, and a sequence diagram for task-status notification flow.
-```
-
----
-
-## Key Takeaway
-
-> The architecture designed here becomes the **source of truth** for the next exercises. Every API you build, every table you create, and every test you write will trace back to `doc/tsd.md`. This is how Copilot becomes a true SDLC co-pilot — not just a code generator, but an architectural collaborator.
-
----
-
-**Next**: [Exercise 05 — Generate FRD](exercise-05-frd.md)
+**Return to mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)

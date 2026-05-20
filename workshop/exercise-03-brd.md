@@ -1,102 +1,99 @@
-> ✅ **Already completed by Exercise 02** — If you ran the **SDLC Docs Orchestrator** in Exercise 02, all three documents are generated. Skip directly to [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md).
+> 🟡 **OPTIONAL INDIVIDUAL-AGENT PATH** — Exercise 02 already generates `doc/brd.md`, `doc/tsd.md`, and `doc/frd.md` through the SDLC Docs Orchestrator. Use Exercises 03-05 only if you want to run each specialist agent independently.
+>
+> **Return to mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
-# Exercise 03 — Generate SDLC Documentation (BRD + TSD + FRD)
+# Exercise 03 (Optional) — Explore the BRD Agent in Isolation
 
-**Duration**: 5 minutes  
-**Copilot Feature**: SDLC Docs Orchestrator Agent  
-**Goal**: Generate focused BRD, TSD, and FRD — all scoped to two features: create a task and list tasks.
+**Duration**: 4 minutes  
+**Copilot Feature**: BRD Custom Agent  
+**Goal**: Understand how the BRD Agent converts the requirement into focused business requirements for create task and list tasks.
 
 ---
 
 ## What This Exercise Covers
 
-This exercise uses the **SDLC Docs Orchestrator** to generate all three specification documents in one run. All documents are scoped to exactly:
+The **BRD Author** agent reads the source requirement and creates the business requirements document. In the individual-agent path, this is the first handoff in the SDLC chain:
+
+```mermaid
+flowchart LR
+	A[requirement.md] --> B[BRD Author]
+	B --> C[doc/brd.md]
+	C --> D[TSD Author]
+	D --> E[FRD Author]
+```
+
+This exercise scopes the BRD to exactly:
 
 | # | Feature | Endpoint |
 |---|---------|----------|
 | 1 | Create a task | `POST /api/v1/tasks` |
 | 2 | List tasks with filters | `GET /api/v1/tasks` |
 
-Scoping upfront keeps each document concise and token-efficient. Every subsequent exercise — API, UI, tests — will trace back to these two use cases.
+Scoping upfront keeps the document concise and token-efficient. The TSD, FRD, API, UI, and tests will trace back to these two business requirements.
 
 ---
 
-## Step 1 — Select the SDLC Docs Orchestrator
+## Step 1 — Select the BRD Author Agent
 
 1. Open Copilot Chat (`Ctrl+Alt+I`)
-2. Click the **agent selector** and choose **SDLC Docs Orchestrator**
+2. Click the **agent selector** and choose **BRD Author**
 
 ---
 
-## Step 2 — Send the Scoped Prompt
+## Step 2 — Send the Scoped BRD Prompt
 
 ```
-Read #requirement.md. Generate BRD → TSD → FRD focused ONLY on:
-1. POST /api/v1/tasks — create a task (title required, description, priority LOW/MEDIUM/HIGH, assignedUserId, estimatedCompletionDate; status always starts as TO_DO)
+Read #requirement.md. Create doc/brd.md focused ONLY on:
+1. POST /api/v1/tasks — create a task
 2. GET /api/v1/tasks — list tasks with optional filters: status, priority, assignedUserId
 
-BRD: BR-F01 (create task), BR-F02 (list tasks), stakeholders, risks/mitigations, glossary.
-TSD: Mermaid architecture diagram, REST endpoint table for only these 2 endpoints, stack rationale, 3-layer architecture (controller/service/repository), OWASP Top 10 considerations, BRD traceability.
-FRD: UC-001 (Create Task) and UC-002 (List Tasks) with Gherkin acceptance criteria, validation rules, and error scenarios.
+Include:
+- BR-F01 for create task
+- BR-F02 for list tasks
+- Stakeholders
+- Business rules
+- Risks and mitigations
+- Glossary
 
-Save to doc/brd.md, doc/tsd.md, doc/frd.md.
+Do not include unrelated ITMS features.
 ```
 
 ---
 
 ## Step 3 — Review the Plan
 
-The orchestrator will show a plan before creating any files. Confirm:
-- [ ] Step 1 creates `doc/brd.md` via the BRD Author agent
-- [ ] Step 2 creates `doc/tsd.md` via the TSD Author agent (reads brd.md)
-- [ ] Step 3 creates `doc/frd.md` via the FRD Author agent (reads brd.md + tsd.md)
+Copilot will show a plan before creating or updating `doc/brd.md`. Confirm:
+- [ ] It reads `requirement.md`
+- [ ] It creates or updates only `doc/brd.md`
+- [ ] It scopes the BRD to create task and list tasks only
+- [ ] It does not create `doc/tsd.md`, `doc/frd.md`, or application code
 
-Click **Continue** to run the orchestration.
+Click **Continue** to run the BRD agent.
 
 ---
 
 ## Step 4 — Verify the Output
 
-Once complete, check:
+Once complete, check `doc/brd.md`:
 
 ```
 doc/
-├── brd.md    ← Business requirements for create + list tasks
-├── tsd.md    ← Technical design for POST and GET /api/v1/tasks
-└── frd.md    ← UC-001 (Create Task) + UC-002 (List Tasks) with Gherkin
+└── brd.md    ← Business requirements for create + list tasks
 ```
 
-- [ ] `doc/brd.md` — Contains BR-F01 and BR-F02 only; no unrelated features
-- [ ] `doc/tsd.md` — REST endpoint table shows exactly 2 entries; Mermaid diagram present
-- [ ] `doc/frd.md` — Contains UC-001 and UC-002 with Given/When/Then acceptance criteria
-
----
-
-## Explore Each Agent in Isolation (Optional)
-
-If you want to understand how each specialist agent works independently, run them individually:
-
-**BRD Agent only:**
-```
-Read #requirement.md. Scope to POST /api/v1/tasks and GET /api/v1/tasks only. Create doc/brd.md with BR-F01 (create task), BR-F02 (list tasks), stakeholders, risks, and glossary.
-```
-
-**TSD Agent only** — switch to the TSD Author agent, then:
-```
-Read #brd.md and #requirement.md. Create doc/tsd.md for only POST and GET /api/v1/tasks. Include Mermaid architecture diagram, endpoint table, 3-layer design, OWASP Top 10, and BRD traceability.
-```
-
-**FRD Agent only** — switch to the FRD Author agent, then:
-```
-Read #requirement.md, #brd.md, and #tsd.md. Create doc/frd.md with UC-001 (Create Task) and UC-002 (List Tasks), Gherkin acceptance criteria, validation rules, and error scenarios. No other use cases.
-```
+- [ ] `BR-F01` describes create task
+- [ ] `BR-F02` describes list tasks with filters
+- [ ] Stakeholders, risks, mitigations, and glossary are present
+- [ ] No unrelated features are added
 
 ---
 
 ## Key Takeaway
 
-> The orchestrator chains BRD → TSD → FRD automatically, each document building on the previous. Scoping the input to exactly two features keeps all three documents concise and directly usable — every field, rule, and acceptance criterion maps to code you will write in the next exercises.
+> The BRD agent turns the raw requirement into business-level scope. The next specialist agent, TSD Author, will read this BRD and convert it into architecture and API design.
 
 ---
 
-**Next**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
+**Next in the optional individual-agent path**: [Exercise 04 — Explore the TSD Agent in Isolation](exercise-04-tsd.md)
+
+**Return to mandatory track**: [Exercise 06 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
