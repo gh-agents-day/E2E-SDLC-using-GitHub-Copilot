@@ -1,16 +1,10 @@
-# Exercise 07 — Create an Implementation Prompt File
+# Exercise 07 — Implementation Prompt File
 
-**Duration**: 3 minutes  
-**Copilot Feature**: Prompt Files (`.prompt.md`)  
-**Goal**: Package your implementation plan into a reusable prompt file that any team member can invoke.
+> ✅ **Merged into Exercise 04** — The Implementation Prompt File exercise is now Part B of [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md).
 
----
+Please continue to Exercise 04 for the full merged exercise, or jump directly to:
 
-## Why This Matters
-
-Right now, only you know how to ask Copilot for a well-structured implementation plan. A **Prompt File** (`.prompt.md`) solves that — it captures your instructions as a saved, versioned file in `.github/prompts/` so any teammate can invoke the same prompt with a single `/` command.
-
-Instead of one person knowing "the right way to ask," the whole team gets a consistent `/itms-implementation-plan` command they can run anytime.
+**Next**: [Exercise 05 — Build the API](exercise-08-api-local-agent.md)
 
 ---
 

@@ -1,16 +1,18 @@
-> ✅ **Already completed by Exercise 02** — If you ran the **SDLC Docs Orchestrator** in Exercise 02, `doc/frd.md` is already generated. Skip to [Exercise 06 — Plan Mode](exercise-06-plan-mode.md), or continue here to explore the FRD Agent in isolation.
+> 🟡 **OPTIONAL DEEP DIVE** — Exercise 03 already generates `doc/frd.md` via the SDLC Docs Orchestrator. Return here only if you want to explore the FRD Agent in isolation.
+>
+> **Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
-# Exercise 05 — Generate the Functional Requirements Document
+# Exercise 05 (Optional) — Explore the FRD Agent in Isolation
 
 **Duration**: 4 minutes  
 **Copilot Feature**: FRD Custom Agent  
-**Goal**: Use the FRD agent to create testable user stories and use cases from the BRD and TSD.
+**Goal**: Understand how the FRD Agent synthesizes BRD + TSD into testable user stories.
 
 ---
 
 ## Background
 
-The FRD is the document development teams and QA engineers work from directly. It breaks down business requirements into **use cases**, **user stories with Gherkin acceptance criteria**, and a **permissions matrix**. The FRD Author agent synthesizes the BRD and TSD into this developer-ready document.
+The **FRD Author** agent produces the developer-ready document: use cases, Gherkin acceptance criteria, and validation rules. This exercise explores the agent independently.
 
 ---
 
@@ -20,6 +22,36 @@ The FRD is the document development teams and QA engineers work from directly. I
 2. Select **FRD Author**
 
 ---
+
+## Step 2 — Send the Scoped FRD Prompt
+
+```
+Read #requirement.md, #brd.md, and #tsd.md. Create doc/frd.md with ONLY:
+- UC-001 (Create Task): POST /api/v1/tasks — Gherkin acceptance criteria for valid creation, missing title (400), invalid priority (400), unknown assignedUserId (404)
+- UC-002 (List Tasks): GET /api/v1/tasks — Gherkin for list all, filter by status, filter by priority, filter by assignedUserId, empty result
+Include validation rules table and error scenario catalogue.
+```
+
+---
+
+## Step 3 — Verify the Output
+
+Open `doc/frd.md` and check:
+
+- [ ] UC-001 (Create Task) with Given/When/Then scenarios for happy path and error cases
+- [ ] UC-002 (List Tasks) with Given/When/Then scenarios for filters
+- [ ] Validation rules table with field-level rules (title required, priority enum, date format)
+- [ ] Error scenarios with HTTP status codes
+
+---
+
+## Key Takeaway
+
+> Notice how each Gherkin scenario becomes a test case in Exercise 07 (Testing). FRD → Tests is a direct mapping — the acceptance criteria you read here will appear almost verbatim in the test descriptions.
+
+---
+
+**Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
 ## Step 2 — Send the FRD Generation Prompt
 

@@ -1,18 +1,20 @@
-> ✅ **Already completed by Exercise 02** — If you ran the **SDLC Docs Orchestrator** in Exercise 02, `doc/tsd.md` is already generated. Skip to [Exercise 06 — Plan Mode](exercise-06-plan-mode.md), or continue here to explore the TSD Agent in isolation.
+> 🟡 **OPTIONAL DEEP DIVE** — Exercise 03 already generates `doc/tsd.md` via the SDLC Docs Orchestrator. Return here only if you want to explore the TSD Agent in isolation.
+>
+> **Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
-> **Language inherited from Exercise 01**: The TSD agent reads `.github/copilot-instructions.md` and will design the architecture (tech stack, data layer, API patterns) using your chosen language and framework automatically.
-
-# Exercise 04 — Generate the Technical Specification Document
+# Exercise 04 (Optional) — Explore the TSD Agent in Isolation
 
 **Duration**: 4 minutes  
 **Copilot Feature**: TSD Custom Agent  
-**Goal**: Use the TSD agent to design the system architecture from the BRD.
+**Goal**: Understand how the TSD Agent works independently by running it against your scoped BRD.
 
 ---
 
 ## Background
 
-The TSD bridges business requirements and engineering. Your **TSD Author** agent acts as a Solutions Architect — it reads the BRD, proposes technology choices, designs the data model and API contracts, and produces a document the development team can build from.
+The **TSD Author** agent reads the BRD and designs the system architecture — data model, API contracts, tech stack, and security considerations. This exercise lets you explore the agent in isolation to understand its reasoning.
+
+> **Language inherited from Exercise 01**: The TSD agent reads `.github/copilot-instructions.md` and will design the architecture using your chosen language and framework automatically.
 
 ---
 
@@ -23,15 +25,33 @@ The TSD bridges business requirements and engineering. Your **TSD Author** agent
 
 ---
 
-## Step 2 — Send the TSD Generation Prompt
-
-Copy and paste this prompt:
+## Step 2 — Send the Scoped TSD Prompt
 
 ```
-Read #brd.md and #requirement.md; create doc/tsd.md. Include Mermaid architecture + ER diagrams, REST endpoints for auth/users/tasks/assignment/dependencies/reporting, stack rationale, OWASP Top 10 security, CI/CD, and BRD ID traceability.
+Read #brd.md and #requirement.md. Create doc/tsd.md focused on POST /api/v1/tasks and GET /api/v1/tasks only. Include: Mermaid architecture diagram, REST endpoint table for exactly these 2 endpoints, 3-layer architecture (controller/service/repository), stack rationale, OWASP Top 10 considerations, and BRD traceability.
 ```
 
 ---
+
+## Step 3 — Review the Output
+
+Open `doc/tsd.md` and verify:
+
+- [ ] Mermaid architecture diagram is present
+- [ ] REST endpoint table shows exactly 2 entries: POST and GET `/api/v1/tasks`
+- [ ] 3-layer architecture is described
+- [ ] Security considerations mention input validation and injection prevention
+- [ ] BRD traceability links to BR-F01 and BR-F02
+
+---
+
+## Key Takeaway
+
+> The TSD agent bridges business requirements and engineering. Notice it references the BRD IDs (BR-F01, BR-F02) to maintain traceability — every architectural decision traces back to a business requirement.
+
+---
+
+**Return to mandatory track**: [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md)
 
 ## Step 3 — Monitor the Plan
 

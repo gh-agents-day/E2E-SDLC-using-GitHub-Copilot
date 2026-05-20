@@ -16,11 +16,24 @@ Think of it as your team's coding standards, permanently injected into Copilot's
 
 ---
 
+## Workshop Scope
+
+This workshop is focused on building **two core features** of the ITMS:
+
+| # | Feature | Endpoint |
+|---|---------|----------|
+| 1 | Create a task | `POST /api/v1/tasks` |
+| 2 | List all tasks | `GET /api/v1/tasks` |
+
+All exercises — documents, API, UI, and tests — are scoped to these two endpoints. This keeps token usage low and the learning path focused.
+
+---
+
 ## Step 0 — Read the Project Requirements
 
 Before choosing a language, open [`requirement.md`](../requirement.md) and read the project requirements. The constraints described there — an in-memory JSON data store, REST API, task management domain — should inform your stack decision.
 
-> Take 1–2 minutes to read it. Notice the data model (tasks, users, dependencies, status history) and the API operations required. This context will shape every decision you make in the workshop.
+> Take 1–2 minutes to read it. Focus on the task data model (Task ID, title, description, priority, status, assigned user, estimated completion date) and the two API operations we will implement.
 
 ---
 
@@ -91,4 +104,4 @@ Observe that Copilot:
 
 ---
 
-**Next**: [Exercise 02 — Setup & Custom Agents + Agent Orchestration](exercise-02-setup-agents.md)
+**Next**: [Exercise 02 — Setup & Custom Agents](exercise-02-setup-agents.md)

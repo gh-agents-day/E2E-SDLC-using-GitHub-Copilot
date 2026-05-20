@@ -1,12 +1,18 @@
-# Exercise 12 — Security Review
+# Exercise 11 (Optional) — Security Review
 
 **Duration**: 4 minutes  
 **Copilot Feature**: Security Prompt File  
-**Goal**: Run a structured OWASP Top 10 security review of the codebase and fix critical findings.
+**Goal**: Run a structured OWASP Top 10 security review of the ITMS codebase and fix critical findings.
 
 ---
 
-## Background
+> ---
+> 🟡 **OPTIONAL EXERCISE**
+>
+> This exercise is **not required** for the mandatory track. Complete it after Exercise 08 (Build & Debug) if you want to add a security review to your SDLC.
+>
+> **Return to mandatory track**: [Exercise 08 — Build & Debug](exercise-13-build-debug.md)
+> ---
 
 Security is not an afterthought in modern SDLC — it's a gate before deployment. GitHub Copilot can audit code against the **OWASP Top 10** and propose fixes. By encoding the review checklist in a prompt file, the entire team runs the same consistent security audit every sprint.
 

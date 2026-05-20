@@ -1,4 +1,4 @@
-# Exercise 16 — Database Design, SQL Scripts & PL/SQL
+# Exercise 12 (Optional) — Database Design, SQL Scripts & PL/SQL
 
 **Duration**: 5 minutes  
 **Copilot Feature**: Local Agent + Instructions  
@@ -11,7 +11,7 @@
 >
 > This exercise is **not required** to complete the mandatory track. It generates the full SQL schema, migrations, and stored procedures. Complete it if database-layer code generation is relevant to your role, or revisit it after the workshop.
 >
-> **Best after**: Exercise 15 (or Exercise 08 if skipping Ex 15) &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 11 — Write Tests](exercise-11-testing.md)
+> **Best after**: Exercise 09 (Context Map) or Exercise 05 (API built) &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 08 — Build & Debug](exercise-13-build-debug.md)
 > ---
 
 
@@ -85,4 +85,4 @@ Check `db/` folder:
 
 ---
 
-**Return to Mandatory Track →**: [Exercise 11 — Write Tests](exercise-11-testing.md)
+**Return to Mandatory Track →**: [Exercise 08 — Build & Debug](exercise-13-build-debug.md)

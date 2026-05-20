@@ -1,20 +1,20 @@
-# Exercise 06 — Plan Mode: Generate Implementation Plan
+# Exercise 04 — Plan Mode & Implementation Prompt
 
-**Duration**: 4 minutes  
-**Copilot Feature**: Plan Mode (Copilot Edits)  
-**Goal**: Use Plan Mode to let Copilot reason through the full implementation strategy before writing any code.
-
----
-
-## Why This Matters
-
-Without Plan Mode, Copilot jumps straight into writing code the moment you send a prompt. For a large feature that touches 10+ files, that is a gamble — you can't course-correct until after the fact.
-
-**Plan Mode flips the order**: Copilot reads your documents, maps out every file and task it intends to touch, and shows you the plan first. You review it, adjust it if needed, and only then approve execution. Think of it as a "dry run" before any file is changed.
+**Duration**: 5 minutes  
+**Copilot Features**: Plan Mode (Copilot Edits) + Prompt Files (`.prompt.md`)  
+**Goal**: Use Plan Mode to create a focused implementation plan for two endpoints, then package it as a reusable prompt file.
 
 ---
 
-## Step 1 — Switch to Plan Mode
+## Part A — Plan Mode (3 minutes)
+
+### Why Plan Mode?
+
+Without Plan Mode, Copilot jumps straight into writing code. For a feature that touches controllers, services, and repositories, that is a gamble — you can't course-correct until after the fact.
+
+**Plan Mode flips the order**: Copilot maps out every file it intends to touch and shows you the plan first. You review it, adjust it if needed, and only then approve execution.
+
+### Step 1 — Switch to Plan Mode
 
 In Copilot Chat:
 1. Click the **mode selector** at the bottom-left of the chat panel
@@ -24,43 +24,68 @@ In Copilot Chat:
 
 ---
 
-## Step 2 — Send the Implementation Planning Prompt
+### Step 2 — Send the Scoped Planning Prompt
 
 This prompt instructs Copilot to read your FRD and TSD and produce a phased plan — **without creating any files yet**.
 
 Copy and paste this prompt:
 
 ```
-Read #frd.md and #tsd.md. Create doc/implementation-plan.md with phases 0-5: setup, task management, reporting/filters, notifications, exports, testing/security/docs. For each task include ID, title, S/M/L effort, FRD/US reference, parallel/sequential, and Background Agent candidate flag. Do not create code.
+Read #frd.md and #tsd.md. Create doc/implementation-plan.md scoped to:
+- Phase 0: Project scaffolding (entry point, router, middleware, folder structure, health check)
+- Phase 1: API — POST /api/v1/tasks and GET /api/v1/tasks (controller, service, repository)
+- Phase 2: UI — TaskListPage (GET tasks, filters) and TaskCreatePage (POST task form)
+- Phase 3: Tests — unit tests for TaskService, integration tests for POST + GET /tasks
+
+For each task: ID, title, effort S/M/L, FRD ref (UC-001 or UC-002), parallel/sequential.
+Do not create any code files.
 ```
 
 ---
 
-## Step 3 — Review and Save the Plan
+### Step 3 — Review and Save the Plan
 
-Copilot will display the full plan in chat before touching any file. Review it:
+Copilot displays the full plan before touching any file. Review:
 
-- [ ] All 5 phases are covered
-- [ ] Phase 0 includes project scaffolding tasks
-- [ ] Tasks reference FRD IDs
-- [ ] Some tasks are flagged as Background Agent candidates
-- [ ] Effort estimates seem reasonable (Phase 1 ≈ 3–5 days total)
+- [ ] Phase 0 includes project scaffolding
+- [ ] Phase 1 covers only POST + GET `/api/v1/tasks`
+- [ ] Phase 2 covers TaskListPage and TaskCreatePage
+- [ ] Phase 3 covers tests for these endpoints only
+- [ ] Tasks reference FRD IDs (UC-001, UC-002)
 
-Once satisfied, click **Open in Editor** in the Copilot response — this saves the plan as `doc/implementation-plan.md` in your workspace.
-
----
-
-## Verify
-
-Open `doc/implementation-plan.md` and confirm:
-
-- [ ] All phases are present
-- [ ] Tasks have IDs, effort estimates, and FRD references
-- [ ] Background Agent candidates are flagged
-- [ ] Total effort per phase is summarized
+Click **Open in Editor** — this saves the plan as `doc/implementation-plan.md`.
 
 ---
 
-> This plan is the input for the next exercise — you will package it into a reusable prompt file your whole team can invoke.
+## Part B — Implementation Prompt File (2 minutes)
 
-**Next**: [Exercise 07 — Create Implementation Prompt File](exercise-07-implementation-prompt.md)
+### Why Prompt Files?
+
+A `.prompt.md` file packages your prompt so any team member can run it with a single `/` command — no copy-pasting required.
+
+### Step 1 — Create the Project Prompt File
+
+In Copilot Chat (Agent mode, default agent), send:
+
+```
+Create .github/prompts/itms-implementation-plan.prompt.md for the ITMS project. It must:
+- Read #frd.md and #tsd.md
+- Focus on POST /api/v1/tasks and GET /api/v1/tasks only
+- Reference src/routes/, src/services/, src/repositories/, src/models/
+- Include UI pages: TaskListPage and TaskCreatePage
+- Output phases as H2 headers with a table: ID | Task | Effort | FRD Ref | Parallel?
+```
+
+### Step 2 — Verify the Command
+
+In Copilot Chat, type `/` — you should see **itms-implementation-plan** in the command palette.
+
+---
+
+## Key Takeaway
+
+> Plan Mode prevents premature code generation. The prompt file turns your planning workflow into a team-wide standard — one command gives any developer the same implementation plan, scoped exactly to the two features you are building.
+
+---
+
+**Next**: [Exercise 05 — Build the API](exercise-08-api-local-agent.md)

@@ -1,8 +1,8 @@
-# Exercise 13 — Build & Debug with the Local Agent
+# Exercise 08 — Build & Debug
 
 **Duration**: 5 minutes  
 **Copilot Feature**: Local Agent + Terminal Tool  
-**Goal**: Use Copilot to build the application in the terminal, interpret errors, and iteratively fix them until all tests pass.
+**Goal**: Use Copilot to build the ITMS application, interpret errors, and iterate until both endpoints and both UI pages work end-to-end.
 
 ---
 
@@ -60,7 +60,7 @@ If the request fails, Copilot will:
 Send:
 
 ```
-Start the app if needed, then run npm run test:integration or stack equivalent. For failures, compare with doc/frd.md Gherkin criteria, fix root cause, and rerun.
+Start the app if needed, then run npm run test:integration or stack equivalent. For failures, compare with doc/frd.md Gherkin criteria for UC-001 and UC-002, fix root cause, and rerun.
 ```
 
 ---
@@ -70,25 +70,31 @@ Start the app if needed, then run npm run test:integration or stack equivalent. 
 Send a final validation prompt:
 
 ```
-Run a curl E2E flow: list seeded tasks, create HIGH task for valid user due next Friday, get it and confirm TO_DO, patch to IN_PROGRESS, confirm history, patch to COMPLETED, filter COMPLETED and confirm it appears. Show commands/responses and fix any error.
+Run a full E2E curl verification:
+1. GET /api/v1/tasks — list seeded tasks
+2. POST /api/v1/tasks — create a HIGH priority task for a valid user with a future due date
+3. Confirm response has status TO_DO and a task ID
+4. GET /api/v1/tasks?status=TO_DO — confirm the new task appears in the filtered list
+5. POST /api/v1/tasks with missing title — confirm 400 VALIDATION_ERROR
+Show all commands, responses, and fix any error found.
 ```
 
 ---
 
-## Debugging Tips for Attendees
+## Debugging Tips
 
 If Copilot gets stuck in a loop on a specific error:
 
 ```
 Stop trying to fix [specific error]. Let's approach this differently.
-What is the root cause of this error based on the stack trace? 
+What is the root cause of this error based on the stack trace?
 What are the 3 most likely causes? Eliminate them one by one.
 ```
 
 If a test keeps failing after fixes:
 
 ```
-Read the original acceptance criteria in doc/frd.md for [FR-ID or US-ID].
+Read the original acceptance criteria in doc/frd.md for UC-001 or UC-002.
 Is the test testing the right thing? Is the implementation correct per the FRD?
 Tell me which is wrong — the test or the implementation — before making any changes.
 ```
@@ -97,12 +103,39 @@ Tell me which is wrong — the test or the implementation — before making any 
 
 ## Key Takeaway
 
-> The local agent's superpower is the **terminal + code edit + reasoning** combination. A human debugger reads an error, opens the file, makes a change, saves, rebuilds, checks the output. The local agent does this loop autonomously, maintaining context across multiple iterations. The key practice is to give it a **goal** ("all tests pass") rather than micro-managing each step.
+> The local agent's superpower is the **terminal + code edit + reasoning** combination. It reads error output, traces the root cause through the stack, makes a targeted fix, and re-runs — all in one session. Give it a **goal** ("all tests pass, E2E flow works") rather than micro-managing each step.
 
 ---
 
 **🏁 Mandatory Track Complete!**
 
-You have completed all 13 mandatory exercises and experienced the full E2E SDLC lifecycle with GitHub Copilot — from requirements through architecture, implementation, UI, testing, and security.
+You have completed all 8 mandatory exercises and built a working ITMS with:
+- `POST /api/v1/tasks` — create a task
+- `GET /api/v1/tasks` — list tasks with filters
+- Task List UI + Create Task UI
+- Unit + integration tests
 
-> 🟡 **Optional capstone**: Continue with [Exercise 17 — IaC & CI/CD](exercise-17-iac-cicd.md) to generate Docker, Terraform/Bicep, and GitHub Actions pipelines for the ITMS application.
+| Completed | Output |
+|-----------|--------|
+| Ex 01 | `.github/copilot-instructions.md` |
+| Ex 02 | Custom agents + SDLC orchestrator |
+| Ex 03 | `doc/brd.md`, `doc/tsd.md`, `doc/frd.md` |
+| Ex 04 | `doc/implementation-plan.md`, prompt file |
+| Ex 05 | REST API — POST + GET `/api/v1/tasks` |
+| Ex 06 | UI — TaskListPage + TaskCreatePage |
+| Ex 07 | Unit + integration tests |
+| Ex 08 | Build verified, E2E flow passing |
+
+---
+
+## Continue with Optional Exercises
+
+| Exercise | Topic |
+|----------|-------|
+| [Ex 09 — Context Map](exercise-15-context-map.md) | Generate a codebase map to improve Copilot accuracy |
+| [Ex 10 — GitHub Issues via MCP](exercise-14-github-issues.md) | Convert the plan to GitHub Issues |
+| [Ex 11 — Security Review](exercise-12-security.md) | OWASP Top 10 audit and fixes |
+| [Ex 12 — Database & SQL](exercise-16-database-sql.md) | Swap JSON store for a real database |
+| [Ex 13 — IaC & CI/CD](exercise-17-iac-cicd.md) | Docker, Bicep/Terraform, GitHub Actions |
+| [CLI Track](cli-track.md) | Rebuild features with Copilot CLI /plan + /fleet |
+| [Cloud Agent Track](cloud-agent-track.md) | Delegate features to the Copilot Coding Agent |

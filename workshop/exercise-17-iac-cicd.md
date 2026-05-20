@@ -1,4 +1,4 @@
-# Exercise 17 — Infrastructure as Code & CI/CD Pipelines
+# Exercise 13 (Optional) — Infrastructure as Code & CI/CD Pipelines
 
 **Duration**: 5 minutes  
 **Copilot Feature**: DevOps Custom Agent + Prompt Files  
@@ -9,9 +9,9 @@
 > ---
 > 🟡 **OPTIONAL EXERCISE**
 >
-> This exercise is **not required** for the mandatory track. It is the infrastructure and deployment capstone — ideal if you have extra time after Exercise 15 or want to explore IaC and CI/CD automation with Copilot after the workshop.
+> This exercise is **not required** for the mandatory track. It is the infrastructure and deployment capstone — ideal if you have extra time after Exercise 08 or want to explore IaC and CI/CD automation with Copilot after the workshop.
 >
-> **Best after**: Exercise 15 &nbsp;|&nbsp; This is the final exercise in the workshop.
+> **Best after**: Exercise 09 (Context Map) &nbsp;|&nbsp; This is the final exercise in the workshop.
 > ---
 
 

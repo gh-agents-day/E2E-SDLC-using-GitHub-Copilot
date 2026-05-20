@@ -1,94 +1,89 @@
 # E2E SDLC with GitHub Copilot — Workshop
 
 > **Audience**: Developers, Tech Leads, Architects  
-> **Total Duration**: ~41 min mandatory + ~30 min optional (see two-track map below)  
-> **Pre-requisites**: VS Code with GitHub Copilot Chat extension, Node/Python/Java runtime, Git CLI, GitHub Copilot access, GitHub MCP, Mermaid extension for VS code.
+> **Total Duration**: ~40 min mandatory + ~30 min optional + separate CLI/Cloud Agent tracks  
+> **Pre-requisites**: VS Code with GitHub Copilot Chat extension, Node/Python/Java/.NET runtime, Git CLI, GitHub Copilot access
 
 ---
 
 ## What You Will Build
 
-An **Intelligent Task Management System (ITMS)** — a realistic business application that covers every phase of the Software Development Life Cycle, all guided by GitHub Copilot.
+An **Intelligent Task Management System (ITMS)** — focused on two core endpoints and their UI:
 
-The system enables teams to create, assign, and track tasks, manage task dependencies, monitor project progress, and identify bottlenecks — all key pain points for software teams working across multiple members and workstreams.
+| # | Feature | Endpoint |
+|---|---------|----------|
+| 1 | Create a task | `POST /api/v1/tasks` |
+| 2 | List tasks with filters | `GET /api/v1/tasks` |
 
-**Core capabilities from [`requirement.md`](requirement.md):**
+You also build the UI: a **Task List page** (browse and filter tasks) and a **Create Task page** (form to submit a new task).
 
-| Capability | Description |
-|---|---|
-| **Task Creation** | Create tasks with ID, title, priority, status, assignee, and due date |
-| **Task Assignment** | Assign or reassign tasks to team members |
-| **Dependency Management** | Link tasks with dependencies; auto-mark blocked tasks |
-| **Status Tracking** | Track To Do / In Progress / Blocked / Completed with history |
-| **Filtering & Listing** | Query tasks by status, priority, assignee, or due date |
-| **Progress Summary** | Dashboard showing total, completed, in-progress, and blocked counts |
-
-> The requirement is already in [`requirement.md`](requirement.md). You do **not** need to write the application yourself — Copilot does the heavy lifting. Your job is to learn how to **direct Copilot effectively** through each SDLC phase.
+> The full system requirement is in [`requirement.md`](requirement.md). The workshop focuses on these two features to keep the SDLC cycle complete, token-efficient, and achievable in a single session.
 
 ---
 
 ## Prerequisites
 
-Participants should have the following set up before starting the workshop:
-
-- [VS Code](https://code.visualstudio.com/download) with GitHub Copilot Chat extension
-- Node/Python/Java runtime/.net SDK (depending on your language choice)
-- GitHub Copilot access
+- [VS Code](https://code.visualstudio.com/download) with the GitHub Copilot Chat extension
+- Node / Python / Java runtime / .NET SDK (depending on your language choice)
+- GitHub Copilot access (VS Code extension signed in)
 - [Git CLI](https://git-scm.com/install/)
-- [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli)
-- [GitHub MCP](https://github.com/mcp/github/github-mcp-server)
-- [Mermaid extension](https://marketplace.visualstudio.com/items?itemName=MermaidChart.vscode-mermaid-chart) for VS code
-
-## Workshop Map
-
-> **Two-Track Design**: Complete the **Mandatory Track** first (~80 min) — it covers every SDLC phase end-to-end with no gaps. Then pick any **Optional** exercises based on time and interest. Optional exercises are self-contained; no mandatory exercise depends on them.
+- **For CLI Track only**: [Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli)
+- **For Cloud Agent Track only**: GitHub MCP + GitHub Personal Access Token (`repo`, `issues` scopes)
+- [Mermaid Preview extension](https://marketplace.visualstudio.com/items?itemName=MermaidChart.vscode-mermaid-chart) for VS Code (recommended)
 
 ---
 
-### 🔵 Mandatory Track (~80 minutes)
+## Workshop Structure
 
-These exercises form the core SDLC journey. Each builds directly on the previous one and introduces a distinct GitHub Copilot feature.
+The workshop has three tracks. Complete the **VS Code Mandatory Track** first, then pick any optional exercises or alternate tracks based on your time and interests.
+
+---
+
+### 🔵 VS Code — Mandatory Track (~40 minutes)
+
+All exercises use VS Code + GitHub Copilot Chat. Complete them in order — each artifact feeds the next.
 
 | # | Exercise | Copilot Feature | Duration |
 |---|----------|----------------|----------|
-| 01 | [Custom Instructions](workshop/exercise-01-custom-instructions.md) | Workspace Instructions (`.github/copilot-instructions.md`) | 3 min |
-| 02 | [Setup & Custom Agents](workshop/exercise-02-setup-agents.md) | Custom Agents + Agent Orchestration (`.agent.md`) | 8 min |
-| 03 | [Generate BRD](workshop/exercise-03-brd.md) _(skip if Ex 02 orchestrator ran)_ | BRD Custom Agent | 4 min |
-| 04 | [Generate TSD](workshop/exercise-04-tsd.md) _(skip if Ex 02 orchestrator ran)_ | TSD Custom Agent | 4 min |
-| 05 | [Generate FRD](workshop/exercise-05-frd.md) _(skip if Ex 02 orchestrator ran)_ | FRD Custom Agent | 4 min |
-| 06 | [Plan Mode – Implementation Plan](workshop/exercise-06-plan-mode.md) | Plan Mode | 4 min |
-| 07 | [Create Implementation Prompt File](workshop/exercise-07-implementation-prompt.md) | Prompt Files | 3 min |
-| 08 | [Build APIs with Local Agent](workshop/exercise-08-api-local-agent.md) | Local (Default) Agent | 5 min |
-| 09 | [Design & Scaffold the Task Management UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 5 min |
-| 10 | [Complete ITMS: CLI with /plan & /fleet + Coding Agent](workshop/exercise-10-cli-fleet-and-coding-agent.md) | Copilot CLI (`/plan`, `/fleet`) + Coding Agent via MCP | 30 min |
-| 11 | [Unit & Functional Tests](workshop/exercise-11-testing.md) | Local Agent + Prompt File | 5 min |
-| 12 | [Security Review](workshop/exercise-12-security.md) | Security Prompt File | 4 min |
-| 13 | [Build & Debug](workshop/exercise-13-build-debug.md) | Local Agent + Terminal | 5 min |
+| 01 | [Custom Instructions](workshop/exercise-01-custom-instructions.md) | Workspace Instructions (`copilot-instructions.md`) | 3 min |
+| 02 | [Setup & Custom Agents](workshop/exercise-02-setup-agents.md) | Custom Agents + Agent Orchestration | 8 min |
+| 03 | [SDLC Documentation — BRD + TSD + FRD](workshop/exercise-03-brd.md) | SDLC Docs Orchestrator | 5 min |
+| 04 | [Plan Mode & Implementation Prompt](workshop/exercise-06-plan-mode.md) | Plan Mode + Prompt Files | 5 min |
+| 05 | [Build the API](workshop/exercise-08-api-local-agent.md) | Local Agent + Skills | 15 min |
+| 06 | [Build the UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 10 min |
+| 07 | [Write Tests](workshop/exercise-11-testing.md) | Local Agent + Agent Orchestration | 5 min |
+| 08 | [Build & Debug](workshop/exercise-13-build-debug.md) | Local Agent + Terminal | 5 min |
 
-> **Why these 13?** They cover every key Copilot feature — Custom Agents → Agent Orchestration → Prompt Files → Plan Mode → Local Agent → UI Scaffolding → CLI (`/plan` & `/fleet`) → Coding Agent → Testing → Security — mirroring a real SDLC from requirements to a running, tested application.
-
-> **Time-saving tip**: Exercise 02 includes an **SDLC Docs Orchestrator** agent that automatically chains BRD → TSD → FRD generation in one run. If you use it, Exercises 03, 04, and 05 are already complete — skip directly to Exercise 06, saving ~12 minutes. The TSD it generates will automatically use the language you chose in Exercise 01.
+> **Time-saving tip**: Exercise 02 includes an **SDLC Docs Orchestrator** that chains BRD → TSD → FRD in one run. If you run it there, Exercise 03 is a quick verification — the orchestrator already created all three documents.
 
 ---
 
-### 🟡 Optional Track (~30 minutes — pick any, in any order)
+### 🟡 VS Code — Optional Track (~30 minutes — pick any, in any order)
 
-These exercises are self-contained. No mandatory exercise depends on them. Complete them if time allows, or revisit them after the workshop.
+Self-contained exercises. No mandatory exercise depends on them.
 
 | # | Exercise | Copilot Feature | Duration | Best After |
 |---|----------|----------------|----------|------------|
-| 14 | [Create GitHub Issues via MCP](workshop/exercise-14-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 07 |
-| 15 | [Context Map Skill](workshop/exercise-15-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 08 |
-| 16 | [Database & SQL / PL/SQL](workshop/exercise-16-database-sql.md) | Local Agent + Instructions | 5 min | Ex 15 |
-| 17 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | Custom Agent + Prompt File | 5 min | Ex 13 |
+| 09 | [Context Map Skill](workshop/exercise-15-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 05 |
+| 10 | [GitHub Issues via MCP](workshop/exercise-14-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 04 |
+| 11 | [Security Review](workshop/exercise-12-security.md) | Security Prompt File | 4 min | Ex 08 |
+| 12 | [Database & SQL](workshop/exercise-16-database-sql.md) | Local Agent + Instructions | 5 min | Ex 09 |
+| 13 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | DevOps Agent + Prompt File | 5 min | Ex 08 |
 
-> **Note on Ex 14**: Requires a GitHub repository and a Personal Access Token with `repo` and `issues` scopes. Skip if GitHub MCP is not pre-configured in your environment.
-> **Note on Ex 16**: References the context map from Ex 15. If you skip Ex 15, remove the `#context-map.md` reference from the prompts before sending.
+> **Optional deep dives** (individual SDLC agents):
+> - [TSD Agent in Isolation](workshop/exercise-04-tsd.md)
+> - [FRD Agent in Isolation](workshop/exercise-05-frd.md)
 
 ---
-> The workshop has been tested with the following AI models on GitHub Copilot: `Claude Sonnet 4.6`,`GPT-5.3-codex`. Results may vary with different models. If you encounter issues, try switching to one of these models in your Copilot settings.
 
-> **Note:** Complete **Mandatory** exercises in order (each artifact feeds the next). **Optional** exercises can be done in any order after their recommended prerequisite, or revisited after the workshop.
+### 🟣 Alternate Tracks (Independent — same features, different tools)
+
+These tracks implement the same ITMS features (POST + GET tasks, Task List + Create Task UI) using different Copilot surfaces. Complete the VS Code Mandatory Track first to understand the features, then try an alternate track.
+
+| Track | Tool | Duration | Link |
+|-------|------|----------|------|
+| **CLI Track** | Copilot CLI (`/plan` + `/fleet`) | ~20 min | [cli-track.md](workshop/cli-track.md) |
+| **Cloud Agent Track** | Copilot Coding Agent via GitHub Issues | ~25 min | [cloud-agent-track.md](workshop/cloud-agent-track.md) |
 
 ---
 
@@ -96,25 +91,26 @@ These exercises are self-contained. No mandatory exercise depends on them. Compl
 
 | Feature | Description |
 |---------|-------------|
-| **Custom Agents** | Scoped AI personas with tool restrictions and domain prompts |
-| **Plan Mode** | Pre-execution planning before Copilot takes action |
+| **Workspace Instructions** | Always-on coding standards in every Copilot conversation |
+| **Custom Agents** | Scoped AI personas — BRD Author, TSD Author, FRD Author, Test Orchestrator |
+| **Agent Orchestration** | Chains specialist agents in sequence (BRD → TSD → FRD) |
+| **Plan Mode** | Pre-execution planning — see what Copilot will do before it acts |
+| **Prompt Files** | Reusable, team-wide prompt templates (`.prompt.md`) |
+| **Skills** | On-demand workflow bundles (`SKILL.md`) — build-api, context-map |
 | **Local Agent** | Default interactive coding agent in VS Code |
-| **Copilot CLI** | `/plan` and `/fleet` commands for parallel feature implementation |
-| **Coding Agent** | Asynchronous agent that opens PRs from GitHub Issues |
-| **Prompt Files** | Reusable, parameterized prompt templates (`.prompt.md`) |
-| **Instructions** | Always-on context injected into every Copilot conversation |
-| **Skills** | On-demand workflow bundles loaded from `SKILL.md` |
-| **GitHub MCP** | Model Context Protocol server for GitHub integration |
+| **Copilot CLI** | `/plan` and `/fleet` for terminal-native parallel implementation |
+| **Copilot Coding Agent** | Async agent that opens PRs from GitHub Issues |
+| **GitHub MCP** | Model Context Protocol server for GitHub project management |
 
 ---
 
 ## Getting Started
 
-1. Open the cloned repository in VS Code
-1. Ensure **GitHub Copilot** and **GitHub Copilot Chat** extensions are installed and signed in
-1. Open the Copilot Chat panel (`Ctrl+Alt+I`)
-1. Start with [Exercise 01](workshop/exercise-01-custom-instructions.md)
-1. Configure your GitHub token for MCP access by setting `GITHUB_TOKEN` in your environment
+1. Clone this repository and open it in VS Code
+2. Install the **GitHub Copilot** and **GitHub Copilot Chat** extensions and sign in
+3. Open the Copilot Chat panel (`Ctrl+Alt+I`)
+4. Start with [Exercise 01 — Custom Instructions](workshop/exercise-01-custom-instructions.md)
+
 ---
 
-> **Instructor Note**: Each exercise has a `> Instructor Guide` section visible only in the markdown source. Exercises are designed so attendees never need to copy code — they copy **prompts** and let Copilot generate the output.
+> **Instructor Note**: Exercises are designed so attendees copy **prompts**, not code. Every piece of code, document, and configuration is generated by Copilot. The workshop teaches how to direct Copilot effectively through each SDLC phase.

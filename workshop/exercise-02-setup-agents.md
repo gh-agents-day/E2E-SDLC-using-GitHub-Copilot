@@ -67,7 +67,7 @@ Now you will create a new agent using the same approach — this time an **orche
 ```markdown
 ---
 name: SDLC Docs Orchestrator
-description: "Generate BRD, TSD, and FRD in sequence."
+description: "Generate BRD, TSD, and FRD in sequence, scoped to create-task and list-tasks."
 tools: [vscode, execute, read, agent, browser, edit, search, web, todo]
 ---
 
@@ -75,9 +75,9 @@ You orchestrate SDLC documentation. Delegate all content generation; do not writ
 
 Run these steps in order and wait for each file before continuing:
 
-1. Invoke **BRD Author**: read `requirement.md`; create `doc/brd.md`; include BR-F/BR-NF/BR-R IDs, stakeholders, risks/mitigations, glossary.
-2. Invoke **TSD Author**: read `doc/brd.md` and `requirement.md`; create `doc/tsd.md`; include Mermaid architecture + ER diagrams, REST endpoints, stack rationale, OWASP Top 10 security, CI/CD, BRD traceability.
-3. Invoke **FRD Author**: read `doc/brd.md`, `doc/tsd.md`, and `requirement.md`; create `doc/frd.md`; include roles/permissions, UC-001..UC-006, Gherkin stories, FR catalogue, validation, notifications, errors.
+1. Invoke **BRD Author**: read `requirement.md`; create `doc/brd.md`; include BR-F01 (create task), BR-F02 (list tasks), stakeholders, risks/mitigations, glossary. Focus ONLY on POST /api/v1/tasks and GET /api/v1/tasks.
+2. Invoke **TSD Author**: read `doc/brd.md` and `requirement.md`; create `doc/tsd.md`; include Mermaid architecture diagram, REST endpoint table for POST and GET /api/v1/tasks only, stack rationale, OWASP Top 10 security, BRD traceability.
+3. Invoke **FRD Author**: read `doc/brd.md`, `doc/tsd.md`, and `requirement.md`; create `doc/frd.md`; include UC-001 (Create Task) and UC-002 (List Tasks) with Gherkin acceptance criteria, validation rules, and error scenarios.
 
 Afterward, report:
 
@@ -98,7 +98,7 @@ Afterward, report:
 2. Paste the following prompt:
 
 ```
-Read requirement.md and generate BRD → TSD → FRD in order. Save as doc/brd.md, doc/tsd.md, and doc/frd.md.
+Read requirement.md. Generate BRD → TSD → FRD focused on: POST /api/v1/tasks (create task) and GET /api/v1/tasks (list tasks with filters). Save as doc/brd.md, doc/tsd.md, and doc/frd.md.
 ```
 
 3. Review the plan Copilot shows before approving — confirm it shows three sequential steps (BRD → TSD → FRD)
@@ -112,9 +112,9 @@ Read requirement.md and generate BRD → TSD → FRD in order. Save as doc/brd.m
 
 Once complete, confirm all three documents were created:
 
-- [ ] `doc/brd.md` exists and contains numbered business requirements (BR-F-001…)
-- [ ] `doc/tsd.md` exists and contains Mermaid architecture diagrams
-- [ ] `doc/frd.md` exists and contains use cases (UC-001…) and Gherkin acceptance criteria
+- [ ] `doc/brd.md` exists and contains BR-F01 (create task) and BR-F02 (list tasks)
+- [ ] `doc/tsd.md` exists with Mermaid architecture diagram and only 2 REST endpoints
+- [ ] `doc/frd.md` exists with UC-001 (Create Task) and UC-002 (List Tasks) with Gherkin criteria
 
 In VS Code, open the Copilot Chat agent selector — you should see **BRD Author**, **TSD Author**, **FRD Author**, and **SDLC Docs Orchestrator** all listed.
 
@@ -122,9 +122,10 @@ In VS Code, open the Copilot Chat agent selector — you should see **BRD Author
 
 ## Key Takeaway
 
-> Custom agents encode domain expertise once and reuse it across projects. **Agent orchestration** chains specialists into automated pipelines — the orchestrator ensures BRD → TSD → FRD runs in the correct dependency order without you switching agents manually. Exercises 03, 04, and 05 are now complete. 
+> Custom agents encode domain expertise once and reuse it across projects. **Agent orchestration** chains specialists into automated pipelines — the orchestrator ensures BRD → TSD → FRD runs in the correct dependency order without you switching agents manually.
 
 ---
 
-**Next**: [Exercise 06 — Plan Mode for Implementation](exercise-06-plan-mode.md) 
-If you didn't run the orchestrator, you can still complete Exercises 03, 04, and 05 manually by switching to each agent and sending the respective prompts. Start with [Exercise 03 — BRD](exercise-03-brd.md) → [Exercise 04 — TSD](exercise-04-tsd.md) → [Exercise 05 — FRD](exercise-05-frd.md)
+**Next**: [Exercise 03 — SDLC Documentation](exercise-03-brd.md)
+
+> If you already ran the orchestrator above and all three docs are created, skip directly to [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md). Exercise 03 provides a guided walkthrough if you want to explore each agent individually.

@@ -1,8 +1,8 @@
-# Exercise 15 — Create a Context Map Skill
+# Exercise 09 (Optional) — Create a Context Map Skill
 
 **Duration**: 4 minutes  
 **Copilot Feature**: Skills (`SKILL.md`)  
-**Goal**: Install the Context Map skill from the awesome-copilot repository and use it to generate a codebase map that improves all subsequent Copilot interactions.
+**Goal**: Install the Context Map skill and use it to generate a codebase map that improves all subsequent Copilot interactions.
 
 ---
 
@@ -11,7 +11,7 @@
 >
 > This exercise is **not required** to complete the mandatory track. If you run it, reference `context-map.md` in later complex prompts.
 >
-> **Best after**: Exercise 08 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 11 — Write Tests](exercise-11-testing.md)
+> **Best after**: Exercise 05 (API built) &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 08 — Build & Debug](exercise-13-build-debug.md)
 > ---
 
 
@@ -102,6 +102,6 @@ This single addition significantly reduces hallucinations (Copilot inventing fil
 
 ---
 
-**Next optional**: [Exercise 16 — Database & SQL / PL/SQL](exercise-16-database-sql.md)
+**Next optional**: [Exercise 12 — Database & SQL](exercise-16-database-sql.md)
 
-**Return to Mandatory Track →**: [Exercise 11 — Write Tests](exercise-11-testing.md)
+**Return to Mandatory Track →**: [Exercise 08 — Build & Debug](exercise-13-build-debug.md)

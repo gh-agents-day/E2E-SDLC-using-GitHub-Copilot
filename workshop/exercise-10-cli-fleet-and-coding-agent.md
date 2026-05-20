@@ -1,18 +1,30 @@
-# Exercise 10 — Complete ITMS: CLI with /plan & /fleet + Coding Agent via MCP
+# CLI & Cloud Agent Tracks
 
-| | |
-|---|---|
-| **Duration** | 30 minutes |
-| **Features** | GitHub Copilot CLI (`/plan`, `/fleet`) · GitHub MCP · Copilot Coding Agent |
-| **Goal** | Finish the remaining ITMS backend gaps using Copilot CLI in parallel, then delegate all missing UI features to the Copilot coding agent via GitHub Issues |
+> 🟡 **SEPARATE TRACKS** — These exercises demonstrate alternative ways to build the same ITMS features using Copilot CLI and the Copilot Coding Agent (GitHub Issues). They are independent from the mandatory VS Code track.
 
 ---
 
-## Context — What Exercises 08 & 09 Left Incomplete
+## CLI Track — Build with Copilot CLI (`/plan` + `/fleet`)
 
-After Exercises 08 and 09, the ITMS has a working core but several gaps remain.
+The CLI track shows how to implement the same ITMS features (POST + GET tasks, Task List UI, Create Task UI) using Copilot CLI's `/plan` mode for structured planning and `/fleet` for parallel execution across multiple subagents.
 
-**Backend — What's Done**
+**→ [Open CLI Track](cli-track.md)**
+
+---
+
+## Cloud Agent Track — Build with the Copilot Coding Agent
+
+The Cloud Agent track shows how to delegate feature implementation to the Copilot Coding Agent via GitHub Issues. You write the issue specs; the agent opens pull requests.
+
+**→ [Open Cloud Agent Track](cloud-agent-track.md)**
+
+---
+
+## Return to Mandatory Track
+
+If you arrived here from the mandatory track, continue with:
+
+**→ [Exercise 07 — Testing](exercise-11-testing.md)**
 
 | Endpoint | Status |
 |----------|--------|

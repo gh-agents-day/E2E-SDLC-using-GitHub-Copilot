@@ -1,4 +1,4 @@
-# Exercise 14 — Create GitHub Issues via MCP
+# Exercise 10 (Optional) — Create GitHub Issues via MCP
 
 **Duration**: 5 minutes  
 **Copilot Feature**: GitHub MCP Server + Prompt File  
@@ -11,7 +11,7 @@
 >
 > This exercise is **not required** to complete the mandatory track. It requires an active GitHub repository and a Personal Access Token with `repo` and `issues` scopes. Complete it here if your environment is configured, or revisit it independently after the workshop.
 >
-> **Best after**: Exercise 07 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 08 — Build APIs with Local Agent](exercise-08-api-local-agent.md)
+> **Best after**: Exercise 04 &nbsp;|&nbsp; **Return to mandatory track**: [Exercise 05 — Build the API](exercise-08-api-local-agent.md)
 > ---
 
 
@@ -108,4 +108,4 @@ Using GitHub MCP, add Phase 1 issues to a new project board named "ITMS Sprint 1
 
 ---
 
-**Return to Mandatory Track →**: [Exercise 08 — Build APIs with Local Agent](exercise-08-api-local-agent.md)
+**Return to Mandatory Track →**: [Exercise 05 — Build the API](exercise-08-api-local-agent.md)
