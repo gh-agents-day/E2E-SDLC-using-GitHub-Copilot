@@ -59,13 +59,39 @@ Switch back to the **default Copilot agent** (not a custom agent).
 Copy and paste this prompt, **replacing `[YOUR CHOICE]`** with your selection:
 
 ```
-/create-instructions Create .github/copilot-instructions.md for an ITMS REST API using [YOUR CHOICE]. Include: language/framework conventions; /api/v1 routes; response envelope {success,data,error,meta}; centralized errors; schema validation; secure data access with parameterized queries/ORM if using SQL; unit + integration tests; structured logging; no production console.log; exported API docs; conventional commits.
+/create-instructions Create .github/copilot-instructions.md for an ITMS REST API using [YOUR CHOICE]. 
+Include: 
+language/framework conventions; 
+/api/v1 routes; 
+response envelope {success,data,error,meta}; centralized errors; 
+schema validation; 
+secure data access with parameterized queries/ORM if using SQL; 
+unit + integration tests; 
+structured logging; 
+no production console.log; 
+exported API docs; 
+conventional commits.
+Only pointers, no code
 ```
 
 To swap out the database with JSON files as an in-memory data store
 
 ```
-/create-instructions Create .github/copilot-instructions.md for an ITMS REST API using TypeScript + Express with JSON persistence. Rules: /api/v1 routes; {success,data,error,meta} responses; centralized errors; schema validation; repository-only data access; runtime JSON files in src/data/ copied from workshop/sample-data/; load into memory on startup; persist writes with fs.writeFileSync; no DB/ORM/migrations; unit + integration tests; structured logging; no production console.log; JSDoc for exports; conventional commits.
+/create-instructions Create .github/copilot-instructions.md for an ITMS REST API using TypeScript + Express with JSON persistence. 
+Rules: 
+/api/v1 routes; {success,data,error,meta} responses; centralized errors; 
+schema validation; 
+repository-only data access; 
+runtime JSON files in src/data/ copied from workshop/sample-data/; 
+load into memory on startup; 
+persist writes with fs.writeFileSync; 
+no DB/ORM/migrations; 
+unit + integration tests; 
+structured logging; 
+no production console.log; 
+JSDoc for exports; 
+conventional commits.
+Only pointers, no code
 ```
 
 ---
