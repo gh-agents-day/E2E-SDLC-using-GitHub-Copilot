@@ -71,7 +71,7 @@ structured logging;
 no production console.log; 
 exported API docs; 
 conventional commits.
-Only pointers, no code
+Only main pointers, no code/paragraphs.
 ```
 
 To swap out the database with JSON files as an in-memory data store
@@ -91,7 +91,7 @@ structured logging;
 no production console.log; 
 JSDoc for exports; 
 conventional commits.
-Only pointers, no code
+Only main pointers, no code/paragraphs.
 ```
 
 ---
