@@ -67,25 +67,21 @@ Now you will create a new agent using the same approach — this time an **orche
 ```markdown
 ---
 name: SDLC Docs Orchestrator
-description: "Generate BRD, TSD, and FRD in sequence, scoped to create-task and list-tasks."
-tools: [vscode, execute, read, agent, browser, edit, search, web, todo]
+description: "Generate BRD, TSD, and FRD scoped to POST /api/v1/tasks and GET /api/v1/tasks only."
+tools: [read, agent]
 ---
 
-You orchestrate SDLC documentation. Delegate all content generation; do not write the documents yourself.
+Delegate only. Do not write documents yourself. Scope: **POST /api/v1/tasks (create task) and GET /api/v1/tasks (list tasks) only.**
 
-Run these steps in order and wait for each file before continuing:
+1. Invoke **BRD Author** → `doc/brd.md` — scope to create-task and list-tasks only
+2. Invoke **TSD Author** → `doc/tsd.md` — scope to create-task and list-tasks only
+3. Invoke **FRD Author** → `doc/frd.md` — scope to create-task and list-tasks only
 
-1. Invoke **BRD Author**: read `requirement.md`; create `doc/brd.md`; include BR-F01 (create task), BR-F02 (list tasks), stakeholders, risks/mitigations, glossary. Focus ONLY on POST /api/v1/tasks and GET /api/v1/tasks.
-2. Invoke **TSD Author**: read `doc/brd.md` and `requirement.md`; create `doc/tsd.md`; include Mermaid architecture diagram, REST endpoint table for POST and GET /api/v1/tasks only, stack rationale, OWASP Top 10 security, BRD traceability.
-3. Invoke **FRD Author**: read `doc/brd.md`, `doc/tsd.md`, and `requirement.md`; create `doc/frd.md`; include UC-001 (Create Task) and UC-002 (List Tasks) with Gherkin acceptance criteria, validation rules, and error scenarios.
+Wait for each file before invoking the next agent. Pass the scope constraint to each agent when invoking.
 
-Afterward, report:
-
-| Document | File | Status |
-|----------|------|--------|
-| Business Requirements Document | `doc/brd.md` | ✅ Created |
-| Technical Specification Document | `doc/tsd.md` | ✅ Created |
-| Functional Requirements Document | `doc/frd.md` | ✅ Created |
+**Token rules (follow strictly):**
+- Invocation prompt to each agent: scope constraint only — do NOT re-describe the agent's format, sections, or stack; the agent's own instructions already define those.
+- After each agent completes, reply with one line only: `✅ [AgentName] done → [filepath]`. Do not summarise the document contents.
 ```
 
 > **Tip**: Notice the pattern — `name`, `description`, `tools`, then a structured system prompt with Role, Process, and Constraints sections. This is the same pattern as the pre-built agents you explored in Step 2. The key difference: the orchestrator's system prompt delegates work to other agents instead of doing it directly.
@@ -98,7 +94,7 @@ Afterward, report:
 2. Paste the following prompt:
 
 ```
-Read requirement.md. Generate BRD → TSD → FRD focused on: POST /api/v1/tasks (create task) and GET /api/v1/tasks (list tasks with filters). Save as doc/brd.md, doc/tsd.md, and doc/frd.md.
+Generate BRD → TSD → FRD.
 ```
 
 3. Review the plan Copilot shows before approving — confirm it shows three sequential steps (BRD → TSD → FRD)
