@@ -1,67 +1,60 @@
-# Exercise 07 — Implementation Prompt File
+# Exercise 07 — Author the UI Prompt File
 
-> ✅ **Merged into Exercise 04** — The Implementation Prompt File exercise is now Part B of [Exercise 04 — Plan Mode & Implementation Prompt](exercise-06-plan-mode.md).
-
-Please continue to Exercise 04 for the full merged exercise, or jump directly to:
-
-**Next**: [Exercise 05 — Build the API](exercise-08-api-local-agent.md)
+| | |
+|---|---|
+| **Duration** | 5 minutes |
+| **Feature** | Prompt Files (`.prompt.md`) |
+| **Goal** | Write the `ui.prompt.md` prompt that Copilot will use in Exercise 09 to scaffold the React UI |
 
 ---
 
-## Step 1 — Understand the Prompt File Format
+## Background
 
-A `.prompt.md` file looks like this:
+Understand reusable prompt files to generate Ui components, pages, types, and services from the API spec and TSD.
+
+> **Why React?** The TSD does not specify a UI stack. We use **React 18 + TypeScript + Vite** for this workshop — this is fixed regardless of the backend language you chose in Exercise 01.
+
+---
+
+## Step 1 — Open the Prompt File
+
+From settings select prompts - new prompt- workspace level- name Ui - create `.github/prompts/ui.prompt.md` and open it.
+
+---
+
+## Step 2 — Replace the Content
+
+Replace the file contents with:
 
 ```markdown
 ---
-name: Prompt Name
-description: "When to use this prompt"
+name: ui
+description: "Scaffold the ITMS React UI from the tsd and API spec."
 ---
 
-# Prompt content here
+Read #file:doc/tsd.md for the API contract (endpoints, request/response shapes, envelope format).
 
-Instructions for Copilot...
+Scaffold ui/ using React 18 + TypeScript + Vite with folders: components/ pages/ services/ types/.
+
+Create:
+- ui/src/types/task.types.ts — TaskStatus (TO_DO|IN_PROGRESS|BLOCKED|COMPLETED), TaskPriority (LOW|MEDIUM|HIGH), Task, User, ApiEnvelope<T>
+- ui/src/services/api.ts — base URL from VITE_API_BASE_URL (default http://localhost:3000/api/v1); export listTasks(filters?) and createTask(body), both unwrap the envelope
+- ui/src/components/StatusBadge.tsx — colour map: TO_DO=grey, IN_PROGRESS=blue, BLOCKED=red, COMPLETED=green
+- ui/src/pages/TaskListPage.tsx — root route /; load listTasks() on mount; status + priority filter dropdowns that re-fetch on change; table: ID (8 chars), title, priority, StatusBadge, due date; New Task button → /tasks/new
+- ui/src/pages/TaskCreatePage.tsx — route /tasks/new; fields: title (required), description (optional), priority (default MEDIUM), estimatedCompletionDate (optional); inline error if title empty; on success navigate to /; Cancel → /
+- ui/src/main.tsx — BrowserRouter: / → TaskListPage, /tasks/new → TaskCreatePage, catch-all → /
+- ui/.env.example — VITE_API_BASE_URL=http://localhost:3000/api/v1
+
+Install react-router-dom if needed. Start Vite on port 5173.
 ```
 
-The `description` field is what appears in the Copilot Chat command palette when you type `/`.
+---
+
+## Step 3 — Verify
+
+- [ ] `.github/prompts/ui.prompt.md` is saved
+- [ ] In Copilot Chat, type `/` — **ui** appears in the command palette
 
 ---
 
-## Step 2 — Inspect the Pre-Built Prompt File
-
-Open `.github/prompts/implementation-plan.prompt.md` and notice three things:
-- The **YAML frontmatter** — `name` and `description` fields that register it in the command palette
-- The **FRD reference rule** — every task must cite an `FR-ID` or `US-ID`
-- The **Background Agent flag** — tasks are marked when they are long and self-contained
-
-This is the generic version. Next, you will create a project-specific one.
-
----
-
-## Step 3 — Create a Project-Specific Version
-
-In Copilot Chat, send:
-
-```
-Create .github/prompts/itms-implementation-plan.prompt.md for ITMS. It must read #frd.md and #tsd.md, use [YOUR STACK], reference src/routes/, src/services/, src/repositories/, src/models/, include data/migration and OpenAPI tasks, flag Background Agent candidates, and output H2 phases plus a table: ID | Task | Effort | FRD Ref | Parallel? | Background Agent?
-```
-
-> Replace `[YOUR STACK]` with your choice from Exercise 01.
-
----
-
-## Step 4 — Use and Compare
-
-1. In Copilot Chat, type `/` — the command palette opens
-2. Type `itms` — select **itms-implementation-plan** and press Enter
-3. Compare the output with `.github/prompts/implementation-plan.prompt.md`:
-   - The generic file works for any project
-   - Your new file targets ITMS folder conventions, stack, and tooling specifically
-
-> This is the difference between a shared team library and a project-specific standard.
-
----
-
-**Next**: [Exercise 08 — Build APIs with Local Agent](exercise-08-api-local-agent.md)
-
-> 🟡 **Optional stop available**: If your GitHub repository and Personal Access Token are configured, try [Exercise 14 — Create GitHub Issues via MCP](exercise-14-github-issues.md) before continuing to Exercise 08.
+**Next**: [Exercise 08 — Build the API](exercise-08-api-local-agent.md)

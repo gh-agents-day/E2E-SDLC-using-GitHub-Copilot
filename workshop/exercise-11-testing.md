@@ -107,6 +107,46 @@ Run the unit tests using the terminal and show me the coverage report. Identify 
 
 ---
 
+## Step 5 — UI Functionality Test with Playwright MCP
+
+Use Playwright MCP directly to validate the UI works in a browser. This is a functional check only and is independent of unit/integration tests.
+
+> **Prerequisite**: start the app and keep it running at `http://localhost:3000`.
+
+### Run in Copilot Chat (Playwright MCP)
+
+Send this single prompt for a quick functional check:
+
+```
+Use Playwright MCP to test ITMS UI functionality on http://localhost:3000.
+
+Validate these flows:
+1) Open /tasks and confirm task list page loads.
+2) Apply status filter TO_DO and verify only TO_DO tasks are shown.
+3) Click Create New Task and verify navigation to /create-task.
+
+Return a concise pass/fail report for each step with screenshot references when failures occur.
+```
+
+### Detailed Check (Select UI Test Author Agent)
+
+If you want complete UI coverage, choose **UI Test Author** in Copilot Chat and send:
+
+```
+Run a detailed Playwright MCP UI validation for ITMS on http://localhost:3000.
+
+Cover all key flows end-to-end and return a detailed report with:
+1) Step-by-step pass/fail
+
+```
+
+### Expected Result
+
+- You get a step-by-step pass/fail functional report.
+- Any failure includes the failing selector/action and evidence for quick debugging.
+
+---
+
 ## Verify
 
 - [ ] Unit tests exist for `TaskService.createTask()` and `TaskService.getAllTasks()` — at least 8 tests total
@@ -114,6 +154,7 @@ Run the unit tests using the terminal and show me the coverage report. Identify 
 - [ ] Tests use the factory helper and JSON store reset helper
 - [ ] Each test follows Arrange/Act/Assert
 - [ ] Coverage report is generated
+- [ ] _(Optional)_ Playwright MCP functional UI check runs independently and reports pass/fail for core flows
 
 ---
 
