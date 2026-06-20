@@ -31,14 +31,7 @@ This prompt instructs Copilot to read your FRD and TSD and produce a phased plan
 Copy and paste this prompt:
 
 ```
-Read #frd.md and #tsd.md. Create doc/implementation-plan.md scoped to:
-- Phase 0: Project scaffolding (entry point, router, middleware, folder structure, health check)
-- Phase 1: API — POST /api/v1/tasks and GET /api/v1/tasks (controller, service, repository)
-- Phase 2: UI — TaskListPage (GET tasks, filters) and TaskCreatePage (POST task form)
-- Phase 3: Tests — unit tests for TaskService, integration tests for POST + GET /tasks
-
-For each task: ID, title, effort S/M/L, FRD ref (UC-001 or UC-002), parallel/sequential.
-Do not create any code files.
+Read #frd.md and #tsd.md. Plan implementation with 4 phases: Phase 0 scaffolding (entry point, router, middleware, health check), Phase 1 API (POST + GET /api/v1/tasks — controller/service/repository), Phase 2 UI (TaskListPage, TaskCreatePage), Phase 3 tests (unit: TaskService, integration: POST + GET /tasks). Each task: ID, title, effort S/M/L, FRD ref (UC-001/UC-002), parallel/sequential. No code files.
 ```
 
 ---
@@ -68,12 +61,7 @@ A `.prompt.md` file packages your prompt so any team member can run it with a si
 In Copilot Chat (Agent mode, default agent), send:
 
 ```
-Create .github/prompts/itms-implementation-plan.prompt.md for the ITMS project. It must:
-- Read #frd.md and #tsd.md
-- Focus on POST /api/v1/tasks and GET /api/v1/tasks only
-- Reference src/routes/, src/services/, src/repositories/, src/models/
-- Include UI pages: TaskListPage and TaskCreatePage
-- Output phases as H2 headers with a table: ID | Task | Effort | FRD Ref | Parallel?
+Create .github/prompts/itms-implementation-plan.prompt.md. Read #frd.md and #tsd.md, scope to POST + GET /api/v1/tasks and UI pages TaskListPage/TaskCreatePage, reference src/routes/, src/services/, src/repositories/, src/models/. Output phases as H2 headers, each with a table: ID | Task | Effort | FRD Ref | Parallel?
 ```
 
 ### Step 2 — Verify the Command
