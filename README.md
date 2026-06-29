@@ -47,11 +47,11 @@ All exercises use VS Code + GitHub Copilot Chat. Complete them in order — each
 |---|----------|----------------|----------|
 | 01 | [Custom Instructions](workshop/exercise-01-custom-instructions.md) | Workspace Instructions (`copilot-instructions.md`) | 3 min |
 | 02 | [Setup & Custom Agents](workshop/exercise-02-setup-agents.md) | Custom Agents + Agent Orchestration | 8 min |
-| 06 | [Plan Mode & Implementation Prompt](workshop/exercise-06-plan-mode.md) | Plan Mode + Prompt Files | 5 min |
-| 08 | [Build the API](workshop/exercise-08-api-local-agent.md) | Local Agent + Skills | 15 min |
-| 09 | [Build the UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 10 min |
-| 11 | [Write Tests](workshop/exercise-11-testing.md) | Local Agent + Agent Orchestration | 5 min |
-| 13 | [Build & Debug](workshop/exercise-13-build-debug.md) | Local Agent + Terminal | 5 min |
+| 03 | [Plan Mode & Implementation Prompt](workshop/exercise-06-plan-mode.md) | Plan Mode + Prompt Files | 5 min |
+| 04 | [Build the API](workshop/exercise-08-api-local-agent.md) | Local Agent + Skills | 15 min |
+| 05 | [Build the UI](workshop/exercise-09-ui-design.md) | Local Agent — UI Scaffolding | 10 min |
+| 06 | [Write Tests](workshop/exercise-11-testing.md) | Local Agent + Agent Orchestration | 5 min |
+| 07 | [Build & Debug](workshop/exercise-13-build-debug.md) | Local Agent + Terminal | 5 min |
 
 > **Time-saving tip**: Exercise 02 includes an **SDLC Docs Orchestrator** that chains BRD → TSD → FRD in one run. After it creates `doc/brd.md`, `doc/tsd.md`, and `doc/frd.md`, continue directly to Exercise 06.
 
@@ -63,11 +63,11 @@ Self-contained exercises. No mandatory exercise depends on them.
 
 | # | Exercise | Copilot Feature | Duration | Best After |
 |---|----------|----------------|----------|------------|
-| 09 | [Context Map Skill](workshop/exercise-15-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 05 |
-| 10 | [GitHub Issues via MCP](workshop/exercise-14-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 04 |
-| 11 | [Security Review](workshop/exercise-12-security.md) | Security Prompt File | 4 min | Ex 08 |
-| 12 | [Database & SQL](workshop/exercise-16-database-sql.md) | Local Agent + Instructions | 5 min | Ex 09 |
-| 13 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | DevOps Agent + Prompt File | 5 min | Ex 08 |
+| 08 | [Context Map Skill](workshop/exercise-15-context-map.md) | Skills (`SKILL.md`) | 4 min | Ex 05 |
+| 09 | [GitHub Issues via MCP](workshop/exercise-14-github-issues.md) | GitHub MCP + Prompt File | 5 min | Ex 04 |
+| 10 | [Security Review](workshop/exercise-12-security.md) | Security Prompt File | 4 min | Ex 08 |
+| 11 | [Database & SQL](workshop/exercise-16-database-sql.md) | Local Agent + Instructions | 5 min | Ex 09 |
+| 12 | [IaC & CI/CD](workshop/exercise-17-iac-cicd.md) | DevOps Agent + Prompt File | 5 min | Ex 08 |
 
 > **Optional deep dives** (individual SDLC agents):
 > - [Exercise 03 — BRD Agent in Isolation](workshop/exercise-03-brd.md)
